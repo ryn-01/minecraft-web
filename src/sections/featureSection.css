@@ -1,0 +1,114 @@
+.feature-section {
+  position: relative;
+  width: 100vw;
+  min-height: 100svh;
+  overflow: hidden;
+  background: #302f2d;
+  color: #fff;
+}
+
+.feature-section__header {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  display: grid;
+  width: 100%;
+  min-height: 10rem;
+  align-content: center;
+  justify-items: center;
+  padding: 1.5rem;
+  background: #302f2d;
+  text-align: center;
+}
+
+.feature-section__header h2,
+.feature-section__panel h3 {
+  margin: 0;
+  font-family: "Minecrafter", monospace;
+  font-weight: 400;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.feature-section__header h2 {
+  font-size: clamp(2rem, 5vw, 3rem);
+}
+
+.feature-section__header p {
+  margin: 1.5rem 0 0;
+  font-size: 1.125rem;
+}
+
+.feature-section__track {
+  position: relative;
+  width: 100vw;
+  min-height: 100svh;
+  padding-top: 10rem;
+}
+
+.feature-section__panel {
+  display: flex;
+  position: absolute;
+  inset: 10rem 0 0;
+  width: 100vw;
+  min-height: calc(100svh - 10rem);
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 2rem;
+  padding: 2rem 8vw;
+  background: #706e6d;
+  border-bottom: 1rem solid #1d1d1d;
+  will-change: transform, opacity;
+}
+
+.feature-section__panel--left {
+  flex-direction: row-reverse;
+}
+
+.feature-section__copy {
+  width: min(42%, 24rem);
+  text-align: center;
+}
+
+.feature-section__panel h3 {
+  font-size: clamp(2rem, 5vw, 3rem);
+}
+
+.feature-section__copy p {
+  margin: 1.5rem 0 0;
+  font-size: 1.125rem;
+  line-height: 1.7;
+}
+
+.feature-section__artwork {
+  width: min(42vw, 22rem);
+  height: min(58vh, 25rem);
+  background: #97938f;
+}
+
+@media (max-width: 767px) {
+  .feature-section__header {
+    min-height: 8rem;
+  }
+
+  .feature-section__track {
+    padding-top: 8rem;
+  }
+
+  .feature-section__panel {
+    inset: 8rem 0 0;
+    min-height: calc(100svh - 8rem);
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .feature-section__copy {
+    width: min(85%, 24rem);
+  }
+
+  .feature-section__artwork {
+    width: min(70vw, 20rem);
+    height: min(42vh, 18rem);
+  }
+}

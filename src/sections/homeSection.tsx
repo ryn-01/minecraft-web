@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
-import Navbar from '../components/navbar'
 import './homeSection.css'
 
 type HomeSectionProps = {
@@ -74,7 +73,6 @@ export default function HomeSection({
         className="home-section__overlay"
         aria-hidden="true"
       />
-      <Navbar />
       <section
         className="home-section__content"
         aria-labelledby="home-title"

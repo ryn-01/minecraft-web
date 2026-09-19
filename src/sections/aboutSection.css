@@ -1,0 +1,111 @@
+.about-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  padding: 1.5rem 1rem 0;
+  background: #fff;
+  color: #111;
+}
+
+.about-section__layout {
+  display: grid;
+  width: min(100%, 66rem);
+  align-items: center;
+  gap: 2rem;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.about-section__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.about-section__title {
+  max-width: 34rem;
+  margin: 0;
+  font-family: "Minecrafter", monospace;
+  font-size: clamp(2.25rem, 6vw, 3rem);
+  font-weight: 400;
+  line-height: 1.15;
+  text-transform: uppercase;
+}
+
+.about-section__description {
+  max-width: 34rem;
+  margin: 1.5rem 0 0;
+  font-size: 1.125rem;
+  line-height: 1.35;
+}
+
+.about-section__button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 3.75rem;
+  border: 3px solid #079b16;
+  padding: 0.4rem 0.65rem;
+  color: #079b16;
+  font-family: "Minecrafter", monospace;
+  font-size: 1.25rem;
+  line-height: 1;
+  transition: background-color 180ms ease, color 180ms ease, transform 180ms ease;
+}
+
+.about-section__button:hover,
+.about-section__button:focus-visible {
+  background: #079b16;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.about-section__media {
+  display: flex;
+  min-height: 25rem;
+  align-items: flex-end;
+  justify-content: center;
+  margin-top: -0.5rem;
+}
+
+.about-section__media img,
+.about-section__media video {
+  display: block;
+  width: min(100%, 34rem);
+  max-height: 42rem;
+  object-fit: contain;
+  object-position: center bottom;
+}
+
+@media (max-width: 767px) {
+  .about-section {
+    padding-bottom: 0;
+  }
+
+  .about-section__content {
+    align-items: center;
+    text-align: center;
+  }
+
+  .about-section__description {
+    font-size: 1rem;
+  }
+
+  .about-section__button {
+    margin-top: 2rem;
+  }
+
+  .about-section__media {
+    min-height: 20rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .about-section {
+    padding: 1.5rem 2rem 0;
+  }
+
+  .about-section__layout {
+    grid-template-columns: minmax(0, 1.05fr) minmax(20rem, 0.95fr);
+  }
+}
