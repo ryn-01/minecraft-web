@@ -39,10 +39,6 @@
   transform: translateY(-1px);
 }
 
-.site-navbar__link.is-active {
-  background: #5a5a5a;
-}
-
 @media (max-width: 420px) {
   .site-navbar__list {
     gap: 0;
