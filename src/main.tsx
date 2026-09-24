@@ -5,6 +5,8 @@ import DimensionSection from './sections/DimensionSection'
 import CommunitySection from './sections/CommunitySection'
 import AdventureSection from './sections/AdventureSection'
 import CommunityGallery from './sections/CommunityGallery'
+import CtaSection from './sections/CtaSection'
+import FooterSection from './sections/FooterSection'
 import Navbar from './components/navbar'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
@@ -25,6 +27,8 @@ createRoot(document.getElementById('root')!).render(
       <CommunitySection />
       <CommunityGallery />
       <AdventureSection />
+      <CtaSection />
+      <FooterSection />
     </div>
   </StrictMode>,
 )

@@ -1,0 +1,174 @@
+.site-footer {
+  background: #171615;
+  color: #fff;
+}
+
+.site-footer__main {
+  display: grid;
+  width: min(100%, 80rem);
+  gap: 3rem;
+  margin: 0 auto;
+  padding: 4.75rem 0 4rem;
+  grid-template-columns: minmax(19rem, 1fr) minmax(0, 2.45fr);
+}
+
+.site-footer__brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.site-footer__mojang-logo {
+  display: block;
+  width: min(100%, 10rem);
+  height: auto;
+}
+
+.site-footer__brand p {
+  margin: 2rem 0 0;
+  color: #d0cecc;
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+
+.site-footer__legal-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.7rem;
+  color: #72bd4d;
+  font-size: 0.7rem;
+}
+
+.site-footer a {
+  transition: color 180ms ease, opacity 180ms ease;
+}
+
+.site-footer a:hover,
+.site-footer a:focus-visible {
+  color: #fff;
+}
+
+.site-footer__links {
+  display: grid;
+  gap: 2rem 2.5rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.site-footer__link-group h2 {
+  margin: 0 0 0.85rem;
+  color: #d0cecc;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.site-footer__link-group ul {
+  display: grid;
+  gap: 0.55rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.site-footer__link-group a {
+  color: #72bd4d;
+  font-size: 0.7rem;
+  line-height: 1.35;
+}
+
+.site-footer__link-group a:hover,
+.site-footer__link-group a:focus-visible {
+  color: #c8f3a8;
+}
+
+.site-footer__bottom {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1.25rem max(1rem, calc((100% - 80rem) / 2));
+  background: #302e2c;
+}
+
+.site-footer__bottom-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 2rem;
+}
+
+.site-footer__bottom-links a,
+.site-footer__microsoft span {
+  color: #fff;
+  font-size: 0.65rem;
+}
+
+.site-footer__microsoft {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 1rem;
+}
+
+.site-footer__microsoft img {
+  display: block;
+  width: min(100%, 9.5rem);
+  height: auto;
+  max-height: 2.25rem;
+  object-fit: contain;
+}
+
+@media (max-width: 900px) {
+  .site-footer__main {
+    padding-right: 1rem;
+    padding-left: 1rem;
+    grid-template-columns: 1fr;
+  }
+
+  .site-footer__brand {
+    align-items: center;
+    text-align: center;
+  }
+
+  .site-footer__links {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767px) {
+  .site-footer__main {
+    padding-top: 3.5rem;
+    padding-bottom: 3rem;
+  }
+
+  .site-footer__links {
+    gap: 2rem 1rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .site-footer__bottom {
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 1.5rem 1rem;
+  }
+
+  .site-footer__bottom-links {
+    gap: 0.75rem 1.25rem;
+  }
+
+  .site-footer__microsoft {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 420px) {
+  .site-footer__links {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .site-footer__link-group:last-child {
+    grid-column: 1 / -1;
+  }
+}

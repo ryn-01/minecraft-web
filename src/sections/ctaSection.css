@@ -1,0 +1,136 @@
+.cta-section {
+  overflow: hidden;
+  padding: 5rem 1rem 6rem;
+  background: #388e2c;
+  color: #fff;
+}
+
+.cta-section__content {
+  display: grid;
+  width: min(100%, 66rem);
+  min-height: 24rem;
+  align-items: center;
+  gap: 2rem;
+  margin: 0 auto;
+  grid-template-columns: minmax(0, 1fr) minmax(16rem, 0.7fr);
+}
+
+.cta-section__copy {
+  max-width: 42rem;
+}
+
+.cta-section__eyebrow {
+  margin: 0 0 1rem;
+  font-family: "Minecrafter", monospace;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+}
+
+.cta-section h2 {
+  max-width: 38rem;
+  margin: 0;
+  font-family: "Minecrafter", monospace;
+  font-size: clamp(2.25rem, 6vw, 4rem);
+  font-weight: 400;
+  line-height: 0.98;
+  text-transform: uppercase;
+}
+
+.cta-section__description {
+  max-width: 32rem;
+  margin: 1.5rem 0 0;
+  font-size: 1.05rem;
+  line-height: 1.4;
+}
+
+.cta-section__button {
+  display: inline-flex;
+  min-width: 12rem;
+  justify-content: center;
+  margin-top: 2rem;
+  border: 2px solid rgb(0 0 0 / 20%);
+  padding: 0.85rem 1.5rem;
+  background: #ffd21f;
+  color: #111;
+  font-family: "Minecrafter", monospace;
+  font-size: 1rem;
+  text-transform: uppercase;
+  box-shadow: 0 4px 0 rgb(0 0 0 / 35%);
+  transition: transform 180ms ease, filter 180ms ease, box-shadow 180ms ease;
+}
+
+.cta-section__button:hover,
+.cta-section__button:focus-visible {
+  filter: brightness(1.08);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 rgb(0 0 0 / 35%);
+}
+
+.cta-section__button:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 rgb(0 0 0 / 35%);
+}
+
+.cta-section__media {
+  display: flex;
+  min-height: 20rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.cta-section__media img,
+.cta-section__media video {
+  display: block;
+  width: min(100%, 24rem);
+  max-height: 28rem;
+  object-fit: contain;
+}
+
+@media (max-width: 767px) {
+  .cta-section {
+    padding: 4rem 1rem 5rem;
+  }
+
+  .cta-section__content {
+    min-height: 0;
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .cta-section__copy {
+    order: 1;
+    margin: 0 auto;
+  }
+
+  .cta-section__eyebrow {
+    font-size: 0.75rem;
+  }
+
+  .cta-section__description {
+    margin-right: auto;
+    margin-left: auto;
+    font-size: 1rem;
+  }
+
+  .cta-section__button {
+    width: min(100%, 16rem);
+  }
+
+  .cta-section__media {
+    order: 0;
+    min-height: 14rem;
+  }
+
+  .cta-section__media img,
+  .cta-section__media video {
+    width: min(100%, 18rem);
+    max-height: 21rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .cta-section {
+    padding-right: 2rem;
+    padding-left: 2rem;
+  }
+}
