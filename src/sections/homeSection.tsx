@@ -77,9 +77,6 @@ export default function HomeSection({
         className="home-section__content"
         aria-labelledby="home-title"
       >
-        <p className="home-section__eyebrow">
-          Create. Explore. Survive.
-        </p>
         <h1
           className="home-section__title"
           id="home-title"

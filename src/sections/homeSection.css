@@ -36,15 +36,6 @@
   text-align: center;
 }
 
-.home-section__eyebrow {
-  margin: 0 0 0.75rem;
-  color: var(--color-primary-dark);
-  font-size: 0.8rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
-}
-
 .home-section__title {
   margin: 0;
   font-family: "Minecrafter", monospace;
@@ -58,7 +49,8 @@
 .home-section__description {
   max-width: 35rem;
   margin: 1.4rem auto 0;
-  color: var(--color-muted);
+  color: var(--color-ink);
+  font-weight: bold;
   font-size: 1.1rem;
   line-height: 1.65;
 }

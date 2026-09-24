@@ -1,7 +1,6 @@
 .dimension-section {
-  padding: 6rem 1.25rem;
+  padding: 6rem 1.25rem 7rem;
   background: var(--color-surface);
-  color: var(--color-ink);
 }
 
 .dimension-section__header {
@@ -22,14 +21,14 @@
 
 .dimension-section__header p {
   margin: 1.5rem 0 0;
-  color: var(--color-muted);
   font-size: 1.05rem;
+  line-height: 1.6;
 }
 
 .dimension-section__cards {
   display: grid;
-  width: min(100%, 66rem);
-  margin: 3rem auto 0;
+  width: min(100%, var(--container));
+  margin: 3.5rem auto 0;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.25rem;
 }
@@ -38,7 +37,8 @@
   min-width: 0;
   overflow: hidden;
   border-radius: var(--radius-md);
-  box-shadow: var(--shadow-sm);
+  background: #303631;
+  box-shadow: 0 0.75rem 1.75rem rgb(0 0 0 / 18%);
   transition: transform 220ms ease;
 }
 
@@ -61,38 +61,28 @@
 }
 
 .dimension-card__button:focus-visible {
-  outline: 3px solid #079b16;
+  outline: 3px solid var(--color-accent);
   outline-offset: 5px;
 }
 
 .dimension-card__artwork {
   display: block;
-  aspect-ratio: 1.35;
-  background-color: #9bdfe0;
-  background-image:
-    linear-gradient(135deg, rgb(255 255 255 / 24%) 25%, transparent 25%),
-    linear-gradient(315deg, rgb(255 255 255 / 18%) 25%, transparent 25%);
-  background-size: 3.5rem 3.5rem;
+  overflow: hidden;
+  aspect-ratio: 1.45;
+  background: #59625b;
 }
 
-.dimension-card__artwork--overworld {
-  background-color: #8ddce0;
-  background-image: linear-gradient(180deg, #a8eef0 0 42%, #7cc34c 42% 68%, #6b432c 68%);
-}
-
-.dimension-card__artwork--nether {
-  background-color: #522c2c;
-  background-image: linear-gradient(145deg, transparent 0 45%, #f06d2f 45% 52%, transparent 52%), linear-gradient(180deg, #34434d 0 60%, #251b1b 60%);
-}
-
-.dimension-card__artwork--end {
-  background-color: #292046;
-  background-image: radial-gradient(circle at 70% 30%, #bde5dc 0 5%, transparent 6%), linear-gradient(145deg, #171229 0 55%, #65683d 55%);
+.dimension-card__artwork img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
 .dimension-card__content {
   display: flex;
-  min-height: 12rem;
+  min-height: 13rem;
   flex: 1;
   flex-direction: column;
   align-items: flex-start;
@@ -101,15 +91,15 @@
 }
 
 .dimension-card--green .dimension-card__content {
-  background: #388e2c;
+  background: #347b32;
 }
 
 .dimension-card--red .dimension-card__content {
-  background: #922c30;
+  background: #87383c;
 }
 
 .dimension-card--olive .dimension-card__content {
-  background: #8a8d20;
+  background: #777b2d;
 }
 
 .dimension-card__name {
@@ -120,8 +110,9 @@
 
 .dimension-card__description {
   margin-top: 0.75rem;
-  font-size: 1rem;
-  line-height: 1.4;
+  color: rgb(255 255 255 / 82%);
+  font-size: 0.98rem;
+  line-height: 1.55;
 }
 
 .dimension-card__link {
@@ -129,6 +120,7 @@
   padding-top: 1.5rem;
   font-family: "Minecrafter", monospace;
   font-size: 0.78rem;
+  letter-spacing: 0.02em;
 }
 
 .sr-only {
@@ -142,7 +134,7 @@
 
 @media (max-width: 767px) {
   .dimension-section {
-    padding: 4rem 1rem;
+    padding: 4rem 1rem 5rem;
   }
 
   .dimension-section__cards {
