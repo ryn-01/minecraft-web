@@ -6,10 +6,13 @@ import './featureSection.css'
 
 gsap.registerPlugin(ScrollTrigger)
 
-type Feature = {
+export type Feature = {
   title: string
   description: string
   artworkPosition: 'left' | 'right'
+  artworkSrc?: string
+  artworkAlt?: string
+  artworkType?: 'image' | 'video'
 }
 
 const features: Feature[] = [
@@ -35,7 +38,15 @@ const features: Feature[] = [
   },
 ]
 
-export default function FeatureSection() {
+function isVideoSource(source: string) {
+  return /\.(webm|mp4|ogg)(?:$|[?#])/i.test(source)
+}
+
+type FeatureSectionProps = {
+  items?: Feature[]
+}
+
+export default function FeatureSection({ items = features }: FeatureSectionProps) {
   const sectionRef = useRef<HTMLElement>(null)
 
   useGSAP(() => {
@@ -75,7 +86,7 @@ export default function FeatureSection() {
         <p>Build, survive, and conquer across the Overworld, Nether, and End.</p>
       </div>
       <div className="feature-section__track">
-        {features.map((feature) => (
+        {items.map((feature) => (
           <article
             className={`feature-section__panel feature-section__panel--${feature.artworkPosition}`}
             key={feature.title}
@@ -84,7 +95,15 @@ export default function FeatureSection() {
               <h3>{feature.title}</h3>
               <p>{feature.description}</p>
             </div>
-            <div className="feature-section__artwork" aria-label={`${feature.title} feature artwork`} />
+            <div className="feature-section__artwork" aria-label={`${feature.title} feature artwork`}>
+              {feature.artworkSrc && (feature.artworkType === 'video' || isVideoSource(feature.artworkSrc)) ? (
+                <video autoPlay muted loop playsInline aria-label={feature.artworkAlt ?? `${feature.title} feature artwork`}>
+                  <source src={feature.artworkSrc} />
+                </video>
+              ) : feature.artworkSrc ? (
+                <img src={feature.artworkSrc} alt={feature.artworkAlt ?? `${feature.title} feature artwork`} />
+              ) : null}
+            </div>
           </article>
         ))}
       </div>

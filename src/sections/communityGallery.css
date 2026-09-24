@@ -1,11 +1,11 @@
 .community-gallery {
-  padding: 5rem 1rem 6rem;
-  background: #f4f0ed;
-  color: #111;
+  padding: 6rem 1.25rem;
+  background: var(--color-surface-muted);
+  color: var(--color-ink);
 }
 
 .community-gallery__header {
-  width: min(100%, 66rem);
+  width: min(100%, var(--container));
   margin: 0 auto;
   text-align: center;
 }
@@ -20,15 +20,16 @@
 
 .community-gallery__header p {
   margin: 1.5rem 0 0;
-  font-size: 1.125rem;
+  color: var(--color-muted);
+  font-size: 1.05rem;
 }
 
 .community-gallery__grid {
   display: grid;
-  width: min(100%, 66rem);
-  margin: 3rem auto 0;
+  width: min(100%, var(--container));
+  margin: 2.5rem auto 0;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
+  gap: 1.25rem;
 }
 
 .community-gallery__item {
@@ -38,6 +39,7 @@
   border: 0;
   padding: 0;
   background: #302f2d;
+  border-radius: var(--radius-md);
   color: #fff;
   cursor: pointer;
   text-align: left;
@@ -138,7 +140,8 @@
   z-index: 1;
   width: min(100%, 34rem);
   padding: 1rem;
-  background: #fff;
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
 }
 
 .community-gallery__preview .community-gallery__artwork {
@@ -160,7 +163,8 @@
 .community-gallery__preview > button {
   border: 0;
   padding: 0.5rem 1rem;
-  background: #388e2c;
+  border-radius: var(--radius-sm);
+  background: var(--color-primary);
   color: #fff;
   cursor: pointer;
   font-family: "Minecrafter", monospace;

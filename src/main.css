@@ -7,9 +7,26 @@
 }
 
 :root {
-  font-family: Arial, Helvetica, sans-serif;
-  color: #111;
-  background: #fff;
+  --font-body: Arial, Helvetica, sans-serif;
+  --font-display: "Minecrafter", monospace;
+  --color-ink: #171a17;
+  --color-muted: #5e655f;
+  --color-surface: #ffffff;
+  --color-surface-muted: #f3f6f1;
+  --color-surface-dark: #252a26;
+  --color-border: #d9e0d7;
+  --color-primary: #3d8f35;
+  --color-primary-dark: #276b27;
+  --color-accent: #f4c430;
+  --radius-sm: 0.35rem;
+  --radius-md: 0.65rem;
+  --radius-lg: 1rem;
+  --shadow-sm: 0 0.25rem 0.75rem rgb(23 42 25 / 10%);
+  --shadow-pixel: 0 4px 0 rgb(0 0 0 / 28%);
+  --container: 72rem;
+  font-family: var(--font-body);
+  color: var(--color-ink);
+  background: var(--color-surface);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
 }
@@ -20,12 +37,15 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
 }
 
 body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+  background: var(--color-surface);
+  line-height: 1.5;
 }
 
 a {
@@ -33,15 +53,35 @@ a {
   text-decoration: none;
 }
 
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+.app-shell {
+  overflow: clip;
+}
+
+section,
+main {
+  scroll-margin-top: 5rem;
+}
+
 .app-navbar {
   position: sticky;
   z-index: 10;
-  top: 1rem;
+  top: 1.25rem;
   display: flex;
   justify-content: center;
   width: 100%;
-  margin-bottom: -4.5rem;
-  padding: 0 1rem;
+  margin-bottom: -5rem;
+  padding: 0 1.25rem;
   pointer-events: none;
 }
 
@@ -49,19 +89,28 @@ a {
   pointer-events: auto;
 }
 
-h1 {
-  font-size: 4.5rem;
+h1,
+h2,
+h3,
+h4,
+p {
+  margin-block-start: 0;
 }
 
-h2 {
-  font-size: 3rem;
-}
-
-h3 {
-  font-size: 2rem;
-  font-family: "Minecrafter", monospace;
-}
-
+h1,
+h2,
+h3,
 h4 {
-  font-size: 1.5rem;
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.05;
+  text-wrap: balance;
+}
+
+@media (max-width: 767px) {
+  .app-navbar {
+    top: 0.75rem;
+    margin-bottom: -4.25rem;
+    padding-inline: 0.75rem;
+  }
 }

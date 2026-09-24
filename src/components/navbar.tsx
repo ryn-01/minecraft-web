@@ -20,7 +20,7 @@ const defaultItems: NavItem[] = [
 
 export default function Navbar({
   items = defaultItems,
-  activeLabel = 'Home',
+  activeLabel = 'Download',
 }: NavbarProps) {
   return (
     <nav className="site-navbar" aria-label="Primary navigation">

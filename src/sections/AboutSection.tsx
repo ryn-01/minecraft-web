@@ -1,7 +1,8 @@
 import { useRef } from 'react'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
-import endermanImage from '../assets/images/enderman.png'
+// import endermanImage from '../assets/images/enderman.png'
+import Enderman_Home from '../assets/video/Enderman_Home.webm'
 import StorySection from './StorySection'
 import './aboutSection.css'
 
@@ -21,7 +22,7 @@ function isVideoSource(source: string) {
 export default function AboutSection({
   title = 'One block at a time, infinite worlds to find.',
   description = 'Minecraft is a game about placing blocks and going on adventures. Explore randomly generated worlds, gather resources, craft tools, and shape your own path. Every world is yours to build.',
-  mediaSrc = endermanImage,
+  mediaSrc = Enderman_Home,
   mediaAlt = 'An Enderman holding a grass block',
   mediaType,
   learnMoreHref = '#feature',

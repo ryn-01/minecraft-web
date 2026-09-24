@@ -3,14 +3,14 @@
   flex-direction: column;
   align-items: center;
   overflow: hidden;
-  padding: 1.5rem 1rem 0;
-  background: #fff;
-  color: #111;
+  padding: 5rem 1.25rem 0;
+  background: var(--color-surface);
+  color: var(--color-ink);
 }
 
 .about-section__layout {
   display: grid;
-  width: min(100%, 66rem);
+  width: min(100%, var(--container));
   align-items: center;
   gap: 2rem;
   grid-template-columns: minmax(0, 1fr);
@@ -26,7 +26,7 @@
   max-width: 34rem;
   margin: 0;
   font-family: "Minecrafter", monospace;
-  font-size: clamp(2.25rem, 6vw, 3rem);
+  font-size: clamp(2.2rem, 5vw, 4rem);
   font-weight: 400;
   line-height: 1.15;
   text-transform: uppercase;
@@ -35,27 +35,28 @@
 .about-section__description {
   max-width: 34rem;
   margin: 1.5rem 0 0;
-  font-size: 1.125rem;
-  line-height: 1.35;
+  color: var(--color-muted);
+  font-size: 1.05rem;
+  line-height: 1.65;
 }
 
 .about-section__button {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  margin-top: 3.75rem;
-  border: 3px solid #079b16;
-  padding: 0.4rem 0.65rem;
-  color: #079b16;
-  font-family: "Minecrafter", monospace;
-  font-size: 1.25rem;
+  margin-top: 2rem;
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius-sm);
+  padding: 0.7rem 1rem;
+  color: var(--color-primary-dark);
+  font-size: 0.9rem;
   line-height: 1;
   transition: background-color 180ms ease, color 180ms ease, transform 180ms ease;
 }
 
 .about-section__button:hover,
 .about-section__button:focus-visible {
-  background: #079b16;
+  background: var(--color-primary);
   color: #fff;
   transform: translateY(-2px);
 }

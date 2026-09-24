@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import hero_bg_video from '../assets/video/hero_bg_video.webm'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import './homeSection.css'
@@ -14,7 +15,7 @@ type HomeSectionProps = {
 export default function HomeSection({
   title = 'Minecraft',
   description = 'Build, explore, and create your own adventure.',
-  videoSource,
+  videoSource = hero_bg_video ,
   downloadHref = '#download',
   trailerHref = '#trailer',
 }: HomeSectionProps) {
@@ -25,7 +26,6 @@ export default function HomeSection({
       const intro = gsap.timeline({ defaults: { ease: 'power3.out' } })
 
       intro
-        .from('.site-navbar', { y: -24, autoAlpha: 0, duration: 0.65 })
         .from('.home-section__eyebrow', { y: 16, autoAlpha: 0, duration: 0.45 }, '-=0.2')
         .from('.home-section__title', { y: 42, autoAlpha: 0, duration: 0.8 }, '-=0.2')
         .from('.home-section__description', { y: 20, autoAlpha: 0, duration: 0.5 }, '-=0.35')

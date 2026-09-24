@@ -1,13 +1,13 @@
 .cta-section {
   overflow: hidden;
-  padding: 5rem 1rem 6rem;
-  background: #388e2c;
+  padding: 6rem 1.25rem;
+  background: var(--color-primary);
   color: #fff;
 }
 
 .cta-section__content {
   display: grid;
-  width: min(100%, 66rem);
+  width: min(100%, var(--container));
   min-height: 24rem;
   align-items: center;
   gap: 2rem;
@@ -48,14 +48,15 @@
   min-width: 12rem;
   justify-content: center;
   margin-top: 2rem;
-  border: 2px solid rgb(0 0 0 / 20%);
+  border: 1px solid rgb(0 0 0 / 20%);
+  border-radius: var(--radius-sm);
   padding: 0.85rem 1.5rem;
   background: #ffd21f;
   color: #111;
   font-family: "Minecrafter", monospace;
   font-size: 1rem;
   text-transform: uppercase;
-  box-shadow: 0 4px 0 rgb(0 0 0 / 35%);
+  box-shadow: var(--shadow-pixel);
   transition: transform 180ms ease, filter 180ms ease, box-shadow 180ms ease;
 }
 

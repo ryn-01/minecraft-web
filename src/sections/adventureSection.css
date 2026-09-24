@@ -1,11 +1,11 @@
 .adventure-section {
-  padding: 5rem 1rem 6rem;
-  background: #f1e9e6;
-  color: #111;
+  padding: 6rem 1.25rem;
+  background: #f7f3ed;
+  color: var(--color-ink);
 }
 
 .adventure-section__header {
-  width: min(100%, 66rem);
+  width: min(100%, var(--container));
   margin: 0 auto;
   text-align: center;
 }
@@ -21,12 +21,13 @@
 
 .adventure-section__header p {
   margin: 1.5rem auto 0;
-  font-size: 1.125rem;
+  color: var(--color-muted);
+  font-size: 1.05rem;
 }
 
 .adventure-section__carousel {
   display: flex;
-  width: min(100%, 66rem);
+  width: min(100%, var(--container));
   align-items: center;
   gap: 1rem;
   margin: 3rem auto 0;
@@ -47,8 +48,11 @@
   width: 31%;
   min-width: 0;
   order: var(--card-order);
-  border-bottom: 3px solid #bbb2ae;
-  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
   transition: transform 300ms ease, opacity 300ms ease, filter 300ms ease;
 }
 
@@ -68,6 +72,7 @@
   flex-direction: column;
   border: 0;
   padding: 0;
+  border-radius: var(--radius-sm);
   background: transparent;
   color: inherit;
   cursor: pointer;
@@ -172,7 +177,7 @@
 
 .adventure-section__control:hover,
 .adventure-section__control:focus-visible {
-  background: #388e2c;
+  background: var(--color-primary);
   color: #fff;
   transform: scale(1.05);
 }

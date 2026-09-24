@@ -2,15 +2,15 @@
   position: relative;
   min-height: 100svh;
   overflow: hidden;
-  padding: 3rem 1rem;
-  background: #fff;
-  color: #111;
+  padding: 6rem 1.25rem;
+  background: var(--color-surface);
+  color: var(--color-ink);
 }
 
 .community-section__header {
   position: relative;
   z-index: 2;
-  width: min(100%, 66rem);
+  width: min(100%, var(--container));
   margin: 0 auto;
   text-align: center;
 }
@@ -26,12 +26,13 @@
 
 .community-section__header p {
   margin: 1.5rem 0 0;
-  font-size: 1.125rem;
+  color: var(--color-muted);
+  font-size: 1.05rem;
 }
 
 .community-section__modes {
   position: relative;
-  width: min(100%, 66rem);
+  width: min(100%, var(--container));
   height: calc(100svh - 13rem);
   min-height: 22rem;
   margin: 2rem auto 0;
@@ -44,6 +45,7 @@
   inset: 0;
   transform-origin: center center;
   will-change: transform, opacity;
+  border-radius: var(--radius-md);
 }
 
 .community-mode:hover .community-mode__artwork,
@@ -127,8 +129,8 @@
 .community-mode__description {
   width: min(100%, 24rem);
   margin-top: 0.75rem;
-  font-size: 0.95rem;
-  line-height: 1.35;
+  font-size: 1rem;
+  line-height: 1.55;
 }
 
 .community-mode__action {

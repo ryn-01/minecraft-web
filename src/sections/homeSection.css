@@ -6,8 +6,8 @@
   overflow: hidden;
   flex-direction: column;
   align-items: center;
-  padding: 1.5rem 1rem 3rem;
-  background: #fff;
+  padding: 1.5rem 1.25rem 4rem;
+  background: #f4f7f2;
 }
 
 .home-section__video,
@@ -22,12 +22,12 @@
 
 .home-section__overlay {
   z-index: -1;
-  background: rgb(255 255 255 / 72%);
+  background: linear-gradient(180deg, rgb(244 247 242 / 10%), rgb(255 255 255 / 100%));
 }
 
 .home-section__content {
   display: flex;
-  width: min(100%, 66rem);
+  width: min(100%, var(--container));
   flex: 1;
   flex-direction: column;
   align-items: center;
@@ -38,26 +38,29 @@
 
 .home-section__eyebrow {
   margin: 0 0 0.75rem;
-  font-size: 1.5rem;
+  color: var(--color-primary-dark);
+  font-size: 0.8rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.16em;
 }
 
 .home-section__title {
   margin: 0;
   font-family: "Minecrafter", monospace;
-  font-size: clamp(3rem, 10vw, 4.5rem);
+  color: var(--color-ink);
+  font-size: clamp(3.5rem, 10vw, 7rem);
   font-weight: 400;
-  line-height: 0.9;
+  line-height: 0.86;
   text-transform: uppercase;
 }
 
 .home-section__description {
   max-width: 35rem;
   margin: 1.4rem auto 0;
-  font-size: 1.125rem;
-  line-height: 1.5;
+  color: var(--color-muted);
+  font-size: 1.1rem;
+  line-height: 1.65;
 }
 
 .home-section__actions {
@@ -69,14 +72,14 @@
 }
 
 .button {
-  min-width: 10.75rem;
-  border: 2px solid rgb(0 0 0 / 20%);
-  border-radius: 0.7rem;
-  padding: 0.8rem 1.5rem;
-  font-family: "Minecrafter", monospace;
-  font-size: 1rem;
+  min-width: 10rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  padding: 0.8rem 1.4rem;
+  font-family: var(--font-display);
+  font-size: 0.9rem;
   text-align: center;
-  box-shadow: 0 4px 0 rgb(0 0 0 / 35%);
+  box-shadow: var(--shadow-pixel);
   transition: transform 180ms ease, filter 180ms ease, box-shadow 180ms ease;
 }
 
@@ -93,12 +96,12 @@
 }
 
 .button--primary {
-  background: #079b16;
+  background: var(--color-primary);
   color: #fff;
 }
 
 .button--secondary {
-  background: #858585;
+  background: var(--color-surface-dark);
   color: #fff;
 }
 
