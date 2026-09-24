@@ -3,6 +3,11 @@ import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import './storySection.css'
 
+import chopping from '../assets/video/chopping.webm';
+import building from '../assets/video/building.webm';
+import crafting from '../assets/video/crafting.webm';
+import warden from '../assets/video/warden.webm';
+
 export type StoryStep = {
   title: string
   description: string
@@ -28,10 +33,10 @@ function isVideoSource(source: string) {
 
 export default function StorySection({
   title = 'Begin your story',
-  intro = 'Every great adventure starts with a single block. Gather resources, craft tools, and shape your own path.',
-  featureTitle = 'Get resources',
-  featureDescription = 'Every great adventure starts with a single block. Gather resources, craft tools, and shape your own path. Every world is yours to discover.',
-  mediaSrc,
+  intro = 'Every Minecraft adventure follows a rhythm: gather what you need, craft what you cannot find, and build a world worth defending.',
+  featureTitle = 'Gather resources',
+  featureDescription = 'Punch your first tree, collect stone, and turn the world around you into everything you need to begin. Every great build starts with a handful of resources.',
+  mediaSrc = chopping,
   mediaAlt = 'Story section media',
   mediaType,
   steps,
@@ -39,17 +44,19 @@ export default function StorySection({
   const sectionRef = useRef<HTMLElement>(null)
   const defaultSteps: StoryStep[] = [
     { title: featureTitle, description: featureDescription },
-    { title: 'Craft', description: 'Turn gathered resources into tools, supplies, and everything you need for the next adventure.' },
-    { title: 'Build', description: 'Shape the world around you and create a home, a base, or anything you can imagine.' },
-    { title: 'Explore', description: 'Discover new biomes, hidden treasures, and unexpected adventures beyond the horizon.' },
-    { title: 'Survive', description: 'Face the night, protect what you built, and keep your story moving forward.' },
+    { title: 'Craft your tools', description: 'Turn wood and stone into your first pickaxe, axe, and sword. Better tools unlock faster gathering and safer adventures.', mediaSrc: crafting, mediaType: 'video' },
+    { title: 'Build a shelter', description: 'Before night falls, place a bed, light your surroundings, and build a safe home to protect your progress.', mediaSrc: building, mediaType: 'video' },
+    { title: 'Face the unknown', description: 'Prepare your best gear, enter the Nether, and keep pushing forward until you are ready for the End.',mediaSrc: warden, mediaType: 'video' },
   ]
   const storySteps = steps?.length ? steps : defaultSteps
   const [activeStep, setActiveStep] = useState(0)
   const activeStory = storySteps[activeStep] ?? storySteps[0]
   const activeMediaSrc = activeStory.mediaSrc ?? (activeStep === 0 ? mediaSrc : undefined)
   const activeMediaAlt = activeStory.mediaAlt ?? mediaAlt
-  const activeMediaType = activeStory.mediaType ?? (activeMediaSrc && isVideoSource(activeMediaSrc) ? 'video' : mediaType)
+  const activeMediaType = activeStory.mediaType
+    ?? (activeMediaSrc
+      ? (isVideoSource(activeMediaSrc) ? 'video' : mediaType ?? 'image')
+      : undefined)
 
   useGSAP(
     () => {
@@ -102,10 +109,7 @@ export default function StorySection({
   return (
     <section ref={sectionRef} className="story-section" id="story" aria-labelledby="story-title">
       <div className="story-section__pixel-corner" aria-hidden="true">
-        <span />
-        <span />
-        <span />
-        <span />
+        {Array.from({ length: 10 }, (_, index) => <span key={index} />)}
       </div>
       <div className="story-section__inner">
         <h2 className="story-section__heading" id="story-title">
@@ -114,6 +118,9 @@ export default function StorySection({
         <p className="story-section__intro">{intro}</p>
         <div className="story-section__grid">
           <article className="story-section__feature">
+            <p className="story-section__step">
+              Step {String(activeStep + 1).padStart(2, '0')} <span aria-hidden="true">/</span> {String(storySteps.length).padStart(2, '0')}
+            </p>
             <h3>{activeStory.title}</h3>
             <p>{activeStory.description}</p>
             <div className="story-section__controls" aria-label="Story navigation">
@@ -127,11 +134,11 @@ export default function StorySection({
           </article>
           <div className="story-section__media">
             {activeMediaSrc && activeMediaType === 'video' ? (
-              <video autoPlay muted loop playsInline aria-label={activeMediaAlt}>
-                <source src={activeMediaSrc} />
+              <video key={activeMediaSrc} autoPlay muted loop playsInline aria-label={activeMediaAlt}>
+                <source src={activeMediaSrc} type="video/webm" />
               </video>
             ) : activeMediaSrc ? (
-              <img src={activeMediaSrc} alt={activeMediaAlt} />
+              <img key={activeMediaSrc} src={activeMediaSrc} alt={activeMediaAlt} />
             ) : (
               <div className="story-section__placeholder" aria-label="Media placeholder" />
             )}
