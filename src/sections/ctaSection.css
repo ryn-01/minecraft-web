@@ -87,6 +87,10 @@
   object-fit: contain;
 }
 
+.cta-section__media video {
+  transform: scaleX(-1);
+}
+
 @media (max-width: 767px) {
   .cta-section {
     padding: 4rem 1rem 5rem;
