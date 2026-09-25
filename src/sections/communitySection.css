@@ -30,6 +30,26 @@
   font-size: 1.05rem;
 }
 
+/* Fills as the user scrolls through the pinned modes, same pattern as Features */
+.community-section__progress-bar {
+  width: min(100%, 20rem);
+  height: 3px;
+  margin: 1.5rem auto 0;
+  background: rgb(0 0 0 / 12%);
+  overflow: hidden;
+  border-radius: 999px;
+}
+
+.community-section__progress-bar span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform: scaleX(0);
+  transform-origin: left;
+  background: var(--color-primary);
+  will-change: transform;
+}
+
 .community-section__modes {
   position: relative;
   width: min(100%, var(--container));
@@ -39,19 +59,13 @@
 }
 
 .community-mode {
-  position: relative;
-  overflow: hidden;
   position: absolute;
   inset: 0;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  box-shadow: 0 20px 60px rgb(0 0 0 / 30%), 0 0 0 2px rgb(0 0 0 / 6%);
   transform-origin: center center;
   will-change: transform, opacity;
-  border-radius: var(--radius-md);
-}
-
-.community-mode:hover .community-mode__artwork,
-.community-mode.is-active .community-mode__artwork {
-  filter: brightness(1.08);
-  z-index: 1;
 }
 
 .community-mode__button {
@@ -65,30 +79,35 @@
   color: #fff;
   cursor: pointer;
   text-align: left;
+  perspective: 900px;
 }
 
 .community-mode__button:focus-visible {
-  outline: 3px solid #111;
+  outline: 3px solid var(--color-accent, #fff);
   outline-offset: -3px;
 }
 
 .community-mode__artwork,
+.community-mode__scrim,
 .community-mode__content {
   position: absolute;
   inset: 0;
 }
 
 .community-mode__artwork {
-  opacity: 0.2;
   background-position: center;
   background-size: cover;
-  transition: opacity 220ms ease, transform 500ms ease;
+  transform-style: preserve-3d;
+  will-change: transform;
+  /* GSAP owns rotateX/rotateY on the `transform` property (see the mouse-tilt
+     effect in CommunitySection.tsx); scale and opacity live on their own
+     standalone properties so nothing fights over the same transition. */
+  transition: opacity 220ms ease, scale 500ms ease;
 }
 
 .community-mode:hover .community-mode__artwork,
 .community-mode.is-active .community-mode__artwork {
-  opacity: 0.34;
-  transform: scale(1.06);
+  scale: 1.06;
 }
 
 .community-mode__artwork--overworld {
@@ -106,13 +125,25 @@
   background-image: linear-gradient(135deg, #051e55 0 25%, transparent 25% 50%, #173e80 50% 70%, transparent 70%);
 }
 
+/* Darkens toward the side the text sits on, so white text stays legible over
+   any artwork without hiding the artwork entirely. */
+.community-mode--left .community-mode__scrim {
+  z-index: 1;
+  background: linear-gradient(90deg, rgb(0 0 0 / 78%) 0%, rgb(0 0 0 / 35%) 45%, rgb(0 0 0 / 5%) 75%);
+}
+
+.community-mode--right .community-mode__scrim {
+  z-index: 1;
+  background: linear-gradient(270deg, rgb(0 0 0 / 78%) 0%, rgb(0 0 0 / 35%) 45%, rgb(0 0 0 / 5%) 75%);
+}
+
 .community-mode__content {
   display: flex;
-  z-index: 1;
+  z-index: 2;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  padding: 1.25rem;
+  padding: 1.5rem 2rem;
 }
 
 .community-mode--right .community-mode__content {
@@ -121,29 +152,74 @@
 }
 
 .community-mode__title {
-  font-family: "Minecraft", monospace;
-  font-size: 1.4rem;
+  font-family: "Minecrafter", monospace;
+  font-size: clamp(1.4rem, 3vw, 1.9rem);
   text-transform: uppercase;
-  color: #000;
+  color: #fff;
 }
 
 .community-mode__description {
-  width: min(100%, 24rem);
-  margin-top: 0.75rem;
-  font-size: 1rem;
-  line-height: 1.55;
-  color: #000;
-
+  width: min(100%, 26rem);
+  margin-top: 0.85rem;
+  font-size: 1.02rem;
+  line-height: 1.6;
+  color: rgb(255 255 255 / 86%);
 }
 
 .community-mode__action {
-  margin-top: 1rem;
-  background: #fff;
-  padding: 0.3rem 1rem;
-  color: #111;
-  font-family: "Minecraft", monospace;
-  font-size: 0.8rem;
+  display: inline-flex;
+  align-items: center;
+  margin-top: 1.25rem;
+  border-radius: var(--radius-sm);
+  background: var(--color-primary);
+  box-shadow: var(--shadow-pixel);
+  padding: 0.55rem 1.1rem;
+  color: #fff;
+  font-family: "Minecrafter", monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
   text-transform: uppercase;
+  transition: transform 180ms ease, filter 180ms ease;
+}
+
+.community-mode:hover .community-mode__action,
+.community-mode.is-active .community-mode__action {
+  filter: brightness(1.08);
+  transform: translateY(-2px);
+}
+
+/* Clickable slide indicator, same pattern as Feature/Story/Dimension */
+.community-section__nav {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  right: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  transform: translateY(-50%);
+}
+
+.community-section__nav button {
+  width: 0.65rem;
+  height: 0.65rem;
+  border: 2px solid rgb(0 0 0 / 25%);
+  border-radius: 50%;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+  transition: background-color 200ms ease, border-color 200ms ease, transform 200ms ease;
+}
+
+.community-section__nav button:hover,
+.community-section__nav button:focus-visible {
+  border-color: rgb(0 0 0 / 55%);
+  transform: scale(1.15);
+}
+
+.community-section__nav button.is-active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
 }
 
 .sr-only {
@@ -168,5 +244,26 @@
   .community-mode__content {
     align-items: flex-start;
     text-align: left;
+    padding: 1.5rem;
+  }
+
+  .community-mode--left .community-mode__scrim,
+  .community-mode--right .community-mode__scrim {
+    background: linear-gradient(180deg, rgb(0 0 0 / 15%) 0%, rgb(0 0 0 / 75%) 65%);
+  }
+
+  .community-section__nav {
+    top: auto;
+    right: auto;
+    bottom: 1rem;
+    left: 50%;
+    flex-direction: row;
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .community-mode__artwork {
+    transition: none !important;
   }
 }

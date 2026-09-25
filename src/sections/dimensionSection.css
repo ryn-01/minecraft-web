@@ -26,31 +26,47 @@
 }
 
 .dimension-section__cards {
-  display: grid;
+  display: flex;
+  align-items: stretch;
   width: min(100%, var(--container));
   margin: 3.5rem auto 0;
-  grid-template-columns: repeat(3, 1fr);
   gap: 1.25rem;
 }
 
 .dimension-card {
+  position: relative;
   min-width: 0;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 0%;
   overflow: hidden;
   border-radius: var(--radius-md);
   background: #303631;
   box-shadow: 0 0.75rem 1.75rem rgb(0 0 0 / 18%);
-  transition: transform 220ms ease;
+  /* Keep layout animation separate from the hover lift. */
+  transition: flex-grow 600ms ease, flex-basis 600ms ease, translate 220ms ease;
 }
 
 .dimension-card:hover,
 .dimension-card.is-active {
-  transform: translateY(-0.5rem);
+  translate: 0 -0.5rem;
+}
+
+.dimension-card.is-active {
+  flex-grow: 4.5;
+  flex-basis: 0%;
+}
+
+.dimension-card.is-collapsed {
+  flex-grow: 0;
+  flex-basis: 6rem;
 }
 
 .dimension-card__button {
   display: flex;
   width: 100%;
   height: 100%;
+  min-height: 24rem;
   flex-direction: column;
   border: 0;
   padding: 0;
@@ -65,6 +81,7 @@
   outline-offset: 5px;
 }
 
+/* Default (unselected) card */
 .dimension-card__artwork {
   display: block;
   overflow: hidden;
@@ -90,16 +107,40 @@
   color: #fff;
 }
 
-.dimension-card--green .dimension-card__content {
+.dimension-card--green .dimension-card__content,
+.dimension-card--green .dimension-card__collapsed {
   background: #347b32;
 }
 
-.dimension-card--red .dimension-card__content {
+.dimension-card--red .dimension-card__content,
+.dimension-card--red .dimension-card__collapsed {
   background: #87383c;
 }
 
-.dimension-card--olive .dimension-card__content {
+.dimension-card--olive .dimension-card__content,
+.dimension-card--olive .dimension-card__collapsed {
   background: #777b2d;
+}
+
+/* Collapsed siblings keep their names visible as vertical tabs. */
+.dimension-card__collapsed {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 0.5rem;
+}
+
+.dimension-card__collapsed-label {
+  color: #fff;
+  font-family: "Minecrafter", monospace;
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
 }
 
 .dimension-card__name {
@@ -123,6 +164,60 @@
   letter-spacing: 0.02em;
 }
 
+/* Expanded: full-bleed looping environment video */
+.dimension-card__expanded {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: flex-end;
+  overflow: hidden;
+}
+
+.dimension-card__video {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.dimension-card__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(180deg, rgb(0 0 0 / 8%) 0%, rgb(0 0 0 / 82%) 100%);
+}
+
+.dimension-card__expanded-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 1.75rem;
+  color: #fff;
+}
+
+.dimension-card__expanded-content .dimension-card__name {
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+}
+
+.dimension-card__expanded-content .dimension-card__description--detailed {
+  max-width: 38rem;
+  font-size: 1.02rem;
+  line-height: 1.65;
+}
+
+.dimension-card__expanded-content .dimension-card__link {
+  margin-top: 1.25rem;
+  padding-top: 0;
+  opacity: 0.85;
+  cursor: pointer;
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -138,11 +233,39 @@
   }
 
   .dimension-section__cards {
-    grid-template-columns: 1fr;
+    flex-direction: column;
     gap: 1.5rem;
   }
 
   .dimension-card__artwork {
     aspect-ratio: 1.8;
   }
+
+  .dimension-card__button {
+    min-height: auto;
+  }
+
+  .dimension-card {
+    transition: flex-grow 600ms ease, flex-basis 600ms ease, translate 220ms ease;
+  }
+
+  .dimension-card.is-active .dimension-card__button {
+    min-height: 28rem;
+  }
+
+  .dimension-card.is-collapsed {
+    flex-basis: 4.5rem;
+  }
+
+  .dimension-card__collapsed-label {
+    writing-mode: horizontal-tb;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dimension-card {
+    transition: none !important;
+  }
+
 }
