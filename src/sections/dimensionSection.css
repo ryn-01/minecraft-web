@@ -89,7 +89,8 @@
   background: #59625b;
 }
 
-.dimension-card__artwork img {
+.dimension-card__artwork img,
+.dimension-card__artwork video {
   display: block;
   width: 100%;
   height: 100%;

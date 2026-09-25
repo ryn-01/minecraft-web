@@ -1,0 +1,258 @@
+.about-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: var(--color-surface);
+  color: var(--color-ink);
+}
+
+/* --- Hero Section (Video Background) --- */
+.about-hero {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 85svh;
+  padding: 8rem 1.25rem 4rem;
+  text-align: center;
+  color: #fff;
+  overflow: hidden;
+}
+
+.about-hero__bg,
+.about-hero__overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  object-fit: cover;
+}
+
+.about-hero__overlay {
+  z-index: -1;
+  /* Blends the video into the background color of the next section */
+  background: linear-gradient(180deg, rgb(0 0 0 / 60%) 0%, rgb(0 0 0 / 40%) 70%, var(--color-surface) 100%);
+}
+
+.about-hero__eyebrow {
+  margin: 0 0 1rem;
+  color: var(--color-surface);
+  font-family: var(--font-display);
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-shadow: 0 2px 4px rgb(0 0 0 / 50%);
+}
+
+.about-hero__title {
+  max-width: 54rem;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 400;
+  line-height: 1.05;
+  text-transform: uppercase;
+  text-shadow: 0 4px 12px rgb(0 0 0 / 60%);
+}
+
+.about-hero__description {
+  max-width: 38rem;
+  margin: 1.5rem auto 0;
+  color: rgb(255 255 255 / 90%);
+  font-size: 1.15rem;
+  line-height: 1.6;
+  text-shadow: 0 2px 4px rgb(0 0 0 / 50%);
+}
+
+/* --- About Intro Section --- */
+.about-intro {
+  padding: 4rem 1.25rem 6rem;
+  text-align: center;
+  background: var(--color-surface);
+}
+
+.about-intro__content {
+  max-width: 42rem;
+  margin: 0 auto;
+}
+
+.about-intro__content h2 {
+  margin: 0 0 1.5rem;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  text-transform: uppercase;
+}
+
+.about-intro__content p {
+  color: var(--color-muted);
+  font-size: 1.1rem;
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+/* --- History / Timeline Section --- */
+.about-history {
+  padding: 6rem 1.25rem;
+  background: var(--color-surface-muted);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.about-history__header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.about-history__header h2 {
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  text-transform: uppercase;
+}
+
+.history-grid {
+  display: grid;
+  width: min(100%, var(--container));
+  margin: 0 auto;
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  gap: 3rem;
+}
+
+.history-card {
+  position: relative;
+  padding-left: 1.5rem;
+  border-left: 3px solid var(--color-primary);
+}
+
+.history-card::before {
+  content: '';
+  position: absolute;
+  left: -7px;
+  top: 0;
+  width: 11px;
+  height: 11px;
+  background: var(--color-primary);
+  border-radius: 50%;
+}
+
+.history-card__year {
+  display: block;
+  color: var(--color-primary);
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.history-card h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.35rem;
+  text-transform: uppercase;
+}
+
+.history-card p {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* --- Philosophy Section --- */
+.about-philosophy {
+  padding: 8rem 1.25rem;
+  background: var(--color-surface);
+  text-align: center;
+}
+
+.about-philosophy__header {
+  max-width: 42rem;
+  margin: 0 auto;
+}
+
+.about-philosophy__header h2 {
+  margin: 0 0 1rem;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  text-transform: uppercase;
+}
+
+.about-philosophy__header p {
+  color: var(--color-muted);
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.about-philosophy__grid {
+  display: grid;
+  width: min(100%, var(--container));
+  margin: 4rem auto 0;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.about-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  padding: 2.5rem;
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+  transition: transform 300ms ease, box-shadow 300ms ease;
+}
+
+.about-card:hover {
+  transform: translateY(-0.5rem);
+  box-shadow: var(--shadow-pixel);
+}
+
+.about-card__icon {
+  display: grid;
+  width: 3.5rem;
+  height: 3.5rem;
+  place-items: center;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-muted);
+  color: var(--color-primary);
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+}
+
+.about-card h3 {
+  margin: 0 0 0.75rem;
+  font-size: 1.4rem;
+  text-transform: uppercase;
+}
+
+.about-card p {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 900px) {
+  .about-philosophy__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  .about-hero {
+    min-height: 70svh;
+  }
+  .about-history {
+    padding: 5rem 1rem;
+  }
+  .history-grid {
+    gap: 2.5rem;
+    grid-template-columns: 1fr;
+  }
+  .about-philosophy {
+    padding: 5rem 1rem;
+  }
+  .about-philosophy__grid {
+    grid-template-columns: 1fr;
+  }
+}

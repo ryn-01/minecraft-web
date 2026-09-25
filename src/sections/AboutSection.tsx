@@ -23,7 +23,7 @@ export default function AboutSection({
   mediaSrc = '/videos/home/Enderman_Home.webm',
   mediaAlt = 'An Enderman holding a grass block',
   mediaType,
-  learnMoreHref = '#feature',
+  learnMoreHref = '/about',
 }: AboutSectionProps) {
   const sectionRef = useRef<HTMLElement>(null)
   const resolvedMediaType = mediaType ?? (isVideoSource(mediaSrc) ? 'video' : 'image')

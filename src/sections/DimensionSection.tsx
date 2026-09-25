@@ -1,7 +1,4 @@
 import { useEffect, useState } from 'react'
-import endPortalImage from '../assets/images/endPortal.webp'
-import netherImage from '../assets/images/nether.webp'
-import overworldImage from '../assets/images/steve.webp'
 import './dimensionSection.css'
 
 type Dimension = {
@@ -11,7 +8,6 @@ type Dimension = {
   color: string
   imageSrc: string
   imageAlt: string
-  videoSrc: string
 }
 
 const dimensions: Dimension[] = [
@@ -21,9 +17,8 @@ const dimensions: Dimension[] = [
     detailedDescription:
       'The Overworld is where every journey starts — sun-drenched plains, dense jungles, snowy peaks, and deep oceans all generated fresh every world. Chop trees, mine ore, farm crops, tame animals, and grow a base into a full village over time. It stays calm by day, but night brings zombies, skeletons, and spiders, so defenses matter as much as decoration.',
     color: 'green',
-    imageSrc: overworldImage,
+    imageSrc: '/videos/dimensions/overworld_potrait.webm',
     imageAlt: 'Steve exploring the Overworld',
-    videoSrc: '/videos/dimensions/overworld.webm',
   },
   {
     name: 'Nether',
@@ -31,9 +26,8 @@ const dimensions: Dimension[] = [
     detailedDescription:
       'A hostile dimension beneath the bedrock, built from netherrack, soul sand, and rivers of lava, where blazes, piglins, and ghasts guard every path. It hides ancient debris for netherite gear, glowstone for light, and quartz for building — and its fortresses hold the blaze rods needed to open a portal to the End. One Nether block also covers roughly eight Overworld blocks, making it the fastest way to travel long distances.',
     color: 'red',
-    imageSrc: netherImage,
+    imageSrc: '/videos/dimensions/nether_potrait.webm',
     imageAlt: 'The Nether dimension',
-    videoSrc: '/videos/dimensions/nether.webm',
   },
   {
     name: 'The End',
@@ -41,9 +35,8 @@ const dimensions: Dimension[] = [
     detailedDescription:
       'A shattered void reachable only through a stronghold portal, home to the Ender Dragon and the endermen that patrol its islands. Defeating the dragon earns you the dragon egg and opens the outer End, a scattered archipelago guarded by shulkers and dotted with end cities full of elytra, shulker boxes, and rare loot. It is the last major challenge Minecraft has to offer.',
     color: 'olive',
-    imageSrc: endPortalImage,
+    imageSrc: '/videos/dimensions/end_potrait.webm',
     imageAlt: 'An End portal leading to The End',
-    videoSrc: '/videos/dimensions/end.webm',
   },
 ]
 
@@ -53,6 +46,8 @@ export default function DimensionSection() {
   const selectDimension = (index: number | null) => {
     setActiveDimension(index)
   }
+
+  const isVideoSource = (source: string) => source.endsWith('.webm')
 
   // Escape collapses the expanded card; left/right switches which one is expanded.
   useEffect(() => {
@@ -115,7 +110,7 @@ export default function DimensionSection() {
                       playsInline
                       aria-label={`${dimension.name} environment loop`}
                     >
-                      <source src={dimension.videoSrc} type="video/webm" />
+                      <source src={dimension.imageSrc} type="video/webm" />
                     </video>
                     <span className="dimension-card__scrim" aria-hidden="true" />
                     <span className="dimension-card__expanded-content">
@@ -135,7 +130,19 @@ export default function DimensionSection() {
                 ) : (
                   <>
                     <span className="dimension-card__artwork">
-                      <img src={dimension.imageSrc} alt={dimension.imageAlt} />
+                      {isVideoSource(dimension.imageSrc) ? (
+                        <video
+                          autoPlay
+                          muted
+                          loop
+                          playsInline
+                          aria-label={dimension.imageAlt}
+                        >
+                          <source src={dimension.imageSrc} type="video/webm" />
+                        </video>
+                      ) : (
+                        <img src={dimension.imageSrc} alt={dimension.imageAlt} />
+                      )}
                     </span>
                     <span className="dimension-card__content">
                       <span className="dimension-card__name">{dimension.name}</span>

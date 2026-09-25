@@ -13,8 +13,8 @@ type NavbarProps = {
 
 const defaultItems: NavItem[] = [
   { label: 'Home', href: '/' },
-  { label: 'About', href: '/#about' },
-  { label: 'Feature', href: '/#feature' },
+  { label: 'About', href: '/about' },
+  { label: 'Feature', href: '/feature' },
   { label: 'Community', href: '/#community' },
   { label: 'Download', href: '/download' },
 ]

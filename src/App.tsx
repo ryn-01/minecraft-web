@@ -1,38 +1,19 @@
-import HomeSection from './sections/homeSection'
-import AboutSection from './sections/AboutSection'
-import FeatureSection from './sections/FeatureSection'
-import DimensionSection from './sections/DimensionSection'
-import CommunitySection from './sections/CommunitySection'
-import AdventureSection from './sections/AdventureSection'
-import CommunityGallery from './sections/CommunityGallery'
-import CtaSection from './sections/CtaSection'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import DownloadPage from './pages/DownloadPage'
-import FooterSection from './components/FooterSection'
-import Navbar from './components/navbar'
+import HomePage from './pages/HomePage'
+import AboutPage from './pages/AboutPage'
+import FeaturePage from './pages/FeaturePage'
 
 export default function App() {
-  const isDownloadPage = window.location.pathname === '/download'
-
   return (
-    <div className="app-shell">
-      <header className="app-navbar">
-        <Navbar activeLabel={isDownloadPage ? 'Download' : 'Home'} />
-      </header>
-      {isDownloadPage ? (
-        <DownloadPage />
-      ) : (
-        <>
-          <HomeSection />
-          <AboutSection />
-          <FeatureSection />
-          <DimensionSection />
-          <CommunitySection />
-          <CommunityGallery />
-          <AdventureSection />
-          <CtaSection />
-          <FooterSection />
-        </>
-      )}
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/feature" element={<FeaturePage />} />
+        <Route path="/download" element={<DownloadPage />} />
+      </Routes>
+    </BrowserRouter>
+
   )
 }
