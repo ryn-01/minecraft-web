@@ -170,6 +170,8 @@
   display: flex;
   width: 100%;
   height: 100%;
+  min-height: 0;
+  flex: 1 1 auto;
   align-items: flex-end;
   overflow: hidden;
 }
@@ -237,29 +239,39 @@
     gap: 1.5rem;
   }
 
+  .dimension-card {
+    flex: 0 0 26rem;
+    height: 26rem;
+    transition: height 420ms ease, translate 220ms ease;
+  }
+
   .dimension-card__artwork {
     aspect-ratio: 1.8;
   }
 
   .dimension-card__button {
-    min-height: auto;
+    height: 100%;
+    min-height: 0;
   }
 
-  .dimension-card {
-    transition: flex-grow 600ms ease, flex-basis 600ms ease, translate 220ms ease;
-  }
-
-  .dimension-card.is-active .dimension-card__button {
-    min-height: 30rem;
+  .dimension-card.is-active {
+    flex: 0 0 30rem;
+    height: 30rem;
   }
 
   .dimension-card.is-collapsed {
-    flex-basis: 4.5rem;
+    flex: 0 0 4.5rem;
+    height: 4.5rem;
   }
 
   .dimension-card__collapsed-label {
     writing-mode: horizontal-tb;
     transform: none;
+  }
+
+  .dimension-card:hover,
+  .dimension-card.is-active {
+    translate: none;
   }
 }
 
