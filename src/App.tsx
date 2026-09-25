@@ -7,7 +7,7 @@ import AdventureSection from './sections/AdventureSection'
 import CommunityGallery from './sections/CommunityGallery'
 import CtaSection from './sections/CtaSection'
 import DownloadPage from './pages/DownloadPage'
-import FooterSection from './sections/FooterSection'
+import FooterSection from './components/FooterSection'
 import Navbar from './components/navbar'
 
 export default function App() {

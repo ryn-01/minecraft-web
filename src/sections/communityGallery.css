@@ -12,7 +12,7 @@
 
 .community-gallery__header h2 {
   margin: 0;
-  font-family: "Minecrafter", monospace;
+  font-family: var(--font-display);
   font-size: clamp(2rem, 5vw, 3rem);
   font-weight: 400;
   text-transform: uppercase;
@@ -38,7 +38,7 @@
   overflow: hidden;
   border: 0;
   padding: 0;
-  background: #302f2d;
+  background: var(--color-surface-dark);
   border-radius: var(--radius-md);
   color: #fff;
   cursor: pointer;
@@ -46,7 +46,7 @@
 }
 
 .community-gallery__item:focus-visible {
-  outline: 3px solid #388e2c;
+  outline: 3px solid var(--color-accent);
   outline-offset: 4px;
 }
 
@@ -108,7 +108,7 @@
 }
 
 .community-gallery__caption strong {
-  font-family: "Minecrafter", monospace;
+  font-family: var(--font-display);
   font-size: 1rem;
   font-weight: 400;
   text-transform: uppercase;
@@ -131,50 +131,63 @@
   position: absolute;
   inset: 0;
   border: 0;
-  background: rgb(0 0 0 / 75%);
+  background: rgb(0 0 0 / 85%);
   cursor: pointer;
+  backdrop-filter: blur(4px);
 }
 
 .community-gallery__preview {
   position: relative;
   z-index: 1;
-  width: min(100%, 34rem);
-  padding: 1rem;
+  width: min(100%, 36rem);
+  padding: 1.5rem;
   border-radius: var(--radius-md);
   background: var(--color-surface);
+  box-shadow: 0 20px 40px rgb(0 0 0 / 40%);
 }
 
 .community-gallery__preview .community-gallery__artwork {
-  min-height: 20rem;
+  min-height: 22rem;
+  border-radius: var(--radius-sm);
 }
 
 .community-gallery__preview h3 {
-  margin: 1rem 0 0;
-  font-family: "Minecrafter", monospace;
+  margin: 1.5rem 0 0;
+  font-family: var(--font-display);
   font-size: 1.5rem;
   font-weight: 400;
   text-transform: uppercase;
 }
 
 .community-gallery__preview p {
-  margin: 0.5rem 0 1rem;
+  margin: 0.5rem 0 1.5rem;
+  color: var(--color-muted);
 }
 
 .community-gallery__preview > button {
   border: 0;
-  padding: 0.5rem 1rem;
+  padding: 0.65rem 1.25rem;
   border-radius: var(--radius-sm);
   background: var(--color-primary);
   color: #fff;
   cursor: pointer;
-  font-family: "Minecrafter", monospace;
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  transition: filter 180ms ease, transform 180ms ease;
+  box-shadow: var(--shadow-pixel);
+}
+
+.community-gallery__preview > button:hover,
+.community-gallery__preview > button:focus-visible {
+  filter: brightness(1.08);
+  transform: translateY(-2px);
 }
 
 @media (max-width: 767px) {
   .community-gallery {
     padding: 4rem 1rem;
   }
-
   .community-gallery__grid {
     grid-template-columns: repeat(2, 1fr);
   }

@@ -17,7 +17,7 @@
 
 .community-section__header h2 {
   margin: 0;
-  font-family: "Minecrafter", monospace;
+  font-family: var(--font-display);
   font-size: clamp(2rem, 5vw, 3rem);
   font-weight: 400;
   line-height: 1;
@@ -30,7 +30,6 @@
   font-size: 1.05rem;
 }
 
-/* Fills as the user scrolls through the pinned modes, same pattern as Features */
 .community-section__progress-bar {
   width: min(100%, 20rem);
   height: 3px;
@@ -83,7 +82,7 @@
 }
 
 .community-mode__button:focus-visible {
-  outline: 3px solid var(--color-accent, #fff);
+  outline: 3px solid var(--color-accent);
   outline-offset: -3px;
 }
 
@@ -99,9 +98,6 @@
   background-size: cover;
   transform-style: preserve-3d;
   will-change: transform;
-  /* GSAP owns rotateX/rotateY on the `transform` property (see the mouse-tilt
-     effect in CommunitySection.tsx); scale and opacity live on their own
-     standalone properties so nothing fights over the same transition. */
   transition: opacity 220ms ease, scale 500ms ease;
 }
 
@@ -110,31 +106,19 @@
   scale: 1.06;
 }
 
-.community-mode__artwork--overworld {
-  background-color: #388e2c;
-  background-image: linear-gradient(135deg, #91d45b 0 20%, transparent 20% 45%, #275d2b 45% 65%, transparent 65%);
-}
+/* Base background colors for the artwork */
+.community-mode__artwork--green { background-color: #388e2c; }
+.community-mode__artwork--purple { background-color: #5f38bf; }
+.community-mode__artwork--blue { background-color: #0877e8; }
 
-.community-mode__artwork--nether {
-  background-color: #5f38bf;
-  background-image: linear-gradient(135deg, #24183d 0 25%, transparent 25% 50%, #a448a8 50% 65%, transparent 65%);
-}
-
-.community-mode__artwork--end {
-  background-color: #0877e8;
-  background-image: linear-gradient(135deg, #051e55 0 25%, transparent 25% 50%, #173e80 50% 70%, transparent 70%);
-}
-
-/* Darkens toward the side the text sits on, so white text stays legible over
-   any artwork without hiding the artwork entirely. */
 .community-mode--left .community-mode__scrim {
   z-index: 1;
-  background: linear-gradient(90deg, rgb(0 0 0 / 78%) 0%, rgb(0 0 0 / 35%) 45%, rgb(0 0 0 / 5%) 75%);
+  background: linear-gradient(90deg, rgb(0 0 0 / 85%) 0%, rgb(0 0 0 / 40%) 50%, rgb(0 0 0 / 5%) 85%);
 }
 
 .community-mode--right .community-mode__scrim {
   z-index: 1;
-  background: linear-gradient(270deg, rgb(0 0 0 / 78%) 0%, rgb(0 0 0 / 35%) 45%, rgb(0 0 0 / 5%) 75%);
+  background: linear-gradient(270deg, rgb(0 0 0 / 85%) 0%, rgb(0 0 0 / 40%) 50%, rgb(0 0 0 / 5%) 85%);
 }
 
 .community-mode__content {
@@ -143,7 +127,7 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  padding: 1.5rem 2rem;
+  padding: 1.5rem 3.5rem;
 }
 
 .community-mode--right .community-mode__content {
@@ -151,32 +135,66 @@
   text-align: right;
 }
 
+.community-mode__eyebrow {
+  margin: 0 0 0.85rem;
+  color: var(--color-primary);
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 .community-mode__title {
-  font-family: "Minecrafter", monospace;
-  font-size: clamp(1.4rem, 3vw, 1.9rem);
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
   text-transform: uppercase;
   color: #fff;
+  line-height: 1;
+}
+
+.community-mode__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 1rem;
+}
+
+.community-mode--right .community-mode__tags {
+  justify-content: flex-end;
+}
+
+.community-tag {
+  padding: 0.35rem 0.65rem;
+  border: 1px solid rgb(255 255 255 / 20%);
+  border-radius: var(--radius-sm);
+  background: rgb(0 0 0 / 45%);
+  color: rgb(255 255 255 / 85%);
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  backdrop-filter: blur(4px);
 }
 
 .community-mode__description {
-  width: min(100%, 26rem);
-  margin-top: 0.85rem;
-  font-size: 1.02rem;
+  width: min(100%, 28rem);
+  margin-top: 1.25rem;
+  font-size: 1.05rem;
   line-height: 1.6;
-  color: rgb(255 255 255 / 86%);
+  color: rgb(255 255 255 / 90%);
 }
 
 .community-mode__action {
   display: inline-flex;
   align-items: center;
-  margin-top: 1.25rem;
+  margin-top: 1.5rem;
   border-radius: var(--radius-sm);
   background: var(--color-primary);
   box-shadow: var(--shadow-pixel);
-  padding: 0.55rem 1.1rem;
+  padding: 0.65rem 1.2rem;
   color: #fff;
-  font-family: "Minecrafter", monospace;
-  font-size: 0.78rem;
+  font-family: var(--font-display);
+  font-size: 0.8rem;
   letter-spacing: 0.02em;
   text-transform: uppercase;
   transition: transform 180ms ease, filter 180ms ease;
@@ -188,7 +206,6 @@
   transform: translateY(-2px);
 }
 
-/* Clickable slide indicator, same pattern as Feature/Story/Dimension */
 .community-section__nav {
   position: absolute;
   z-index: 2;
@@ -235,23 +252,22 @@
   .community-section {
     padding: 3rem 1rem;
   }
-
   .community-mode__button {
     min-height: 0;
   }
-
   .community-mode--right .community-mode__content,
   .community-mode__content {
     align-items: flex-start;
     text-align: left;
     padding: 1.5rem;
   }
-
+  .community-mode--right .community-mode__tags {
+    justify-content: flex-start;
+  }
   .community-mode--left .community-mode__scrim,
   .community-mode--right .community-mode__scrim {
-    background: linear-gradient(180deg, rgb(0 0 0 / 15%) 0%, rgb(0 0 0 / 75%) 65%);
+    background: linear-gradient(180deg, rgb(0 0 0 / 25%) 0%, rgb(0 0 0 / 85%) 65%);
   }
-
   .community-section__nav {
     top: auto;
     right: auto;

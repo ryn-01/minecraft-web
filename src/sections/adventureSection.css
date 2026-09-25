@@ -1,7 +1,8 @@
 .adventure-section {
   padding: 6rem 1.25rem;
-  background: #f7f3ed;
+  background: var(--color-surface-muted);
   color: var(--color-ink);
+  overflow: hidden;
 }
 
 .adventure-section__header {
@@ -12,7 +13,7 @@
 
 .adventure-section__header h2 {
   margin: 0;
-  font-family: "Minecrafter", monospace;
+  font-family: var(--font-display);
   font-size: clamp(2rem, 5vw, 3rem);
   font-weight: 400;
   line-height: 1;
@@ -29,40 +30,58 @@
   display: flex;
   width: min(100%, var(--container));
   align-items: center;
-  gap: 1rem;
+  gap: 1.5rem;
   margin: 3rem auto 0;
 }
 
 .adventure-section__cards {
   position: relative;
   display: flex;
-  min-height: 28rem;
+  min-height: 32rem;
   flex: 1;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
 }
 
 .adventure-card {
-  display: none;
+  position: absolute;
   width: 31%;
-  min-width: 0;
-  order: var(--card-order);
+  min-width: 18rem;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   background: var(--color-surface);
   box-shadow: var(--shadow-sm);
   overflow: hidden;
-  transition: transform 300ms ease, opacity 300ms ease, filter 300ms ease;
+  will-change: transform, opacity, filter;
+  transition: transform 400ms cubic-bezier(0.4, 0, 0.2, 1), opacity 400ms ease, filter 400ms ease;
 }
 
-.adventure-card.is-visible {
-  display: block;
+.adventure-card--hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(0) scale(0.85);
+  z-index: 0;
 }
 
-.adventure-card.is-active {
-  transform: translateY(-1rem);
+.adventure-card--active {
+  opacity: 1;
+  transform: translateX(0) translateY(-1rem) scale(1);
+  z-index: 3;
+  filter: saturate(1);
+}
+
+.adventure-card--prev {
+  opacity: 0.82;
+  transform: translateX(-110%) scale(0.95);
   z-index: 1;
+  filter: saturate(0.65);
+}
+
+.adventure-card--next {
+  opacity: 0.82;
+  transform: translateX(110%) scale(0.95);
+  z-index: 1;
+  filter: saturate(0.65);
 }
 
 .adventure-card__button {
@@ -80,27 +99,15 @@
 }
 
 .adventure-card__button:focus-visible {
-  outline: 3px solid #388e2c;
+  outline: 3px solid var(--color-accent);
   outline-offset: 4px;
 }
 
 .adventure-card__artwork {
   display: block;
-  aspect-ratio: 1.25;
+  aspect-ratio: 1.35;
   background-position: center;
   background-size: cover;
-  transition: filter 220ms ease;
-}
-
-.adventure-card:not(.is-active) {
-  opacity: 0.82;
-  filter: saturate(0.65);
-}
-
-.adventure-card:hover,
-.adventure-card.is-active {
-  opacity: 1;
-  filter: saturate(1);
 }
 
 .adventure-card__artwork--snow {
@@ -135,29 +142,59 @@
 
 .adventure-card__content {
   display: flex;
-  min-height: 13rem;
+  min-height: 14rem;
   flex-direction: column;
-  padding: 1rem;
+  padding: 1.25rem;
+}
+
+.adventure-card__eyebrow {
+  margin: 0 0 0.5rem;
+  color: var(--color-primary);
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .adventure-card__title {
-  font-family: "Minecrafter", monospace;
-  font-size: 1.3rem;
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  text-transform: uppercase;
+}
+
+.adventure-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.7rem;
+}
+
+.adventure-tag {
+  padding: 0.25rem 0.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-muted);
+  color: var(--color-muted);
+  font-family: var(--font-display);
+  font-size: 0.6rem;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
 }
 
 .adventure-card__description {
-  margin-top: 0.8rem;
+  margin-top: 1rem;
   font-size: 0.95rem;
-  line-height: 1.35;
+  line-height: 1.45;
+  color: var(--color-ink);
 }
 
 .adventure-card__link {
   margin-top: auto;
   padding-top: 1.5rem;
-  color: #388e2c;
-  font-family: "Minecrafter", monospace;
+  color: var(--color-primary);
+  font-family: var(--font-display);
   font-size: 0.8rem;
+  text-transform: uppercase;
 }
 
 .adventure-section__control {
@@ -166,13 +203,14 @@
   height: 3rem;
   flex: 0 0 3rem;
   place-items: center;
-  border: 2px solid #388e2c;
+  border: 2px solid var(--color-primary);
   background: transparent;
-  color: #388e2c;
+  color: var(--color-primary);
   cursor: pointer;
   font-size: 3rem;
   line-height: 0.5;
   transition: background-color 180ms ease, color 180ms ease, transform 180ms ease;
+  z-index: 4;
 }
 
 .adventure-section__control:hover,
@@ -186,25 +224,28 @@
   .adventure-section {
     padding: 4rem 1rem;
   }
-
   .adventure-section__carousel {
     gap: 0.5rem;
   }
-
   .adventure-section__cards {
-    min-height: 25rem;
+    min-height: 28rem;
   }
-
   .adventure-card {
-    display: none;
-    width: 100%;
+    width: 90%;
   }
-
-  .adventure-card.is-active.is-visible {
-    display: block;
+  .adventure-card--prev {
+    transform: translateX(-105%) scale(0.9);
+    opacity: 0;
+    pointer-events: none;
+  }
+  .adventure-card--next {
+    transform: translateX(105%) scale(0.9);
+    opacity: 0;
+    pointer-events: none;
+  }
+  .adventure-card--active {
     transform: none;
   }
-
   .adventure-section__control {
     width: 2.5rem;
     height: 2.5rem;

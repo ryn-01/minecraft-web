@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './communityGallery.css'
 
 type GalleryItem = {
@@ -18,6 +18,19 @@ const galleryItems: GalleryItem[] = [
 
 export default function CommunityGallery() {
   const [selectedItem, setSelectedItem] = useState<GalleryItem | null>(null)
+
+  // Prevent background scrolling when the modal is open
+  useEffect(() => {
+    if (selectedItem) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'unset'
+    }
+
+    return () => {
+      document.body.style.overflow = 'unset'
+    }
+  }, [selectedItem])
 
   return (
     <section className="community-gallery" id="gallery" aria-labelledby="gallery-title">

@@ -1,41 +1,54 @@
 import { useState } from 'react'
-import type { CSSProperties } from 'react'
 import './adventureSection.css'
 
 type Adventure = {
+  eyebrow: string
   title: string
+  tags: string[]
   description: string
   artwork: 'snow' | 'jungle' | 'redstone' | 'caves' | 'sky' | 'ocean'
 }
 
 const adventures: Adventure[] = [
   {
+    eyebrow: 'Winter Arena',
     title: 'Snow Battle',
+    tags: ['PVP', 'Minigame', 'Fast-Paced'],
     description: 'Team up in a frozen arena, dodge incoming snowballs, and claim victory before the ice melts.',
     artwork: 'snow',
   },
   {
+    eyebrow: 'Jungle Ruins',
     title: 'Death Run',
+    tags: ['Parkour', 'Traps', 'Race'],
     description: 'Race through ancient ruins, trigger traps, and reach the finish before the course catches you.',
     artwork: 'jungle',
   },
   {
+    eyebrow: 'Logic Circuits',
     title: 'Redstone Battle',
-    description: 'Use clever machines, pressure plates, and switches to outsmart your opponents.',
+    tags: ['Puzzle', 'Mechanics', 'Strategy'],
+    description: 'Use clever machines, pressure plates, and automated switches to outsmart your opponents.',
     artwork: 'redstone',
   },
   {
+    eyebrow: 'Deep Darkness',
     title: 'Cave Rush',
+    tags: ['Survival', 'Loot', 'PvE'],
     description: 'Descend into the deep dark, find hidden treasure, and escape before the caves collapse.',
     artwork: 'caves',
   },
   {
+    eyebrow: 'High Altitude',
     title: 'Sky Islands',
+    tags: ['Exploration', 'Void', 'Creative'],
     description: 'Build above the clouds, connect floating islands, and discover a new view of the world.',
     artwork: 'sky',
   },
   {
+    eyebrow: 'Sunken Ruins',
     title: 'Ocean Quest',
+    tags: ['Adventure', 'Aquatic', 'Mystery'],
     description: 'Dive beneath the waves, explore coral reefs, and uncover ruins lost below the sea.',
     artwork: 'ocean',
   },
@@ -46,6 +59,14 @@ export default function AdventureSection() {
 
   const moveAdventure = (direction: -1 | 1) => {
     setActiveAdventure((current) => (current + direction + adventures.length) % adventures.length)
+  }
+
+  const getPositionClass = (index: number) => {
+    const distance = (index - activeAdventure + adventures.length) % adventures.length
+    if (distance === 0) return 'adventure-card--active'
+    if (distance === 1) return 'adventure-card--next'
+    if (distance === adventures.length - 1) return 'adventure-card--prev'
+    return 'adventure-card--hidden'
   }
 
   return (
@@ -65,25 +86,29 @@ export default function AdventureSection() {
         </button>
         <div className="adventure-section__cards" aria-live="polite">
           {adventures.map((adventure, index) => {
-            const distance = (index - activeAdventure + adventures.length) % adventures.length
-            const isActive = index === activeAdventure
-            const isVisible = distance === 0 || distance === 1 || distance === adventures.length - 1
+            const positionClass = getPositionClass(index)
 
             return (
               <article
-                className={`adventure-card${isVisible ? ' is-visible' : ''}${isActive ? ' is-active' : ''}`}
+                className={`adventure-card ${positionClass}`}
                 key={adventure.title}
-                style={{ '--card-order': distance === adventures.length - 1 ? -1 : distance } as CSSProperties}
               >
                 <button
                   className="adventure-card__button"
                   type="button"
                   aria-label={`Select ${adventure.title}`}
                   onClick={() => setActiveAdventure(index)}
+                  tabIndex={positionClass === 'adventure-card--hidden' ? -1 : 0}
                 >
                   <span className={`adventure-card__artwork adventure-card__artwork--${adventure.artwork}`} aria-hidden="true" />
                   <span className="adventure-card__content">
+                    <span className="adventure-card__eyebrow">{adventure.eyebrow}</span>
                     <span className="adventure-card__title">{adventure.title}</span>
+                    <span className="adventure-card__tags" aria-label={`${adventure.title} tags`}>
+                      {adventure.tags.map((tag) => (
+                        <span className="adventure-tag" key={tag}>{tag}</span>
+                      ))}
+                    </span>
                     <span className="adventure-card__description">{adventure.description}</span>
                     <span className="adventure-card__link">Learn more <span aria-hidden="true">↗</span></span>
                   </span>

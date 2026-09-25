@@ -4,7 +4,6 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import './communitySection.css'
 
-// Impor gambar webp untuk masing-masing mode (sesuaikan path foldernya dengan project Anda)
 import onlineImg from '../assets/images/online.webp'
 import realmsImg from '../assets/images/realms.webp'
 import coopImg from '../assets/images/coop.webp'
@@ -12,7 +11,9 @@ import coopImg from '../assets/images/coop.webp'
 gsap.registerPlugin(ScrollTrigger)
 
 type CommunityMode = {
+  eyebrow: string
   title: string
+  tags: string[]
   description: string
   action: string
   color: 'green' | 'purple' | 'blue'
@@ -22,7 +23,9 @@ type CommunityMode = {
 
 const modes: CommunityMode[] = [
   {
-    title: 'Online',
+    eyebrow: 'Global Multiplayer',
+    title: 'Online Servers',
+    tags: ['Minigames', 'Economy', 'Massive Worlds'],
     description:
       'Connect with players from anywhere, explore a living server, trade resources, join events, and build massive creations together in real time.',
     action: '100+ Players',
@@ -31,7 +34,9 @@ const modes: CommunityMode[] = [
     align: 'left',
   },
   {
+    eyebrow: 'Always-On Hosting',
     title: 'Realms',
+    tags: ['Private', 'Cloud-Hosted', 'Friends Only'],
     description:
       'Create a peaceful space with friends, manage your own world, build freely, and enjoy a more personal Minecraft experience away from crowded servers.',
     action: 'Up to 10 Players',
@@ -40,9 +45,11 @@ const modes: CommunityMode[] = [
     align: 'right',
   },
   {
-    title: 'Co-op',
+    eyebrow: 'Local Adventures',
+    title: 'Co-op Play',
+    tags: ['LAN', 'Splitscreen', 'Teamwork'],
     description:
-      'Team up to survive dangerous nights, defeat bosses, gather rare resources, and complete ambitious projects that are impossible to build alone.',
+      'Team up to survive dangerous nights, defeat bosses, gather rare resources, and complete ambitious projects that are impossible to tackle alone.',
     action: 'Private',
     color: 'blue',
     artwork: coopImg,
@@ -139,12 +146,11 @@ export default function CommunitySection() {
     { scope: sectionRef, dependencies: [modeCount] },
   )
 
-  // Subtle mouse-tilt on each mode's artwork, independent of the scroll timeline
-  // (rotateX/rotateY only — scale and opacity stay in CSS so nothing fights over
-  // the same transform).
   useEffect(() => {
     const section = sectionRef.current
-    if (!section) {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+    if (!section || reduceMotion) {
       return
     }
     const artworks = Array.from(section.querySelectorAll<HTMLElement>('.community-mode__artwork'))
@@ -191,7 +197,6 @@ export default function CommunitySection() {
     [modeCount],
   )
 
-  // Arrow-key navigation, only while the pinned track is actively engaged.
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       const st = scrollTriggerRef.current
@@ -244,11 +249,17 @@ export default function CommunitySection() {
                 />
                 <span className="community-mode__scrim" aria-hidden="true" />
                 <span className="community-mode__content">
+                  <span className="community-mode__eyebrow">{mode.eyebrow}</span>
                   <span className="community-mode__title">
-                    {mode.title} <span aria-hidden="true">◉</span>
+                    {mode.title}
+                  </span>
+                  <span className="community-mode__tags" aria-label={`${mode.title} features`}>
+                    {mode.tags.map((tag) => (
+                      <span className="community-tag" key={tag}>{tag}</span>
+                    ))}
                   </span>
                   <span className="community-mode__description">{mode.description}</span>
-                  <span className="community-mode__action">{mode.action}</span>
+                  <span className="community-mode__action">{mode.action} <span aria-hidden="true">↗</span></span>
                 </span>
               </button>
               <span className="sr-only" id={`community-panel-${index}`} role="tabpanel">

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import FooterSection from '../sections/FooterSection'
+import FooterSection from '../components/FooterSection'
 import './downloadPage.css'
 
 type Platform = {
