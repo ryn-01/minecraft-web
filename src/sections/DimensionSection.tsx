@@ -2,11 +2,6 @@ import { useEffect, useState } from 'react'
 import endPortalImage from '../assets/images/endPortal.webp'
 import netherImage from '../assets/images/nether.webp'
 import overworldImage from '../assets/images/steve.webp'
-// Looping environment clips shown when a card is expanded.
-// Adjust these paths if your actual filenames differ.
-import overworldVideo from '../assets/video/hero_bg_video.webm'
-import netherVideo from '../assets/video/hero_bg_video.webm'
-import endVideo from '../assets/video/hero_bg_video.webm'
 import './dimensionSection.css'
 
 type Dimension = {
@@ -28,7 +23,7 @@ const dimensions: Dimension[] = [
     color: 'green',
     imageSrc: overworldImage,
     imageAlt: 'Steve exploring the Overworld',
-    videoSrc: overworldVideo,
+    videoSrc: '/videos/dimensions/overworld.webm',
   },
   {
     name: 'Nether',
@@ -38,7 +33,7 @@ const dimensions: Dimension[] = [
     color: 'red',
     imageSrc: netherImage,
     imageAlt: 'The Nether dimension',
-    videoSrc: netherVideo,
+    videoSrc: '/videos/dimensions/nether.webm',
   },
   {
     name: 'The End',
@@ -48,7 +43,7 @@ const dimensions: Dimension[] = [
     color: 'olive',
     imageSrc: endPortalImage,
     imageAlt: 'An End portal leading to The End',
-    videoSrc: endVideo,
+    videoSrc: '/videos/dimensions/end.webm',
   },
 ]
 

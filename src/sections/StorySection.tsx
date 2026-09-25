@@ -3,11 +3,6 @@ import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import './storySection.css'
 
-import chopping from '../assets/video/chopping.webm'
-import building from '../assets/video/building.webm'
-import crafting from '../assets/video/crafting.webm'
-import warden from '../assets/video/warden.webm'
-
 export type StoryStep = {
   title: string
   description: string
@@ -51,7 +46,7 @@ export default function StorySection({
   intro = 'Every Minecraft adventure follows a rhythm: gather what you need, craft what you cannot find, and build a world worth defending.',
   featureTitle = 'Gather resources',
   featureDescription = 'Punch your first tree, collect stone, and turn the world around you into everything you need to begin. Every great build starts with a handful of resources.',
-  mediaSrc = chopping,
+  mediaSrc = '/videos/about/chopping.webm',
   mediaAlt = 'Story section media',
   mediaType,
   steps,
@@ -69,21 +64,21 @@ export default function StorySection({
       title: 'Craft your tools',
       description:
         'Turn wood and stone into your first pickaxe, axe, and sword. Better tools unlock faster gathering and safer adventures.',
-      mediaSrc: crafting,
+      mediaSrc: '/videos/about/crafting.webm',
       mediaType: 'video',
     },
     {
       title: 'Build a shelter',
       description:
         'Before night falls, place a bed, light your surroundings, and build a safe home to protect your progress.',
-      mediaSrc: building,
+      mediaSrc: '/videos/about/building.webm',
       mediaType: 'video',
     },
     {
       title: 'Face the unknown',
       description:
         'Prepare your best gear, enter the Nether, and keep pushing forward until you are ready for the End.',
-      mediaSrc: warden,
+      mediaSrc: '/videos/about/warden.webm',
       mediaType: 'video',
     },
   ]

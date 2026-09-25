@@ -1,5 +1,4 @@
 import { useEffect, useRef } from 'react'
-import hero_bg_video from '../assets/video/hero_bg_video.webm'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import './homeSection.css'
@@ -15,7 +14,7 @@ type HomeSectionProps = {
 export default function HomeSection({
   title = 'Minecraft',
   description = 'Build, explore, and create your own adventure.',
-  videoSource = hero_bg_video ,
+  videoSource = '/videos/home/hero_bg_video.webm' ,
   downloadHref = '#download',
   trailerHref = '#trailer',
 }: HomeSectionProps) {

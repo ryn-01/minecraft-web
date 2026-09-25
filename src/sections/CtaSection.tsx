@@ -1,4 +1,4 @@
-import chickenVid from '../assets/video/chicken.webm'
+
 import './ctaSection.css'
 
 type CtaSectionProps = {
@@ -13,7 +13,7 @@ function isVideoSource(source: string) {
 }
 
 export default function CtaSection({
-  mediaSrc = chickenVid,
+  mediaSrc = 'videos/footer/chicken.webm',
   mediaAlt = 'A Minecraft chicken ready for adventure',
   mediaType,
   actionHref = '#home',
