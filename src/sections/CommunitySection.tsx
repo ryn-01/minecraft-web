@@ -4,6 +4,11 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import './communitySection.css'
 
+// Impor gambar webp untuk masing-masing mode (sesuaikan path foldernya dengan project Anda)
+import onlineImg from '../assets/images/online.webp'
+import realmsImg from '../assets/images/realms.webp'
+import coopImg from '../assets/images/coop.webp'
+
 gsap.registerPlugin(ScrollTrigger)
 
 type CommunityMode = {
@@ -21,7 +26,7 @@ const modes: CommunityMode[] = [
     description: 'Connect with players from anywhere, explore a living server, trade resources, join events, and build massive creations together in real time.',
     action: '100+ Players',
     color: 'green',
-    artwork: 'overworld',
+    artwork: onlineImg, // Menggunakan variabel impor webp
     align: 'left',
   },
   {
@@ -29,7 +34,7 @@ const modes: CommunityMode[] = [
     description: 'Create a peaceful space with friends, manage your own world, build freely, and enjoy a more personal Minecraft experience away from crowded servers.',
     action: 'Up to 10 Players',
     color: 'purple',
-    artwork: 'nether',
+    artwork: realmsImg, // Menggunakan variabel impor webp
     align: 'right',
   },
   {
@@ -37,7 +42,7 @@ const modes: CommunityMode[] = [
     description: 'Team up to survive dangerous nights, defeat bosses, gather rare resources, and complete ambitious projects that are impossible to build alone.',
     action: 'Private',
     color: 'blue',
-    artwork: 'end',
+    artwork: coopImg, // Menggunakan variabel impor webp
     align: 'left',
   },
 ]
@@ -122,7 +127,12 @@ export default function CommunitySection() {
                 aria-controls={`community-panel-${index}`}
                 onClick={() => setActiveMode(index)}
               >
-                <span className={`community-mode__artwork community-mode__artwork--${mode.artwork}`} aria-hidden="true" />
+                {/* Menerapkan background image secara dinamis menggunakan inline style */}
+                <span 
+                  className="community-mode__artwork" 
+                  style={{ backgroundImage: `url(${mode.artwork})` }} 
+                  aria-hidden="true" 
+                />
                 <span className="community-mode__content">
                   <span className="community-mode__title">{mode.title} <span aria-hidden="true">◉</span></span>
                   <span className="community-mode__description">{mode.description}</span>

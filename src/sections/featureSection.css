@@ -127,3 +127,13 @@
     height: min(48vh, 22rem);
   }
 }
+
+.feature-section__artwork img,
+.feature-section__artwork video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  /* Ubah dari contain ke cover agar gambar memenuhi seluruh container */
+  object-fit: cover; 
+  object-position: center; /* Memastikan fokus gambar tetap di tengah */
+}

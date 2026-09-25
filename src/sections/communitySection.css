@@ -121,9 +121,10 @@
 }
 
 .community-mode__title {
-  font-family: "Minecrafter", monospace;
+  font-family: "Minecraft", monospace;
   font-size: 1.4rem;
   text-transform: uppercase;
+  color: #000;
 }
 
 .community-mode__description {
@@ -131,6 +132,8 @@
   margin-top: 0.75rem;
   font-size: 1rem;
   line-height: 1.55;
+  color: #000;
+
 }
 
 .community-mode__action {
@@ -138,8 +141,8 @@
   background: #fff;
   padding: 0.3rem 1rem;
   color: #111;
-  font-family: "Minecrafter", monospace;
-  font-size: 0.7rem;
+  font-family: "Minecraft", monospace;
+  font-size: 0.8rem;
   text-transform: uppercase;
 }
 

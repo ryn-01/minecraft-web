@@ -4,6 +4,12 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import './featureSection.css'
 
+// Contoh impor gambar webp untuk setiap mode (sesuaikan path foldernya dengan project Anda)
+import survivalImg from '../assets/images/survival.webp'
+import creativeImg from '../assets/images/creative.webp'
+import hardcoreImg from '../assets/images/hardcore.webp'
+import adventureImg from '../assets/images/adventure.webp'
+
 gsap.registerPlugin(ScrollTrigger)
 
 export type Feature = {
@@ -20,21 +26,29 @@ const features: Feature[] = [
     title: 'Survival',
     description: 'Build, survive, and conquer across the Overworld, Nether, and End.',
     artworkPosition: 'right',
+    artworkSrc: survivalImg,
+    artworkType: 'image',
   },
   {
     title: 'Creative',
     description: 'Build without limits and bring every idea to life.',
     artworkPosition: 'left',
+    artworkSrc: creativeImg,
+    artworkType: 'image',
   },
   {
     title: 'Hardcore',
     description: 'Test your skill and make every decision count.',
     artworkPosition: 'right',
+    artworkSrc: hardcoreImg,
+    artworkType: 'image',
   },
   {
     title: 'Adventure',
     description: 'Discover new worlds, gather resources, and write your own story.',
     artworkPosition: 'left',
+    artworkSrc: adventureImg,
+    artworkType: 'image',
   },
 ]
 
