@@ -18,14 +18,15 @@
   align-content: center;
   justify-items: center;
   padding: 2rem 1.25rem;
-  background: var(--color-surface-dark);
+  background: linear-gradient(180deg, var(--color-surface-dark) 60%, transparent 100%);
   text-align: center;
+  pointer-events: none;
 }
 
 .feature-section__header h2,
 .feature-section__panel h3 {
   margin: 0;
-  font-family: "Minecrafter", monospace;
+  font-family: var(--font-display);
   font-weight: 400;
   line-height: 1;
   text-transform: uppercase;
@@ -41,7 +42,6 @@
   font-size: 1.05rem;
 }
 
-/* Fills as the user scrolls through the pinned panels */
 .feature-section__progress-bar {
   position: absolute;
   right: 0;
@@ -58,7 +58,7 @@
   height: 100%;
   transform: scaleX(0);
   transform-origin: left;
-  background: var(--color-primary, #9bd48e);
+  background: var(--color-primary);
   will-change: transform;
 }
 
@@ -77,7 +77,7 @@
   min-height: calc(100svh - 10rem);
   align-items: center;
   justify-content: space-evenly;
-  gap: 2rem;
+  gap: 4rem;
   padding: 2rem 8vw;
   background: var(--color-surface-dark);
   border-bottom: 0.75rem solid var(--color-surface-dark);
@@ -90,31 +90,85 @@
 }
 
 .feature-section__copy {
-  width: min(42%, 24rem);
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: min(45%, 28rem);
+  text-align: left;
+}
+
+.feature-section__eyebrow {
+  margin: 0 0 0.85rem;
+  color: var(--color-primary);
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .feature-section__panel h3 {
-  font-size: clamp(2rem, 5vw, 3rem);
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+}
+
+.feature-section__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 1.25rem;
+}
+
+.feature-tag {
+  padding: 0.35rem 0.65rem;
+  border: 1px solid rgb(255 255 255 / 20%);
+  border-radius: var(--radius-sm);
+  background: rgb(0 0 0 / 25%);
+  color: rgb(255 255 255 / 75%);
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
 .feature-section__copy p {
   margin: 1.5rem 0 0;
   color: rgb(255 255 255 / 78%);
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   line-height: 1.65;
+}
+
+.feature-section__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 2rem;
+  color: var(--color-primary);
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  transition: transform 180ms ease, color 180ms ease;
+}
+
+.feature-section__link span {
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+}
+
+.feature-section__link:hover,
+.feature-section__link:focus-visible {
+  color: #fff;
+  transform: translateX(4px);
 }
 
 .feature-section__artwork {
   display: flex;
-  width: min(48vw, 34rem);
-  height: min(62vh, 34rem);
+  width: min(48vw, 38rem);
+  height: min(62vh, 38rem);
   align-items: center;
   justify-content: center;
   border-radius: var(--radius-md);
-  background: #686765;
+  background: rgb(255 255 255 / 3%);
   overflow: hidden;
-  box-shadow: 0 20px 60px rgb(0 0 0 / 45%), 0 0 0 2px rgb(255 255 255 / 8%);
+  box-shadow: 0 20px 60px rgb(0 0 0 / 45%), 0 0 0 1px rgb(255 255 255 / 12%);
   transform-style: preserve-3d;
   will-change: transform;
 }
@@ -128,7 +182,6 @@
   object-position: center;
 }
 
-/* Clickable slide indicator, mirrors the story section's progress dots */
 .feature-section__nav {
   position: absolute;
   z-index: 2;
@@ -158,35 +211,36 @@
 }
 
 .feature-section__nav button.is-active {
-  background: var(--color-primary, #9bd48e);
-  border-color: var(--color-primary, #9bd48e);
+  background: var(--color-primary);
+  border-color: var(--color-primary);
 }
 
-@media (max-width: 767px) {
+@media (max-width: 900px) {
   .feature-section__header {
     min-height: 8rem;
   }
-
   .feature-section__track {
     padding-top: 8rem;
   }
-
   .feature-section__panel {
     inset: 8rem 0 0;
     min-height: calc(100svh - 8rem);
     flex-direction: column;
     justify-content: center;
+    gap: 2rem;
   }
-
   .feature-section__copy {
-    width: min(85%, 24rem);
+    width: min(90%, 30rem);
+    align-items: center;
+    text-align: center;
   }
-
+  .feature-section__tags {
+    justify-content: center;
+  }
   .feature-section__artwork {
     width: min(88vw, 34rem);
     height: min(48vh, 22rem);
   }
-
   .feature-section__nav {
     top: auto;
     right: auto;

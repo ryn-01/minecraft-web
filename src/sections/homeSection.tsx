@@ -4,6 +4,7 @@ import gsap from 'gsap'
 import './homeSection.css'
 
 type HomeSectionProps = {
+  eyebrow?: string
   title?: string
   description?: string
   videoSource?: string
@@ -12,6 +13,7 @@ type HomeSectionProps = {
 }
 
 export default function HomeSection({
+  eyebrow = 'Welcome to',
   title = 'Minecraft',
   description = 'Build, explore, and create your own adventure.',
   videoSource = '/videos/home/hero_bg_video.webm' ,
@@ -76,6 +78,7 @@ export default function HomeSection({
         className="home-section__content"
         aria-labelledby="home-title"
       >
+        <p className="home-section__eyebrow">{eyebrow}</p>
         <h1
           className="home-section__title"
           id="home-title"

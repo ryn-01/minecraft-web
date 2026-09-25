@@ -4,7 +4,6 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import './featureSection.css'
 
-// Contoh impor gambar webp untuk setiap mode (sesuaikan path foldernya dengan project Anda)
 import survivalImg from '../assets/images/survival.webp'
 import creativeImg from '../assets/images/creative.webp'
 import hardcoreImg from '../assets/images/hardcore.webp'
@@ -13,7 +12,9 @@ import adventureImg from '../assets/images/adventure.webp'
 gsap.registerPlugin(ScrollTrigger)
 
 export type Feature = {
+  eyebrow: string
   title: string
+  tags: string[]
   description: string
   artworkPosition: 'left' | 'right'
   artworkSrc?: string
@@ -23,29 +24,37 @@ export type Feature = {
 
 const features: Feature[] = [
   {
+    eyebrow: 'The Classic Experience',
     title: 'Survival',
-    description: 'Build, survive, and conquer across the Overworld, Nether, and End.',
+    tags: ['Gather', 'Craft', 'Conquer'],
+    description: 'Start with nothing but your bare hands. Punch trees, mine stone, and craft your way from a dirt hut to an impenetrable fortress while defending against the creatures of the night.',
     artworkPosition: 'right',
     artworkSrc: survivalImg,
     artworkType: 'image',
   },
   {
+    eyebrow: 'Infinite Resources',
     title: 'Creative',
-    description: 'Build without limits and bring every idea to life.',
+    tags: ['God-Mode', 'Flight', 'Unlimited Blocks'],
+    description: 'Your imagination is the only limit. Access every block in the game instantly, take to the skies with boundless flight, and construct colossal cities or intricate redstone machines in peace.',
     artworkPosition: 'left',
     artworkSrc: creativeImg,
     artworkType: 'image',
   },
   {
+    eyebrow: 'One Life Only',
     title: 'Hardcore',
-    description: 'Test your skill and make every decision count.',
+    tags: ['Permadeath', 'Locked Difficulty'],
+    description: 'The ultimate test of your Minecraft mastery. The difficulty is permanently locked to Hard, and if you fall, your world is gone forever. Make every single decision count.',
     artworkPosition: 'right',
     artworkSrc: hardcoreImg,
     artworkType: 'image',
   },
   {
+    eyebrow: 'Custom Journeys',
     title: 'Adventure',
-    description: 'Discover new worlds, gather resources, and write your own story.',
+    tags: ['Story-Driven', 'Custom Maps', 'Puzzles'],
+    description: 'Experience player-made quests, intricate puzzles, and narrative-driven maps. Blocks can only be broken with the right tools, putting the focus entirely on the story and exploration.',
     artworkPosition: 'left',
     artworkSrc: adventureImg,
     artworkType: 'image',
@@ -118,10 +127,11 @@ export default function FeatureSection({ items = features }: FeatureSectionProps
     { scope: sectionRef, dependencies: [panelCount] },
   )
 
-  // Mouse-tilt on each artwork panel for a more tactile, immersive feel.
   useEffect(() => {
     const section = sectionRef.current
-    if (!section) {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+    if (!section || reduceMotion) {
       return
     }
     const artworks = Array.from(section.querySelectorAll<HTMLElement>('.feature-section__artwork'))
@@ -173,7 +183,6 @@ export default function FeatureSection({ items = features }: FeatureSectionProps
     window.scrollTo({ top: target, behavior: 'smooth' })
   }, [panelCount])
 
-  // Arrow-key navigation, only while the pinned track is actively engaged.
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       const st = scrollTriggerRef.current
@@ -196,8 +205,8 @@ export default function FeatureSection({ items = features }: FeatureSectionProps
   return (
     <section ref={sectionRef} className="feature-section" id="feature" aria-labelledby="feature-title">
       <div className="feature-section__header">
-        <h2 id="feature-title">Features</h2>
-        <p>Build, survive, and conquer across the Overworld, Nether, and End.</p>
+        <h2 id="feature-title">Game Modes</h2>
+        <p>Choose how you want to conquer the Overworld.</p>
         <div className="feature-section__progress-bar" aria-hidden="true">
           <span ref={progressFillRef} />
         </div>
@@ -210,8 +219,17 @@ export default function FeatureSection({ items = features }: FeatureSectionProps
             aria-hidden={index !== activeIndex}
           >
             <div className="feature-section__copy">
+              <p className="feature-section__eyebrow">{feature.eyebrow}</p>
               <h3>{feature.title}</h3>
+              <div className="feature-section__tags" aria-label="Game mode features">
+                {feature.tags.map((tag) => (
+                  <span className="feature-tag" key={tag}>{tag}</span>
+                ))}
+              </div>
               <p>{feature.description}</p>
+              <a className="feature-section__link" href={`#${feature.title.toLowerCase()}`}>
+                Explore mode <span aria-hidden="true">↗</span>
+              </a>
             </div>
             <div className="feature-section__artwork" aria-label={`${feature.title} feature artwork`}>
               {feature.artworkSrc && (feature.artworkType === 'video' || isVideoSource(feature.artworkSrc)) ? (

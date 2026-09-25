@@ -7,9 +7,8 @@
   flex-direction: column;
   align-items: center;
   padding: 1.5rem 1.25rem 4rem;
-  background: #f4f7f2;
+  background: var(--color-surface); 
 }
-
 .home-section__video,
 .home-section__overlay {
   position: absolute;
@@ -22,7 +21,16 @@
 
 .home-section__overlay {
   z-index: -1;
-  background: linear-gradient(180deg, rgb(244 247 242 / 10%), rgb(255 255 255 / 100%));
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, var(--color-surface) 100%);
+}
+
+.home-section__eyebrow {
+  margin: 0 0 .7rem;
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: 1rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
 }
 
 .home-section__content {
@@ -49,12 +57,11 @@
 .home-section__description {
   max-width: 35rem;
   margin: 1.4rem auto 0;
-  color: var(--color-ink);
-  font-weight: bold;
+  color: var(--color-ink); 
+  font-weight: 600;
   font-size: 1.1rem;
   line-height: 1.65;
 }
-
 .home-section__actions {
   display: flex;
   flex-wrap: wrap;
