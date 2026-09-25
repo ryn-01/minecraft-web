@@ -57,6 +57,7 @@ export default function StorySection({
   const pausedRef = useRef(false)
   const timerRef = useRef<number | null>(null)
   const touchStartXRef = useRef<number | null>(null)
+  const [isInView, setIsInView] = useState(false)
 
   const defaultSteps: StoryStep[] = [
     { title: featureTitle, description: featureDescription },
@@ -145,6 +146,7 @@ export default function StorySection({
       const observer = new IntersectionObserver(
         ([entry]) => {
           inViewRef.current = entry.isIntersecting
+          setIsInView(entry.isIntersecting)
           if (entry.isIntersecting) {
             gsap
               .timeline({ defaults: { ease: 'power3.out' } })
@@ -239,27 +241,27 @@ export default function StorySection({
       onBlur={handlePointerLeave}
     >
       <div className="story-section__ambient" aria-hidden="true">
-        {resolvedSteps.map((media, index) =>
-          media.src && media.type === 'video' ? (
-            <video
-              key={`${media.src}-${index}`}
-              className={`story-section__ambient-layer${index === activeStep ? ' is-active' : ''}`}
-              autoPlay
-              muted
-              loop
-              playsInline
-            >
-              <source src={media.src} type="video/webm" />
-            </video>
-          ) : media.src ? (
-            <img
-              key={`${media.src}-${index}`}
-              className={`story-section__ambient-layer${index === activeStep ? ' is-active' : ''}`}
-              src={media.src}
-              alt=""
-            />
-          ) : null,
-        )}
+        {isInView && activeMedia.src && activeMedia.type === 'video' ? (
+          <video
+            key={`ambient-${activeMedia.src}`}
+            className="story-section__ambient-layer is-active"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+          >
+            <source src={activeMedia.src} type="video/webm" />
+          </video>
+        ) : isInView && activeMedia.src ? (
+          <img
+            key={`ambient-${activeMedia.src}`}
+            className="story-section__ambient-layer is-active"
+            src={activeMedia.src}
+            alt=""
+            loading="lazy"
+          />
+        ) : null}
       </div>
       <div className="story-section__scrim" aria-hidden="true" />
       <div className="story-section__pixel-corner" aria-hidden="true">
@@ -309,8 +311,8 @@ export default function StorySection({
             </div>
           </article>
           <div className="story-section__media">
-            {activeMedia.src && activeMedia.type === 'video' ? (
-              <video key={activeMedia.src} autoPlay muted loop playsInline aria-label={activeMedia.alt}>
+            {isInView && activeMedia.src && activeMedia.type === 'video' ? (
+              <video key={`feature-${activeMedia.src}`} autoPlay muted loop playsInline preload="metadata" aria-label={activeMedia.alt}>
                 <source src={activeMedia.src} type="video/webm" />
               </video>
             ) : activeMedia.src ? (

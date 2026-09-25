@@ -15,7 +15,7 @@
   color: #fff;
 }
 
-/* Full-bleed blurred video layers, one per step, crossfaded */
+/* One active ambient layer keeps the story immersive without decoding every step. */
 .story-section__ambient {
   position: absolute;
   inset: 0;
@@ -29,10 +29,10 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: blur(50px) saturate(1.25) brightness(0.55);
-  transform: scale(1.2);
+  filter: blur(24px) saturate(1.15) brightness(0.55);
+  transform: scale(1.08);
   opacity: 0;
-  transition: opacity 1200ms ease;
+  transition: opacity 650ms ease;
   will-change: opacity;
 }
 
