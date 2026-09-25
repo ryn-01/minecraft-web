@@ -15,7 +15,7 @@ export default function HomeSection({
   title = 'Minecraft',
   description = 'Build, explore, and create your own adventure.',
   videoSource = '/videos/home/hero_bg_video.webm' ,
-  downloadHref = '#download',
+  downloadHref = '/download',
   trailerHref = '#trailer',
 }: HomeSectionProps) {
   const sectionRef = useRef<HTMLElement>(null)

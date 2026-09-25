@@ -112,5 +112,6 @@ h4 {
     top: 0.75rem;
     margin-bottom: -4.25rem;
     padding-inline: 0.75rem;
+    justify-content: flex-end;
   }
 }

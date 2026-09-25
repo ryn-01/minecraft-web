@@ -16,12 +16,12 @@ export default function CtaSection({
   mediaSrc = 'videos/footer/chicken.webm',
   mediaAlt = 'A Minecraft chicken ready for adventure',
   mediaType,
-  actionHref = '#home',
+  actionHref = '/download',
 }: CtaSectionProps) {
   const resolvedMediaType = mediaType ?? (isVideoSource(mediaSrc) ? 'video' : 'image')
 
   return (
-    <section className="cta-section" id="download" aria-labelledby="cta-title">
+    <section className="cta-section" id="cta" aria-labelledby="cta-title">
       <div className="cta-section__content">
         <div className="cta-section__copy">
           <p className="cta-section__eyebrow">Your next adventure starts here</p>
@@ -30,7 +30,7 @@ export default function CtaSection({
             Join our Minecraft world today and begin your journey through endless exploration, creative building, and unforgettable adventures with friends.
           </p>
           <a className="cta-section__button" href={actionHref}>
-            Play now
+            Download now
           </a>
         </div>
         <div className="cta-section__media" aria-label={resolvedMediaType === 'image' ? mediaAlt : undefined}>
