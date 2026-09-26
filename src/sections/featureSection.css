@@ -247,6 +247,8 @@
   background: var(--color-primary);
   border-color: var(--color-primary);
 }
+
+
 /* --- Mobile Responsive Rules --- */
 @media (max-width: 900px) {
   .feature-section {
@@ -340,6 +342,10 @@
     height: clamp(8rem, 28svh, 16rem);
   }
 
+  .feature-section__nav {
+    display: none;
+  }
+
   /* Moves Navigation & Hint to bottom on mobile */
   .feature-section__nav {
     top: auto;
@@ -351,10 +357,7 @@
   }
 
   .feature-section__scroll-hint {
-    bottom: calc(0.85rem + env(safe-area-inset-bottom, 0px));
-    left: 1.25rem;
-    flex-direction: row;
-    font-size: 0.65rem;
+    display: none;
   }
 }
 
