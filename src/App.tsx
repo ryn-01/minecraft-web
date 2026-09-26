@@ -4,6 +4,7 @@ import HomePage from './pages/HomePage'
 import AboutPage from './pages/AboutPage'
 import FeaturePage from './pages/FeaturePage'
 import CommunityPage from './pages/CommunityPage'
+import CreditsPage from './pages/CreditsPage'
 
 import GalleryDetail from './pages/GalleryDetail';
 export default function App() {
@@ -15,8 +16,7 @@ export default function App() {
         <Route path="/feature" element={<FeaturePage />} />
         <Route path="/community" element={<CommunityPage/>}/>
         <Route path="/download" element={<DownloadPage />} />
-        
-        {/* Halaman detail dinamis berdasarkan slug judul (maps, mods, dll) */}
+        <Route path='/credit' element={<CreditsPage/>}/> 
         <Route path="/gallery/:categorySlug" element={<GalleryDetail />} />
       </Routes>
     </BrowserRouter>

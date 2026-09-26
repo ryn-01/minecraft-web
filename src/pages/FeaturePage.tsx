@@ -141,7 +141,7 @@ const featureCategories: FeatureCategory[] = [
         badge: 'Ecosystem & Trade',
         description:
           'Tame wolves as loyal companions, breed horses for speed and jump stats, farm cattle for leather, and trade emeralds with specialized Villager blacksmiths and librarians.',
-        mediaSrc: '/videos/about/chopping.webm',
+        mediaSrc: '/videos/feature/mobs.webm',
         highlights: [
           'Animal Breeding & Genetic Inheritance Traits',
           'Villager Workplace & Levelled Trading Mechanics',
@@ -154,7 +154,7 @@ const featureCategories: FeatureCategory[] = [
         badge: 'Nocturnal Threats',
         description:
           'When light levels drop, dangerous creatures spawn. Dodge explosive Creeper blasts, block Skeleton arrows with shields, fend off swarming Zombies, and dodge Phantom attacks.',
-        mediaSrc: '/videos/about/warden.webm',
+        mediaSrc: '/videos/feature/attack.webm',
         highlights: [
           'Light-Level Dependent Spawning Rules (Light < 1)',
           'Pathfinding Navigation & Target Acquisition AI',
@@ -239,7 +239,7 @@ const featureCategories: FeatureCategory[] = [
         badge: 'Analog Power Transmission',
         description:
           'Redstone dust acts as electrical wiring within the voxel grid. Power travels up to 15 blocks from torches, levers, and pressure plates to activate doors, lamps, and dispensers.',
-        mediaSrc: '/videos/about/chopping.webm',
+        mediaSrc: '/videos/feature/piston.webm',
         highlights: [
           '15-Level Signal Attenuation & Power Decay',
           'Power Sources: Levers, Buttons, Torches, Target Blocks',
@@ -252,7 +252,7 @@ const featureCategories: FeatureCategory[] = [
         badge: 'Digital Logic Components',
         description:
           'Repeaters boost signal strength and introduce tick delays. Comparators measure inventory container capacities or compute signal subtraction, enabling AND, OR, XOR, and NAND gates.',
-        mediaSrc: '/videos/about/crafting.webm',
+        mediaSrc: '/videos/feature/hopper.webm',
         highlights: [
           'Precision Sub-Tick Delay Configuration (1–4 ticks)',
           'Container Fullness Detection via Comparators',
@@ -265,7 +265,7 @@ const featureCategories: FeatureCategory[] = [
         badge: 'Mechanical Automation',
         description:
           'Combine sticky pistons, slime blocks, and hoppers to construct fully self-harvesting sugarcane farms, automatic item sorters, hidden bookshelf staircases, and infinite flying machines.',
-        mediaSrc: '/videos/about/building.webm',
+        mediaSrc: '/videos/feature/fly.webm',
         highlights: [
           'Sticky Piston Block Pushing & Pulling Mechanics',
           'Item Sorting Networks via Hopper Filters',
@@ -288,7 +288,7 @@ const featureCategories: FeatureCategory[] = [
         badge: 'Material Tiers',
         description:
           'Process raw ores in blast furnaces to progress through Wood, Stone, Iron, Diamond, and fireproof Netherite gear. Higher tiers dramatically increase mining speed, weapon damage, and durability.',
-        mediaSrc: '/videos/about/crafting.webm',
+        mediaSrc: '/videos/feature/crafitng.webm',
         highlights: [
           '3x3 Crafting Recipe Matrix (1,000+ Combinations)',
           'Furnace Smelting & Blast Furnace Smelting Rates',
@@ -301,7 +301,7 @@ const featureCategories: FeatureCategory[] = [
         badge: 'Magic & Stat Buffs',
         description:
           'Surround an enchanting table with bookshelves to infuse gear with magical attributes. Combine enchanted books on anvils to stack Sharpness, Protection, Fortune, and Silk Touch.',
-        mediaSrc: '/videos/about/building.webm',
+        mediaSrc: '/videos/feature/enchant.webm',
         highlights: [
           'Lapis Lazuli & XP Level Cost Requirements',
           'Treasure Enchants: Mending, Frost Walker, Soul Speed',
@@ -314,7 +314,7 @@ const featureCategories: FeatureCategory[] = [
         badge: 'Chemical Consumables',
         description:
           'Burn Blaze Powder in brewing stands to boil Nether Wart into potion bases. Distill Glowstone, Redstone, or Fermented Spider Eyes to craft Potions of Healing, Swiftness, and Invisibility.',
-        mediaSrc: '/videos/about/warden.webm',
+        mediaSrc: '/videos/feature/Potion.webm',
         highlights: [
           'Potion Modifiers: Extended Duration vs Tier II Strength',
           'Splash & Lingering Area-of-Effect Throwables',

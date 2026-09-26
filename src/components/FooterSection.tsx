@@ -9,10 +9,10 @@ const navigationLinks = [
 ]
 
 const projectCredits = [
-  { label: 'Gameplay Recording', href: '#media' },
-  { label: 'AI Concept Art', href: '#media' },
-  { label: 'Custom Animations', href: '#features' },
-  { label: 'Fan-made Fonts', href: '#credits' },
+  { label: 'Gameplay Recording', href: '/credit' },
+  { label: 'AI Concept Art', href: '/credit' },
+  { label: 'Custom Animations', href: '/credit' },
+  { label: 'Fan-made Fonts', href: '/credit' },
 ]
 
 const socialLinks = [
