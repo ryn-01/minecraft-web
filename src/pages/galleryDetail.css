@@ -1,0 +1,105 @@
+.gallery-detail-page {
+  min-height: 100vh;
+  background: var(--color-surface-muted, #121212);
+  color: #fff;
+  padding: 2rem 1.5rem;
+}
+
+.gallery-detail__back-btn {
+  background: transparent;
+  border: 1px solid var(--color-primary, #65a839);
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-sm, 4px);
+  cursor: pointer;
+  margin-bottom: 2rem;
+  transition: background 200ms ease;
+}
+
+.gallery-detail__back-btn:hover {
+  background: var(--color-primary, #65a839);
+}
+
+.gallery-detail__hero {
+  position: relative;
+  height: 25rem;
+  border-radius: var(--radius-md, 8px);
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 3rem;
+}
+
+.gallery-detail__hero-overlay {
+  width: 100%;
+  padding: 2rem;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.85));
+}
+
+.gallery-detail__hero-overlay h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  margin: 0 0 0.5rem;
+  text-transform: uppercase;
+}
+
+.gallery-detail__hero-overlay p {
+  font-size: 1.1rem;
+  color: #ddd;
+  max-width: 800px;
+  margin: 0;
+}
+
+.gallery-detail__content h2 {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  color: #000;
+  padding-bottom: 0.5rem;
+}
+
+.gallery-detail__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.gallery-card {
+  background: var(--color-surface-dark, #1e1e1e);
+  border-radius: var(--radius-md, 8px);
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: transform 300ms ease;
+}
+
+.gallery-card:hover {
+  transform: translateY(-5px);
+}
+
+.gallery-card__img {
+  height: 14rem;
+  background-size: cover;
+  background-position: center;
+}
+
+.gallery-card__info {
+  padding: 1.25rem;
+}
+
+.gallery-card__info h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.2rem;
+}
+
+.gallery-card__info span {
+  font-size: 0.9rem;
+  color: var(--color-muted, #aaa);
+}
+
+.gallery-detail__empty {
+  color: var(--color-muted, #aaa);
+  font-style: italic;
+}

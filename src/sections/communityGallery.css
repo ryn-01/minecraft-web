@@ -34,8 +34,8 @@
 
 .community-gallery__item {
   position: relative;
-  min-height: 12rem;
-  overflow: hidden;
+  min-height: 14rem;
+  overflow: hidden; /* Kunci agar gambar yang zoom tidak keluar dari batas card */
   border: 0;
   padding: 0;
   background: var(--color-surface-dark);
@@ -54,46 +54,19 @@
   display: block;
   width: 100%;
   height: 100%;
-  min-height: 12rem;
+  position: absolute;
+  inset: 0;
   background-position: center;
   background-size: cover;
-  transition: transform 300ms ease, filter 300ms ease;
+  /* Efek transisi halus saat zoom dan filter */
+  transition: transform 400ms ease, filter 400ms ease;
 }
 
+/* Efek Zoom-in pada background image saat card di-hover */
 .community-gallery__item:hover .community-gallery__artwork,
 .community-gallery__item:focus-visible .community-gallery__artwork {
   filter: brightness(1.15);
-  transform: scale(1.08);
-}
-
-.community-gallery__artwork--village {
-  background-color: #75cbd0;
-  background-image: linear-gradient(180deg, #a9eef1 0 45%, #65a839 45% 70%, #76513a 70%);
-}
-
-.community-gallery__artwork--castle {
-  background-color: #7497c2;
-  background-image: linear-gradient(135deg, #dbe7ec 0 35%, transparent 35% 50%, #7b6a83 50% 72%, transparent 72%);
-}
-
-.community-gallery__artwork--nether {
-  background-color: #572a36;
-  background-image: linear-gradient(135deg, #f26d2f 0 12%, transparent 12% 40%, #283b43 40% 65%, transparent 65%);
-}
-
-.community-gallery__artwork--ocean {
-  background-color: #226e9a;
-  background-image: radial-gradient(circle at 35% 35%, #d7e5a0 0 12%, transparent 13%), linear-gradient(180deg, #55b2cf, #183c6b);
-}
-
-.community-gallery__artwork--forest {
-  background-color: #316b37;
-  background-image: linear-gradient(135deg, #8db746 0 20%, transparent 20% 50%, #1e4a2f 50% 75%, transparent 75%);
-}
-
-.community-gallery__artwork--build {
-  background-color: #9b6e4f;
-  background-image: linear-gradient(135deg, #d7be8c 0 30%, transparent 30% 48%, #60463c 48% 68%, transparent 68%);
+  transform: scale(1.1); /* Zoom in sebesar 10% tanpa mengubah ukuran card */
 }
 
 .community-gallery__caption {
@@ -101,6 +74,7 @@
   right: 0;
   bottom: 0;
   left: 0;
+  z-index: 2;
   display: flex;
   flex-direction: column;
   padding: 1rem;
@@ -116,72 +90,6 @@
 
 .community-gallery__caption small {
   margin-top: 0.35rem;
-}
-
-.community-gallery__dialog {
-  position: fixed;
-  z-index: 20;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  padding: 1rem;
-}
-
-.community-gallery__backdrop {
-  position: absolute;
-  inset: 0;
-  border: 0;
-  background: rgb(0 0 0 / 85%);
-  cursor: pointer;
-  backdrop-filter: blur(4px);
-}
-
-.community-gallery__preview {
-  position: relative;
-  z-index: 1;
-  width: min(100%, 36rem);
-  padding: 1.5rem;
-  border-radius: var(--radius-md);
-  background: var(--color-surface);
-  box-shadow: 0 20px 40px rgb(0 0 0 / 40%);
-}
-
-.community-gallery__preview .community-gallery__artwork {
-  min-height: 22rem;
-  border-radius: var(--radius-sm);
-}
-
-.community-gallery__preview h3 {
-  margin: 1.5rem 0 0;
-  font-family: var(--font-display);
-  font-size: 1.5rem;
-  font-weight: 400;
-  text-transform: uppercase;
-}
-
-.community-gallery__preview p {
-  margin: 0.5rem 0 1.5rem;
-  color: var(--color-muted);
-}
-
-.community-gallery__preview > button {
-  border: 0;
-  padding: 0.65rem 1.25rem;
-  border-radius: var(--radius-sm);
-  background: var(--color-primary);
-  color: #fff;
-  cursor: pointer;
-  font-family: var(--font-display);
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  transition: filter 180ms ease, transform 180ms ease;
-  box-shadow: var(--shadow-pixel);
-}
-
-.community-gallery__preview > button:hover,
-.community-gallery__preview > button:focus-visible {
-  filter: brightness(1.08);
-  transform: translateY(-2px);
 }
 
 @media (max-width: 767px) {
