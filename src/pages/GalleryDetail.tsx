@@ -148,7 +148,7 @@ export default function GalleryDetail() {
             type="button" 
             onClick={handleBackToGallery}
           >
-            <span aria-hidden="true">&larr;</span> Back to Gallery
+          Back to Gallery
           </button>
 
           {/* Hero Banner */}

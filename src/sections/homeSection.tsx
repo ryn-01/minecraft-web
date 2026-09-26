@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useState, useRef } from 'react'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import './homeSection.css'
@@ -9,32 +9,56 @@ type HomeSectionProps = {
   description?: string
   videoSource?: string
   downloadHref?: string
-  trailerHref?: string
 }
 
 export default function HomeSection({
   eyebrow = 'Welcome to',
   title = 'Minecraft',
   description = 'Build, explore, and create your own adventure.',
-  videoSource = '/videos/home/hero_bg_video.webm' ,
+  videoSource = '/videos/home/hero_bg_video.webm',
   downloadHref = '/download',
-  trailerHref = '#trailer',
 }: HomeSectionProps) {
   const sectionRef = useRef<HTMLElement>(null)
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   useGSAP(
     () => {
-      const intro = gsap.timeline({ defaults: { ease: 'power3.out' } })
+      const intro = gsap.timeline({
+        defaults: {
+          ease: 'power3.out',
+        },
+      })
 
       intro
-        .from('.home-section__eyebrow', { y: 16, autoAlpha: 0, duration: 0.45 }, '-=0.2')
-        .from('.home-section__title', { y: 42, autoAlpha: 0, duration: 0.8 }, '-=0.2')
-        .from('.home-section__description', { y: 20, autoAlpha: 0, duration: 0.5 }, '-=0.35')
-        .from('.home-section__actions', { y: 18, autoAlpha: 0, duration: 0.5 }, '-=0.25')
-
+        .from('.home-section__eyebrow', {
+          y: 16,
+          autoAlpha: 0,
+          duration: 0.45,
+        }, '-=0.2')
+        .from('.home-section__title', {
+          y: 42,
+          autoAlpha: 0,
+          duration: 0.8,
+        }, '-=0.2')
+        .from('.home-section__description', {
+          y: 20,
+          autoAlpha: 0,
+          duration: 0.5,
+        }, '-=0.35')
+        .from('.home-section__actions', {
+          y: 18,
+          autoAlpha: 0,
+          duration: 0.5,
+        }, '-=0.25')
     },
-    { scope: sectionRef },
+    {
+      scope: sectionRef,
+    },
   )
+
+  const closeModal = () => {
+    setIsModalOpen(false)
+  }
 
   return (
     <main
@@ -42,7 +66,8 @@ export default function HomeSection({
       className="home-section"
       id="home"
     >
-      {videoSource ? (
+      {/* Background Video */}
+      {videoSource && (
         <video
           className="home-section__video"
           autoPlay
@@ -51,42 +76,107 @@ export default function HomeSection({
           playsInline
           aria-hidden="true"
         >
-          <source src={videoSource} />
+          <source
+            src={videoSource}
+            type="video/webm"
+          />
         </video>
-      ) : null}
+      )}
+
+      {/* Overlay */}
       <div
         className="home-section__overlay"
         aria-hidden="true"
       />
+
+      {/* Hero Content */}
       <section
         className="home-section__content"
         aria-labelledby="home-title"
       >
-        <p className="home-section__eyebrow">{eyebrow}</p>
+        <p className="home-section__eyebrow">
+          {eyebrow}
+        </p>
+
         <h1
           className="home-section__title"
           id="home-title"
         >
           {title}
         </h1>
+
         <p className="home-section__description">
           {description}
         </p>
+
         <div className="home-section__actions">
+          {/* Download */}
           <a
             className="button button--primary"
             href={downloadHref}
           >
             Download
           </a>
-          <a
+
+          {/* Trailer */}
+          <button
             className="button button--secondary"
-            href={trailerHref}
+            type="button"
+            onClick={() => setIsModalOpen(true)}
           >
             Trailer
-          </a>
+          </button>
         </div>
       </section>
+
+      {/* YouTube Trailer Modal */}
+      {isModalOpen && (
+        <div
+          className="home-modal"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="trailer-title"
+        >
+          {/* Modal Backdrop */}
+          <div
+            className="home-modal__backdrop"
+            onClick={closeModal}
+            aria-hidden="true"
+          />
+
+          {/* Modal Content */}
+          <div className="home-modal__content">
+            {/* Close Button */}
+            <button
+              className="home-modal__close"
+              type="button"
+              aria-label="Close trailer"
+              onClick={closeModal}
+            >
+              ×
+            </button>
+
+            {/* Accessible Title */}
+            <h2
+              id="trailer-title"
+              className="sr-only"
+            >
+              Minecraft Official Trailer
+            </h2>
+
+            {/* YouTube Video */}
+            <div className="home-modal__video-wrapper">
+              <iframe
+                src="https://www.youtube.com/embed/MmB9b5njVbA?autoplay=1"
+                title="Minecraft Official Trailer"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </main>
   )
 }

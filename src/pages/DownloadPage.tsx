@@ -6,6 +6,7 @@ import windowsIcon from "../assets/images/icons/icons8-windows-96.webp";
 import FooterSection from "../components/FooterSection";
 import "./downloadPage.css";
 import Navbar from "../components/navbar";
+import icon8checkmark96 from "../assets/images/icons/icons8-checkmark-96.webp";
 
 type Platform = {
   name: string;
@@ -173,13 +174,31 @@ export default function DownloadPage() {
             </p>
             <ul className="compatibility__list">
               <li>
-                <span aria-hidden="true">✓</span> Cross-platform multiplayer
+                <span>
+                  <img
+                    className="subitem-card__check"
+                    src={icon8checkmark96}
+                  ></img>
+                </span>{" "}
+                Cross-platform multiplayer
               </li>
               <li>
-                <span aria-hidden="true">✓</span> Microsoft account support
+                <span>
+                  <img
+                    className="subitem-card__check"
+                    src={icon8checkmark96}
+                  ></img>
+                </span>{" "}
+                Microsoft account support
               </li>
               <li>
-                <span aria-hidden="true">✓</span> Controller and keyboard ready
+                <span>
+                  <img
+                    className="subitem-card__check"
+                    src={icon8checkmark96}
+                  ></img>
+                </span>{" "}
+                Controller and keyboard ready
               </li>
             </ul>
           </section>

@@ -8,6 +8,8 @@ import Navbar from '../components/navbar'
 import FooterSection from '../components/FooterSection'
 import './featurePage.css'
 
+import icon8checkmark96 from '../assets/images/icons/icons8-checkmark-96.webp'
+
 gsap.registerPlugin(ScrollTrigger)
 
 type SubItem = {
@@ -566,7 +568,8 @@ export default function FeaturePage() {
                   <ul className="subitem-card__list">
                     {currentSubItem.highlights.map((item, i) => (
                       <li key={i}>
-                        <span className="subitem-card__check" aria-hidden="true">✓</span>
+
+                        <img className='subitem-card__check' src={icon8checkmark96}></img>
                         {item}
                       </li>
                     ))}

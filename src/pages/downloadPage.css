@@ -121,6 +121,17 @@
 .download-card--linux .download-card__icon {
   background: #d58a3c;
 }
+.subitem-card__check {
+  display: grid;
+  width: 1.2rem;
+  height: 1.2rem;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: bold;
+}
 .download-card h3 {
   margin: 1.15rem 0 0.3rem;
   font-size: 1.35rem;
