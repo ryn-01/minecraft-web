@@ -95,21 +95,22 @@ export default function FeatureSection({ items = features }: FeatureSectionProps
         ease: 'none',
         scrollTrigger: {
           trigger: section,
-          start: 'top top', 
+          start: 'top top',
           pin: true,
-          scrub: 1.2, // Smooth lerp delay
+          scrub: 0.3,
           snap: {
             snapTo: 1 / (panels.length - 1),
-            duration: { min: 0.3, max: 0.8 },
-            delay: 0.1, // Waits 100ms after scrolling stops to magnetically snap
-            ease: 'power2.inOut',
+            duration: { min: 0.55, max: 1.1 },
+            delay: 0.08,
+            ease: 'power2.out',
           },
           invalidateOnRefresh: true,
           end: () => {
             const isMobile = window.matchMedia('(max-width: 767px)').matches
+            const sectionHeight = section.offsetHeight
             const distancePerPanel = isMobile
-              ? Math.min(window.innerHeight * 0.65, 460)
-              : window.innerHeight
+              ? Math.min(sectionHeight * 0.65, 460)
+              : sectionHeight
             return `+=${(panels.length - 1) * distancePerPanel}`
           },
           onUpdate: (self) => {
