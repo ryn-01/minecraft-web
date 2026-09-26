@@ -1,26 +1,4 @@
-import microsoftLogo from '../assets/images/microsoft_logo.png'
-import mojangLogo from '../assets/images/monjang_logo.png'
 import './footerSection.css'
-
-const footerGroups = [
-  {
-    title: 'Support',
-    links: [
-      { label: 'Tips for beginners', href: '/feature' },
-      { label: 'Help', href: '/community' },
-      { label: 'Feedback', href: '/community' },
-      { label: 'Download', href: '/download' },
-      { label: 'Contact us', href: '/community' },
-    ],
-  },
-  {
-    title: 'Account',
-    links: [
-      { label: 'Profile', href: '#home' },
-      { label: 'Redeem', href: '#download' },
-    ],
-  },
-]
 
 const navigationLinks = [
   { label: 'Home', href: '/' },
@@ -30,44 +8,42 @@ const navigationLinks = [
   { label: 'Download', href: '/download' },
 ]
 
+const projectCredits = [
+  { label: 'Gameplay Recording', href: '#media' },
+  { label: 'AI Concept Art', href: '#media' },
+  { label: 'Custom Animations', href: '#features' },
+  { label: 'Fan-made Fonts', href: '#credits' },
+]
+
 const socialLinks = [
   { label: 'Youtube', href: '#community' },
   { label: 'Instagram', href: '#community' },
-  { label: 'Facebook', href: '#community' },
-  { label: 'Twitter', href: '#community' },
   { label: 'Discord', href: '#community' },
+  { label: 'GitHub Repo', href: '#community' },
 ]
 
 export default function FooterSection() {
   return (
     <footer className="site-footer">
       <div className="site-footer__main">
+        {/* Brand & Legal Disclaimer Section */}
         <div className="site-footer__brand">
-          <a href="#home" aria-label="Minecraft home">
-            <img className="site-footer__mojang-logo" src={mojangLogo} alt="Mojang Studios" />
-          </a>
-          <p>© 2026 Mojang AB. TM Microsoft Corporation.</p>
-          <div className="site-footer__legal-links">
-            <a href="#community">Minecraft Usage Guidelines</a>
-            <span aria-hidden="true">|</span>
-            <a href="#community">Manage Consent</a>
+          <div className="site-footer__title">
+            MINECRAFT <span>FAN PROJECT</span>
           </div>
+          
+          <p className="site-footer__disclaimer">
+            <strong>NOT AN OFFICIAL MINECRAFT PRODUCT.</strong><br />
+            NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT.
+          </p>
+
+          <p className="site-footer__copyright">
+            © 2026 Designed & Developed for Web Design Competition.
+          </p>
         </div>
 
+        {/* Navigation & Link Groups */}
         <div className="site-footer__links">
-          {footerGroups.map((group) => (
-            <section className="site-footer__link-group" key={group.title} aria-labelledby={`footer-${group.title.toLowerCase()}`}>
-              <h2 id={`footer-${group.title.toLowerCase()}`}>{group.title}</h2>
-              <ul>
-                {group.links.map((link) => (
-                  <li key={link.label}>
-                    <a href={link.href}>{link.label}</a>
-                  </li>
-                ))}
-              </ul>
-            </section>
-          ))}
-
           <section className="site-footer__link-group" aria-labelledby="footer-navigation">
             <h2 id="footer-navigation">Navigation</h2>
             <ul>
@@ -79,8 +55,19 @@ export default function FooterSection() {
             </ul>
           </section>
 
+          <section className="site-footer__link-group" aria-labelledby="footer-credits">
+            <h2 id="footer-credits">Asset Credits</h2>
+            <ul>
+              {projectCredits.map((link) => (
+                <li key={link.label}>
+                  <a href={link.href}>{link.label}</a>
+                </li>
+              ))}
+            </ul>
+          </section>
+
           <section className="site-footer__link-group" aria-labelledby="footer-socials">
-            <h2 id="footer-socials">Socials</h2>
+            <h2 id="footer-socials">Community</h2>
             <ul>
               {socialLinks.map((link) => (
                 <li key={link.label}>
@@ -92,18 +79,13 @@ export default function FooterSection() {
         </div>
       </div>
 
+      {/* Footer Bottom Bar */}
       <div className="site-footer__bottom">
-        <nav className="site-footer__bottom-links" aria-label="Legal navigation">
-          <a href="#community">Privacy and cookies</a>
-          <a href="#community">Consumer health privacy</a>
-          <a href="#community">Terms of use</a>
-          <a href="#community">Trademarks</a>
-          <a href="#community">About our ads</a>
-          <a href="#community">Your privacy choices</a>
-        </nav>
-        <div className="site-footer__microsoft">
-          <span>© 2026 Microsoft</span>
-          <img src={microsoftLogo} alt="Microsoft" />
+        <p className="site-footer__trademark">
+          Minecraft is a registered trademark of Mojang Synergies AB. All game assets belong to their respective owners.
+        </p>
+        <div className="site-footer__competition-tag">
+          Immersive Web Competition 2026
         </div>
       </div>
     </footer>

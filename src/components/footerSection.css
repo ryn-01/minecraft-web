@@ -10,7 +10,7 @@
   gap: 4rem 3rem;
   margin: 0 auto;
   padding: 5rem 1.25rem 4.5rem;
-  grid-template-columns: minmax(19rem, 1fr) minmax(0, 2.75fr);
+  grid-template-columns: minmax(19rem, 1fr) minmax(0, 2.25fr);
 }
 
 .site-footer__brand {
@@ -19,30 +19,37 @@
   align-items: flex-start;
 }
 
-.site-footer__mojang-logo {
+/* Custom Title pengganti Logo Mojang */
+.site-footer__title {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #fff;
+}
+
+.site-footer__title span {
   display: block;
-  width: min(100%, 10rem);
-  height: auto;
-  transition: filter 180ms ease;
+  font-size: 0.8rem;
+  color: var(--color-primary);
+  letter-spacing: 0.15em;
+  margin-top: 0.25rem;
 }
 
-.site-footer__mojang-logo:hover {
-  filter: brightness(1.2);
-}
-
-.site-footer__brand p {
-  margin: 2rem 0 0;
-  color: rgb(255 255 255 / 65%);
-  font-size: 0.85rem;
+/* Disclaimer Styling */
+.site-footer__disclaimer {
+  margin: 1.5rem 0 0;
+  padding: 0.85rem;
+  background: rgb(255 255 255 / 4%);
+  border-left: 3px solid var(--color-primary);
+  color: rgb(255 255 255 / 75%);
+  font-size: 0.75rem;
   line-height: 1.5;
 }
 
-.site-footer__legal-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-top: 0.85rem;
-  color: var(--color-primary);
+.site-footer__copyright {
+  margin: 1rem 0 0;
+  color: rgb(255 255 255 / 50%);
   font-size: 0.8rem;
 }
 
@@ -50,15 +57,10 @@
   transition: color 180ms ease, transform 180ms ease;
 }
 
-.site-footer__legal-links a:hover,
-.site-footer__legal-links a:focus-visible {
-  color: #fff;
-}
-
 .site-footer__links {
   display: grid;
   gap: 2.5rem 2rem;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .site-footer__link-group h2 {
@@ -99,47 +101,22 @@
   align-items: center;
   justify-content: space-between;
   gap: 1.5rem;
-  padding: 1.5rem max(1.25rem, calc((100% - var(--container)) / 2));
+  padding: 1.25rem max(1.25rem, calc((100% - var(--container)) / 2));
   background: rgb(0 0 0 / 25%);
   border-top: 1px solid rgb(255 255 255 / 5%);
 }
 
-.site-footer__bottom-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem 2rem;
-}
-
-.site-footer__bottom-links a,
-.site-footer__microsoft span {
-  color: rgb(255 255 255 / 55%);
+.site-footer__trademark {
+  margin: 0;
+  color: rgb(255 255 255 / 50%);
   font-size: 0.75rem;
 }
 
-.site-footer__bottom-links a:hover,
-.site-footer__bottom-links a:focus-visible {
-  color: #fff;
-}
-
-.site-footer__microsoft {
-  display: flex;
-  flex: 0 0 auto;
-  align-items: center;
-  gap: 1rem;
-}
-
-.site-footer__microsoft img {
-  display: block;
-  width: min(100%, 7.5rem);
-  height: auto;
-  max-height: 2.25rem;
-  object-fit: contain;
-  opacity: 0.65;
-  transition: opacity 180ms ease;
-}
-
-.site-footer__microsoft img:hover {
-  opacity: 1;
+.site-footer__competition-tag {
+  color: var(--color-primary);
+  font-size: 0.75rem;
+  font-weight: 500;
+  white-space: nowrap;
 }
 
 @media (max-width: 900px) {
@@ -149,8 +126,7 @@
     grid-template-columns: 1fr;
   }
   .site-footer__brand {
-    align-items: center;
-    text-align: center;
+    align-items: flex-start;
   }
   .site-footer__links {
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -170,22 +146,5 @@
     align-items: flex-start;
     flex-direction: column;
     padding: 1.5rem;
-  }
-  .site-footer__bottom-links {
-    gap: 0.75rem 1.25rem;
-  }
-  .site-footer__microsoft {
-    width: 100%;
-    margin-top: 0.5rem;
-    justify-content: space-between;
-  }
-}
-
-@media (max-width: 420px) {
-  .site-footer__links {
-    grid-template-columns: 1fr 1fr;
-  }
-  .site-footer__link-group:last-child {
-    grid-column: 1 / -1;
   }
 }
