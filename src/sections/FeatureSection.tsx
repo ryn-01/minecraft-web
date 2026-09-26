@@ -88,73 +88,75 @@ export default function FeatureSection({ items = features }: FeatureSectionProps
         return
       }
 
-      // Hide all panels initially except the first one
-      gsap.set(panels.slice(1), { autoAlpha: 0 })
+      const mm = gsap.matchMedia()
 
-      const timeline = gsap.timeline({
-        ease: 'none',
-        scrollTrigger: {
-          trigger: section,
-          start: 'top top', 
-          pin: true,
-          scrub: 1.2, // Smooth lerp delay
-          snap: {
-            snapTo: 1 / (panels.length - 1),
-            duration: { min: 0.3, max: 0.8 },
-            delay: 0.1, // Waits 100ms after scrolling stops to magnetically snap
-            ease: 'power2.inOut',
-          },
-          invalidateOnRefresh: true,
-          end: () => {
-            const isMobile = window.matchMedia('(max-width: 767px)').matches
-            const distancePerPanel = isMobile
-              ? Math.min(window.innerHeight * 0.65, 460)
-              : window.innerHeight
-            return `+=${(panels.length - 1) * distancePerPanel}`
-          },
-          onUpdate: (self) => {
-            if (progressFillRef.current) {
-              progressFillRef.current.style.transform = `scaleX(${self.progress})`
-            }
-            
-            // Fade out the scroll hint when the user starts scrolling
-            if (scrollHint) {
-              if (self.progress > 0.05) {
-                gsap.to(scrollHint, { autoAlpha: 0, duration: 0.3, overwrite: true })
-              } else {
-                gsap.to(scrollHint, { autoAlpha: 1, duration: 0.3, overwrite: true })
+      // Desktop: Pinned ScrollTrigger animation
+      mm.add('(min-width: 901px)', () => {
+        gsap.set(panels.slice(1), { autoAlpha: 0 })
+
+        const timeline = gsap.timeline({
+          ease: 'none',
+          scrollTrigger: {
+            trigger: section,
+            start: 'top top', 
+            pin: true,
+            scrub: 1.2,
+            snap: {
+              snapTo: 1 / (panels.length - 1),
+              duration: { min: 0.3, max: 0.8 },
+              delay: 0.1,
+              ease: 'power2.inOut',
+            },
+            invalidateOnRefresh: true,
+            end: () => `+=${(panels.length - 1) * window.innerHeight}`,
+            onUpdate: (self) => {
+              if (progressFillRef.current) {
+                progressFillRef.current.style.transform = `scaleX(${self.progress})`
               }
-            }
+              
+              if (scrollHint) {
+                if (self.progress > 0.05) {
+                  gsap.to(scrollHint, { autoAlpha: 0, duration: 0.3, overwrite: true })
+                } else {
+                  gsap.to(scrollHint, { autoAlpha: 1, duration: 0.3, overwrite: true })
+                }
+              }
 
-            const nearest = Math.round(self.progress * (panels.length - 1))
-            if (nearest !== activeIndexRef.current) {
-              activeIndexRef.current = nearest
-              setActiveIndex(nearest)
-            }
+              const nearest = Math.round(self.progress * (panels.length - 1))
+              if (nearest !== activeIndexRef.current) {
+                activeIndexRef.current = nearest
+                setActiveIndex(nearest)
+              }
+            },
           },
-        },
+        })
+
+        scrollTriggerRef.current = timeline.scrollTrigger ?? null
+
+        panels.slice(1).forEach((panel, index) => {
+          const outgoing = panels[index]
+          const incoming = panel
+          const direction = index % 2 === 0 ? 50 : -50
+
+          timeline
+            .to(outgoing, { autoAlpha: 0, scale: 0.96, duration: 1, ease: 'power2.inOut' }, index)
+            .fromTo(
+              incoming,
+              { xPercent: direction, autoAlpha: 0, scale: 1.04 },
+              { xPercent: 0, autoAlpha: 1, scale: 1, duration: 1, ease: 'power2.inOut' },
+              index 
+            )
+        })
       })
 
-      scrollTriggerRef.current = timeline.scrollTrigger ?? null
-
-      // Smooth overlapping crossfade animation for each slide
-      panels.slice(1).forEach((panel, index) => {
-        const outgoing = panels[index]
-        const incoming = panel
-        const direction = index % 2 === 0 ? 50 : -50
-
-        timeline
-          .to(outgoing, { autoAlpha: 0, scale: 0.96, duration: 1, ease: 'power2.inOut' }, index)
-          .fromTo(
-            incoming,
-            { xPercent: direction, autoAlpha: 0, scale: 1.04 },
-            { xPercent: 0, autoAlpha: 1, scale: 1, duration: 1, ease: 'power2.inOut' },
-            index 
-          )
+      // Mobile: Normal vertical scroll flow (no pinning or horizontal scrubbing)
+      mm.add('(max-width: 900px)', () => {
+        gsap.set(panels, { autoAlpha: 1, xPercent: 0, scale: 1 })
+        scrollTriggerRef.current = null
       })
 
       return () => {
-        scrollTriggerRef.current = null
+        mm.revert()
       }
     },
     { scope: sectionRef, dependencies: [panelCount] },
@@ -278,7 +280,6 @@ export default function FeatureSection({ items = features }: FeatureSectionProps
         ))}
       </div>
 
-      {/* Scroll Indicator Hint */}
       <div className="feature-section__scroll-hint" aria-hidden="true">
         <span>Scroll</span>
         <span className="feature-section__scroll-arrow">↓</span>

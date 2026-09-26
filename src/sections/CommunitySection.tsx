@@ -76,85 +76,94 @@ export default function CommunitySection() {
         return
       }
 
-      // Initial card position for slide & rotate effect
-      gsap.set(cards.slice(1), {
-        autoAlpha: 0,
-        xPercent: 110,
-        rotation: 8,
-        transformOrigin: 'center center',
-      })
+      const mm = gsap.matchMedia()
 
-      const timeline = gsap.timeline({
-        ease: 'none',
-        scrollTrigger: {
-          trigger: section,
-          start: 'top top',
-          pin: true,
-          scrub: 1.2,
-          snap: {
-            snapTo: 1 / (cards.length - 1),
-            duration: { min: 0.3, max: 0.8 },
-            delay: 0.1,
-            ease: 'power2.inOut',
-          },
-          invalidateOnRefresh: true,
-          end: () => `+=${cards.length * 100}%`,
-          onUpdate: (self) => {
-            if (progressFillRef.current) {
-              progressFillRef.current.style.transform = `scaleX(${self.progress})`
-            }
+      // Desktop: Pinned ScrollTrigger scrubbing & rotation animation
+      mm.add('(min-width: 768px)', () => {
+        gsap.set(cards.slice(1), {
+          autoAlpha: 0,
+          xPercent: 110,
+          rotation: 8,
+          transformOrigin: 'center center',
+        })
 
-            if (scrollHint) {
-              if (self.progress > 0.35) {
-                gsap.to(scrollHint, { autoAlpha: 0, duration: 0.3, overwrite: true })
-              } else {
-                gsap.to(scrollHint, { autoAlpha: 1, duration: 0.3, overwrite: true })
+        const timeline = gsap.timeline({
+          ease: 'none',
+          scrollTrigger: {
+            trigger: section,
+            start: 'top top',
+            pin: true,
+            scrub: 1.2,
+            snap: {
+              snapTo: 1 / (cards.length - 1),
+              duration: { min: 0.3, max: 0.8 },
+              delay: 0.1,
+              ease: 'power2.inOut',
+            },
+            invalidateOnRefresh: true,
+            end: () => `+=${cards.length * 100}%`,
+            onUpdate: (self) => {
+              if (progressFillRef.current) {
+                progressFillRef.current.style.transform = `scaleX(${self.progress})`
               }
-            }
 
-            const nearest = Math.round(self.progress * (cards.length - 1))
-            if (nearest !== activeIndexRef.current) {
-              activeIndexRef.current = nearest
-              setActiveMode(nearest)
-            }
+              if (scrollHint) {
+                if (self.progress > 0.35) {
+                  gsap.to(scrollHint, { autoAlpha: 0, duration: 0.3, overwrite: true })
+                } else {
+                  gsap.to(scrollHint, { autoAlpha: 1, duration: 0.3, overwrite: true })
+                }
+              }
+
+              const nearest = Math.round(self.progress * (cards.length - 1))
+              if (nearest !== activeIndexRef.current) {
+                activeIndexRef.current = nearest
+                setActiveMode(nearest)
+              }
+            },
           },
-        },
+        })
+
+        scrollTriggerRef.current = timeline.scrollTrigger ?? null
+
+        cards.slice(1).forEach((card, index) => {
+          const outgoingCard = cards[index]
+          const incomingDirection = index % 2 === 0 ? 1 : -1
+
+          timeline
+            .to(
+              outgoingCard,
+              {
+                autoAlpha: 0,
+                xPercent: incomingDirection * -110,
+                rotation: incomingDirection * -8,
+                duration: 0.45,
+                ease: 'power2.in',
+              },
+              index,
+            )
+            .to(
+              card,
+              {
+                autoAlpha: 1,
+                xPercent: 0,
+                rotation: 0,
+                duration: 0.55,
+                ease: 'power2.out',
+              },
+              index + 0.08,
+            )
+        })
       })
 
-      scrollTriggerRef.current = timeline.scrollTrigger ?? null
-
-      // Restored slide & rotate animation logic
-      cards.slice(1).forEach((card, index) => {
-        const outgoingCard = cards[index]
-        const incomingDirection = index % 2 === 0 ? 1 : -1
-
-        timeline
-          .to(
-            outgoingCard,
-            {
-              autoAlpha: 0,
-              xPercent: incomingDirection * -110,
-              rotation: incomingDirection * -8,
-              duration: 0.45,
-              ease: 'power2.in',
-            },
-            index,
-          )
-          .to(
-            card,
-            {
-              autoAlpha: 1,
-              xPercent: 0,
-              rotation: 0,
-              duration: 0.55,
-              ease: 'power2.out',
-            },
-            index + 0.08,
-          )
+      // Mobile: Normal vertical flow (no pinning or horizontal scrubbing)
+      mm.add('(max-width: 767px)', () => {
+        gsap.set(cards, { autoAlpha: 1, xPercent: 0, rotation: 0 })
+        scrollTriggerRef.current = null
       })
 
       return () => {
-        scrollTriggerRef.current = null
+        mm.revert()
       }
     },
     { scope: sectionRef, dependencies: [modeCount] },
@@ -285,7 +294,6 @@ export default function CommunitySection() {
         })}
       </div>
 
-      {/* Scroll Indicator Hint */}
       <div className="community-section__scroll-hint" aria-hidden="true">
         <span>Scroll</span>
         <span className="community-section__scroll-arrow">↓</span>

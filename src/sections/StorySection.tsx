@@ -57,7 +57,6 @@ export default function StorySection({
   const mediaVideoRef = useRef<HTMLVideoElement>(null)
   const pausedRef = useRef(false)
   const timerRef = useRef<number | null>(null)
-  const touchStartXRef = useRef<number | null>(null)
   const [isInView, setIsInView] = useState(false)
   const [hasEnteredView, setHasEnteredView] = useState(false)
 
@@ -197,7 +196,6 @@ export default function StorySection({
       return
     }
 
-    // Removed the vertical bottom-to-up translation (y: 10 -> y: 0), keeping a smooth fade transition
     gsap.fromTo(
       ['.story-section__feature', '.story-section__media'],
       { autoAlpha: 1 },
@@ -230,25 +228,6 @@ export default function StorySection({
     pausedRef.current = false
   }
 
-  const handleTouchStart = (event: React.TouchEvent) => {
-    touchStartXRef.current = event.touches[0]?.clientX ?? null
-  }
-  const handleTouchEnd = (event: React.TouchEvent) => {
-    const startX = touchStartXRef.current
-    const endX = event.changedTouches[0]?.clientX
-    touchStartXRef.current = null
-    if (startX === null || endX === undefined) {
-      return
-    }
-    const delta = endX - startX
-    const SWIPE_THRESHOLD = 40
-    if (delta > SWIPE_THRESHOLD) {
-      moveStep(-1)
-    } else if (delta < -SWIPE_THRESHOLD) {
-      moveStep(1)
-    }
-  }
-
   return (
     <section
       ref={sectionRef}
@@ -271,11 +250,7 @@ export default function StorySection({
           {title}
         </h2>
         <p className="story-section__intro">{intro}</p>
-        <div
-          className="story-section__grid"
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleTouchEnd}
-        >
+        <div className="story-section__grid">
           <article className="story-section__feature">
             <p className="story-section__step">
               Step {String(activeStep + 1).padStart(2, '0')} <span aria-hidden="true">/</span>{' '}
