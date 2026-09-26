@@ -601,6 +601,38 @@
   .feature-specs__grid {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  /* Category picker becomes a horizontal swipeable strip instead of
+     7 stacked full-width buttons eating the top of the screen. */
+  .feature-explorer__tabs {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+    min-width: 0;
+    overflow-x: auto;
+    margin-inline: -1.25rem;
+    padding-inline: 1.25rem;
+    padding-bottom: 0.35rem;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    -webkit-mask-image: linear-gradient(to right, transparent, black 1.25rem, black calc(100% - 1.25rem), transparent);
+    mask-image: linear-gradient(to right, transparent, black 1.25rem, black calc(100% - 1.25rem), transparent);
+  }
+
+  .feature-explorer__tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .feature-explorer__tab {
+    flex: 0 0 auto;
+    padding: 0.65rem 1rem;
+    font-size: 0.72rem;
+    white-space: nowrap;
+  }
+
+  .feature-explorer__tab:hover {
+    transform: none;
+  }
 }
 
 @media (max-width: 767px) {
@@ -618,11 +650,96 @@
   .subitem-card,
   .redstone-widget {
     padding: 1.25rem;
+    min-width: 0;
   }
   .subitem-selector {
-    flex-direction: column;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    min-width: 0;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    -webkit-mask-image: linear-gradient(to right, transparent, black 1rem, black calc(100% - 1rem), transparent);
+    mask-image: linear-gradient(to right, transparent, black 1rem, black calc(100% - 1rem), transparent);
+  }
+  .subitem-selector::-webkit-scrollbar {
+    display: none;
+  }
+  .subitem-pill {
+    flex: 0 0 auto;
   }
   .feature-specs__grid {
     grid-template-columns: 1fr;
+  }
+
+  /* Comparison table: a 5-column table has no room to breathe on a phone,
+     so each row becomes its own card with label/value pairs instead of a
+     horizontally-scrolling table. */
+  .matrix-table-wrapper {
+    overflow-x: visible;
+    border: 0;
+    box-shadow: none;
+    border-radius: 0;
+  }
+
+  .matrix-table,
+  .matrix-table tbody,
+  .matrix-table tr,
+  .matrix-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .matrix-table thead {
+    display: none;
+  }
+
+  .matrix-table tr {
+    margin-bottom: 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .matrix-table tr:last-child {
+    margin-bottom: 0;
+  }
+
+  .matrix-table td {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.85rem 1rem;
+    border-bottom: 1px solid var(--color-border);
+    text-align: right;
+  }
+
+  .matrix-table tr td:last-child {
+    border-bottom: 0;
+  }
+
+  .matrix-table td::before {
+    content: attr(data-label);
+    flex-shrink: 0;
+    color: var(--color-muted);
+    font-family: var(--font-display);
+    font-size: 0.62rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    text-align: left;
+  }
+
+  .matrix-table tr td:first-child {
+    background: var(--color-surface-muted);
+    justify-content: flex-start;
+  }
+
+  .matrix-table tr td:first-child::before {
+    content: none;
+  }
+
+  .matrix-table__mode {
+    font-size: 0.95rem !important;
   }
 }

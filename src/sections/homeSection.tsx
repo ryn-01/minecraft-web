@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
+import MinecraftLogo from '../assets/Minecraft.svg'
 import './homeSection.css'
 
 type HomeSectionProps = {
@@ -102,7 +103,10 @@ export default function HomeSection({
           className="home-section__title"
           id="home-title"
         >
-          {title}
+          <img
+            src={MinecraftLogo}
+            alt={title}
+          />
         </h1>
 
         <p className="home-section__description">
@@ -137,16 +141,13 @@ export default function HomeSection({
           aria-modal="true"
           aria-labelledby="trailer-title"
         >
-          {/* Modal Backdrop */}
           <div
             className="home-modal__backdrop"
             onClick={closeModal}
             aria-hidden="true"
           />
 
-          {/* Modal Content */}
           <div className="home-modal__content">
-            {/* Close Button */}
             <button
               className="home-modal__close"
               type="button"
@@ -156,7 +157,6 @@ export default function HomeSection({
               ×
             </button>
 
-            {/* Accessible Title */}
             <h2
               id="trailer-title"
               className="sr-only"
@@ -164,7 +164,6 @@ export default function HomeSection({
               Minecraft Official Trailer
             </h2>
 
-            {/* YouTube Video */}
             <div className="home-modal__video-wrapper">
               <iframe
                 src="https://www.youtube.com/embed/MmB9b5njVbA?autoplay=1"

@@ -386,6 +386,14 @@ type GameModeParam = {
   permadeath: string
 }
 
+const matrixColumns: { key: keyof GameModeParam; label: string }[] = [
+  { key: 'mode', label: 'Game Mode' },
+  { key: 'healthRegen', label: 'Health & Regen State' },
+  { key: 'flight', label: 'Flight Capabilities' },
+  { key: 'blockBreaking', label: 'Block Interaction' },
+  { key: 'permadeath', label: 'Permadeath Rule' },
+]
+
 const gameModeMatrix: GameModeParam[] = [
   {
     mode: 'Survival',
@@ -668,21 +676,23 @@ export default function FeaturePage() {
               <table className="matrix-table">
                 <thead>
                   <tr>
-                    <th>Game Mode</th>
-                    <th>Health & Regen State</th>
-                    <th>Flight Capabilities</th>
-                    <th>Block Interaction</th>
-                    <th>Permadeath Rule</th>
+                    {matrixColumns.map((col) => (
+                      <th key={col.key}>{col.label}</th>
+                    ))}
                   </tr>
                 </thead>
                 <tbody>
                   {gameModeMatrix.map((row) => (
                     <tr key={row.mode}>
-                      <td className="matrix-table__mode">{row.mode}</td>
-                      <td>{row.healthRegen}</td>
-                      <td>{row.flight}</td>
-                      <td>{row.blockBreaking}</td>
-                      <td>{row.permadeath}</td>
+                      {matrixColumns.map((col) => (
+                        <td
+                          key={col.key}
+                          data-label={col.label}
+                          className={col.key === 'mode' ? 'matrix-table__mode' : undefined}
+                        >
+                          {row[col.key]}
+                        </td>
+                      ))}
                     </tr>
                   ))}
                 </tbody>

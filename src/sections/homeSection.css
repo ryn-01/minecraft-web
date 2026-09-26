@@ -117,6 +117,12 @@
   color: #fff;
 }
 
+.home-section__title img {
+  display: block;
+  width: min(100%, 700px);
+  height: auto;
+}
+
 /* --- Responsive Media Queries --- */
 @media (max-width: 600px) {
   .home-section__actions {
@@ -125,6 +131,10 @@
     max-width: 20rem;
     margin-left: auto;
     margin-right: auto;
+  }
+
+    .home-section__title img {
+    width: 90vw;
   }
 
   .button {
