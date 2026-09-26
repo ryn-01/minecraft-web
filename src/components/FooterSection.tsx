@@ -4,20 +4,13 @@ import './footerSection.css'
 
 const footerGroups = [
   {
-    title: 'Community',
-    links: [
-      { label: 'Creator Learning Center', href: '#community' },
-      { label: 'Mojang Studios', href: '#about' },
-    ],
-  },
-  {
     title: 'Support',
     links: [
-      { label: 'Tips for beginners', href: '#adventures' },
-      { label: 'Help', href: '#community' },
-      { label: 'Feedback', href: '#community' },
-      { label: 'Download', href: '#download' },
-      { label: 'Contact us', href: '#community' },
+      { label: 'Tips for beginners', href: '/feature' },
+      { label: 'Help', href: '/community' },
+      { label: 'Feedback', href: '/community' },
+      { label: 'Download', href: '/download' },
+      { label: 'Contact us', href: '/community' },
     ],
   },
   {
@@ -30,12 +23,11 @@ const footerGroups = [
 ]
 
 const navigationLinks = [
-  { label: 'Home', href: '#home' },
-  { label: 'About', href: '#about' },
-  { label: 'Dimensions', href: '#dimensions' },
-  { label: 'Learn to play', href: '#adventures' },
-  { label: 'News', href: '#gallery' },
-  { label: 'Download', href: '#download' },
+  { label: 'Home', href: '/' },
+  { label: 'About', href: '/about' },
+  { label: 'Feature', href: '/feature' },
+  { label: 'Community', href: '/community' },
+  { label: 'Download', href: '/download' },
 ]
 
 const socialLinks = [

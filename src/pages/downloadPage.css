@@ -108,14 +108,12 @@
   transform: translateY(-0.35rem);
 }
 .download-card__icon {
-  display: grid;
   width: 3.2rem;
   height: 3.2rem;
-  place-items: center;
+  padding: 0.35rem;
+  object-fit: contain;
   border-radius: var(--radius-sm);
   background: var(--color-primary);
-  font-size: 1.7rem;
-  font-weight: 700;
 }
 .download-card--macos .download-card__icon {
   background: #8877d1;
@@ -272,13 +270,18 @@
   transform: translate(-50%, -50%);
   border: 3px solid #d9f6bf;
   background: var(--color-primary);
-  color: #fff;
+  padding: 0;
   box-shadow: var(--shadow-pixel);
   cursor: crosshair;
-  font-size: 1.3rem;
   transition:
     top 0.12s ease,
     left 0.12s ease;
+}
+.download-game__target img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 @media (max-width: 767px) {

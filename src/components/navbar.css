@@ -52,7 +52,7 @@
   color: #fff;
 }
 
-@media (max-width: 420px) {
+@media (max-width: 426px) {
   .site-navbar {
     width: auto;
     border: 0;

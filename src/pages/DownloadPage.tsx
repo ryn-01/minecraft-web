@@ -1,4 +1,8 @@
 import { useState } from "react";
+import creeperImage from "../assets/images/icons/creeper.webp";
+import linuxIcon from "../assets/images/icons/icons8-linux-96.webp";
+import macosIcon from "../assets/images/icons/icons8-macos-96.webp";
+import windowsIcon from "../assets/images/icons/icons8-windows-96.webp";
 import FooterSection from "../components/FooterSection";
 import "./downloadPage.css";
 import Navbar from "../components/navbar";
@@ -7,7 +11,7 @@ type Platform = {
   name: string;
   subtitle: string;
   details: string;
-  icon: string;
+  iconSrc: string;
   className: string;
 };
 
@@ -16,21 +20,21 @@ const platforms: Platform[] = [
     name: "Windows",
     subtitle: "Windows 10 or later",
     details: "Intel Core i3 · 4 GB RAM · 2 GB storage",
-    icon: "▦",
+    iconSrc: windowsIcon,
     className: "windows",
   },
   {
     name: "macOS",
     subtitle: "macOS 12 Monterey or later",
     details: "Apple Silicon or Intel · 4 GB RAM · 2 GB storage",
-    icon: "●",
+    iconSrc: macosIcon,
     className: "macos",
   },
   {
     name: "Linux",
     subtitle: "64-bit Ubuntu 20.04+ or equivalent",
     details: "OpenGL 3.3 · 4 GB RAM · 2 GB storage",
-    icon: "⌁",
+    iconSrc: linuxIcon,
     className: "linux",
   },
 ];
@@ -108,9 +112,12 @@ export default function DownloadPage() {
                   className={`download-card download-card--${platform.className}`}
                   key={platform.name}
                 >
-                  <div className="download-card__icon" aria-hidden="true">
-                    {platform.icon}
-                  </div>
+                  <img
+                    className="download-card__icon"
+                    src={platform.iconSrc}
+                    alt=""
+                    aria-hidden="true"
+                  />
                   <h3>{platform.name}</h3>
                   <p>{platform.subtitle}</p>
                   <small>{platform.details}</small>
@@ -210,7 +217,7 @@ export default function DownloadPage() {
                 onClick={moveTarget}
                 aria-label="Catch the moving block"
               >
-                ◆
+                <img src={creeperImage} alt="" aria-hidden="true" />
               </button>
             </div>
           </section>
