@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import './communityGallery.css'
 
 import mapsIMG from '../assets/images/maps.webp'
@@ -65,9 +65,17 @@ const galleryItems: GalleryItem[] = [
 export default function CommunityGallery() {
   const [activeFilter, setActiveFilter] = useState<'all' | GalleryItem['category']>('all')
   const navigate = useNavigate()
+  const location = useLocation()
 
   const handleCardClick = (item: GalleryItem) => {
-    navigate(item.path)
+    navigate(item.path, {
+      state: {
+        galleryReturn: {
+          pathname: location.pathname,
+          scrollY: window.scrollY,
+        },
+      },
+    })
   }
 
   const visibleItems = activeFilter === 'all'

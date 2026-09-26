@@ -115,7 +115,6 @@
   margin-top: 3rem;
   text-align: left;
   grid-template-columns: minmax(0, 1fr);
-  touch-action: pan-y;
 }
 
 .story-section__step {

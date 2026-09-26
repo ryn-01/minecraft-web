@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, useLocation } from 'react-router-dom'
 import Navbar from '../components/navbar'
 import FooterSection from '../components/FooterSection'
 import './galleryDetail.css'
@@ -82,7 +82,24 @@ const categoryData: Record<string, CategoryDetail> = {
 export default function GalleryDetail() {
   const { categorySlug } = useParams<{ categorySlug: string }>()
   const navigate = useNavigate()
+  const location = useLocation()
   const [selectedArtwork, setSelectedArtwork] = useState<Artwork | null>(null)
+
+  const handleBackToGallery = () => {
+    const state = location.state as {
+      galleryReturn?: { pathname: string; scrollY: number }
+    } | null
+    const returnLocation = state?.galleryReturn
+
+    if (returnLocation) {
+      navigate(returnLocation.pathname, {
+        state: { restoreScrollY: returnLocation.scrollY },
+      })
+      return
+    }
+
+    navigate('/#gallery')
+  }
 
   const currentCategory = (categorySlug && categoryData[categorySlug]) || {
     title: 'Community Gallery',
@@ -129,7 +146,7 @@ export default function GalleryDetail() {
           <button 
             className="gallery-detail__back-btn" 
             type="button" 
-            onClick={(e) => {e.preventDefault();navigate(-1)}}
+            onClick={handleBackToGallery}
           >
             <span aria-hidden="true">&larr;</span> Back to Gallery
           </button>
