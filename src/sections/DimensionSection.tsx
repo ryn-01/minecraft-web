@@ -49,7 +49,6 @@ export default function DimensionSection() {
 
   const isVideoSource = (source: string) => source.endsWith('.webm')
 
-  // Escape collapses the expanded card; left/right switches which one is expanded.
   useEffect(() => {
     if (activeDimension === null) {
       return
@@ -123,12 +122,11 @@ export default function DimensionSection() {
                       </span>
                     </span>
                   </span>
-                ) : isCollapsed ? (
-                  <span className="dimension-card__collapsed">
-                    <span className="dimension-card__collapsed-label">{dimension.name}</span>
-                  </span>
                 ) : (
                   <>
+                    <span className="dimension-card__collapsed" aria-hidden="true">
+                      <span className="dimension-card__collapsed-label">{dimension.name}</span>
+                    </span>
                     <span className="dimension-card__artwork">
                       {isVideoSource(dimension.imageSrc) ? (
                         <video

@@ -183,7 +183,6 @@ export default function StorySection({
     )
   }, [activeStep])
 
-  // Keyboard navigation, only while the section is in view.
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (!inViewRef.current) {

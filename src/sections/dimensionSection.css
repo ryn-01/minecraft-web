@@ -12,7 +12,7 @@
 .dimension-section__header h2 {
   max-width: 56rem;
   margin: 0 auto;
-  font-family: "Minecrafter", monospace;
+  font-family: var(--font-display, "Minecrafter", monospace);
   font-size: clamp(2rem, 5vw, 3rem);
   font-weight: 400;
   line-height: 1.05;
@@ -43,8 +43,7 @@
   border-radius: var(--radius-md);
   background: #303631;
   box-shadow: 0 0.75rem 1.75rem rgb(0 0 0 / 18%);
-  /* Keep layout animation separate from the hover lift. */
-  transition: flex-grow 600ms ease, flex-basis 600ms ease, translate 220ms ease;
+  transition: flex-grow 600ms ease, flex-basis 600ms ease, height 420ms ease, translate 220ms ease;
 }
 
 .dimension-card:hover,
@@ -57,9 +56,39 @@
   flex-basis: 0%;
 }
 
+/* --- Desktop Collapsed View --- */
 .dimension-card.is-collapsed {
   flex-grow: 0;
   flex-basis: 6rem;
+}
+
+.dimension-card.is-collapsed .dimension-card__collapsed {
+  display: flex;
+}
+
+.dimension-card.is-collapsed .dimension-card__artwork,
+.dimension-card.is-collapsed .dimension-card__content {
+  display: none;
+}
+
+.dimension-card__collapsed {
+  display: none;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 0.5rem;
+}
+
+.dimension-card__collapsed-label {
+  color: #fff;
+  font-family: var(--font-display, "Minecrafter", monospace);
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
 }
 
 .dimension-card__button {
@@ -81,7 +110,7 @@
   outline-offset: 5px;
 }
 
-/* Default (unselected) card */
+/* Default card layout */
 .dimension-card__artwork {
   display: block;
   overflow: hidden;
@@ -123,29 +152,8 @@
   background: #777b2d;
 }
 
-/* Collapsed siblings keep their names visible as vertical tabs. */
-.dimension-card__collapsed {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem 0.5rem;
-}
-
-.dimension-card__collapsed-label {
-  color: #fff;
-  font-family: "Minecrafter", monospace;
-  font-size: 1rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  white-space: nowrap;
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-}
-
 .dimension-card__name {
-  font-family: "Minecrafter", monospace;
+  font-family: var(--font-display, "Minecrafter", monospace);
   font-size: 1.5rem;
   text-transform: uppercase;
 }
@@ -160,12 +168,12 @@
 .dimension-card__link {
   margin-top: auto;
   padding-top: 1.5rem;
-  font-family: "Minecrafter", monospace;
+  font-family: var(--font-display, "Minecrafter", monospace);
   font-size: 0.78rem;
   letter-spacing: 0.02em;
 }
 
-/* Expanded: full-bleed looping environment video */
+/* Expanded View */
 .dimension-card__expanded {
   position: relative;
   display: flex;
@@ -213,7 +221,6 @@
     opacity: 0;
     transform: translateY(0.75rem);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
@@ -246,6 +253,7 @@
   white-space: nowrap;
 }
 
+/* --- Mobile Smooth Height Animation Rules --- */
 @media (max-width: 767px) {
   .dimension-section {
     padding: 4rem 1rem 5rem;
@@ -256,10 +264,34 @@
     gap: 1.5rem;
   }
 
+  /* Default card height on mobile */
   .dimension-card {
     flex: 0 0 26rem;
     height: 26rem;
-    transition: flex-basis 420ms ease, height 420ms ease, translate 220ms ease;
+  }
+
+  /* Active expanded card height on mobile (smooth 26rem -> 34rem transition) */
+  .dimension-card.is-active {
+    flex: 0 0 34rem;
+    height: 34rem;
+  }
+
+  /* Keep non-selected siblings at normal size on mobile instead of slim bars */
+  .dimension-card.is-collapsed {
+    flex: 0 0 26rem;
+    height: 26rem;
+  }
+
+  .dimension-card.is-collapsed .dimension-card__collapsed {
+    display: none !important;
+  }
+
+  .dimension-card.is-collapsed .dimension-card__artwork {
+    display: block !important;
+  }
+
+  .dimension-card.is-collapsed .dimension-card__content {
+    display: flex !important;
   }
 
   .dimension-card__artwork {
@@ -269,21 +301,6 @@
   .dimension-card__button {
     height: 100%;
     min-height: 0;
-  }
-
-  .dimension-card.is-active {
-    flex: 0 0 30rem;
-    height: 30rem;
-  }
-
-  .dimension-card.is-collapsed {
-    flex: 0 0 4.5rem;
-    height: 4.5rem;
-  }
-
-  .dimension-card__collapsed-label {
-    writing-mode: horizontal-tb;
-    transform: none;
   }
 
   .dimension-card:hover,

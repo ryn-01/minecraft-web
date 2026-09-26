@@ -5,6 +5,7 @@
   padding: 6rem 1.25rem;
   background: var(--color-surface);
   color: var(--color-ink);
+  box-sizing: border-box;
 }
 
 .community-section__header {
@@ -16,24 +17,28 @@
 }
 
 .community-section__header h2 {
-  margin: 0;
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 5vw, 3rem);
+  margin: 0 auto;
+  font-family: var(--font-display, "Minecrafter", monospace);
+  font-size: clamp(1.8rem, 5vw, 3rem);
   font-weight: 400;
-  line-height: 1;
+  line-height: 1.1;
   text-transform: uppercase;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .community-section__header p {
-  margin: 1.5rem 0 0;
+  margin: 0.75rem auto 0;
   color: var(--color-muted);
-  font-size: 1.05rem;
+  font-size: clamp(0.95rem, 2.5vw, 1.05rem);
+  line-height: 1.5;
+  max-width: 36rem;
 }
 
 .community-section__progress-bar {
   width: min(100%, 20rem);
   height: 3px;
-  margin: 1.5rem auto 0;
+  margin: 1.25rem auto 0;
   background: rgb(0 0 0 / 12%);
   overflow: hidden;
   border-radius: 999px;
@@ -101,9 +106,11 @@
   transition: opacity 220ms ease, scale 500ms ease;
 }
 
-.community-mode:hover .community-mode__artwork,
-.community-mode.is-active .community-mode__artwork {
-  scale: 1.06;
+@media (hover: hover) {
+  .community-mode:hover .community-mode__artwork,
+  .community-mode.is-active .community-mode__artwork {
+    scale: 1.06;
+  }
 }
 
 /* Base background colors for the artwork */
@@ -187,6 +194,7 @@
 .community-mode__action {
   display: inline-flex;
   align-items: center;
+  gap: 0.35rem;
   margin-top: 1.5rem;
   border-radius: var(--radius-sm);
   background: var(--color-primary);
@@ -200,10 +208,12 @@
   transition: transform 180ms ease, filter 180ms ease;
 }
 
-.community-mode:hover .community-mode__action,
-.community-mode.is-active .community-mode__action {
-  filter: brightness(1.08);
-  transform: translateY(-2px);
+@media (hover: hover) {
+  .community-mode:hover .community-mode__action,
+  .community-mode.is-active .community-mode__action {
+    filter: brightness(1.08);
+    transform: translateY(-2px);
+  }
 }
 
 .community-section__nav {
@@ -228,10 +238,12 @@
   transition: background-color 200ms ease, border-color 200ms ease, transform 200ms ease;
 }
 
-.community-section__nav button:hover,
-.community-section__nav button:focus-visible {
-  border-color: rgb(0 0 0 / 55%);
-  transform: scale(1.15);
+@media (hover: hover) {
+  .community-section__nav button:hover,
+  .community-section__nav button:focus-visible {
+    border-color: rgb(0 0 0 / 55%);
+    transform: scale(1.15);
+  }
 }
 
 .community-section__nav button.is-active {
@@ -248,30 +260,88 @@
   white-space: nowrap;
 }
 
+/* --- Mobile Responsive Rules --- */
 @media (max-width: 767px) {
   .community-section {
-    padding: 3rem 1rem;
+    padding: 4.5rem 1rem 2.5rem;
   }
+
+  .community-section__header h2 {
+    font-size: clamp(1.35rem, 5.5vw, 2rem);
+    line-height: 1.1;
+  }
+
+  .community-section__header p {
+    margin-top: 0.35rem;
+    font-size: 0.85rem;
+  }
+
+  .community-section__progress-bar {
+    margin-top: 0.75rem;
+    height: 2px;
+  }
+
+  .community-section__modes {
+    height: calc(100svh - 9.5rem);
+    min-height: 20rem;
+    margin-top: 1rem;
+  }
+
   .community-mode__button {
     min-height: 0;
   }
+
   .community-mode--right .community-mode__content,
   .community-mode__content {
     align-items: flex-start;
     text-align: left;
-    padding: 1.5rem;
+    padding: 1.25rem 1rem 2.5rem;
+    justify-content: flex-end;
   }
-  .community-mode--right .community-mode__tags {
+
+  .community-mode__eyebrow {
+    margin-bottom: 0.25rem;
+    font-size: 0.7rem;
+  }
+
+  .community-mode__title {
+    font-size: clamp(1.5rem, 5.5vw, 2.2rem);
+  }
+
+  .community-mode--right .community-mode__tags,
+  .community-mode__tags {
     justify-content: flex-start;
+    margin-top: 0.5rem;
+    gap: 0.35rem;
   }
+
+  .community-tag {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.6rem;
+  }
+
+  .community-mode__description {
+    margin-top: 0.6rem;
+    font-size: 0.88rem;
+    line-height: 1.45;
+    width: 100%;
+  }
+
+  .community-mode__action {
+    margin-top: 0.75rem;
+    padding: 0.55rem 1rem;
+    font-size: 0.75rem;
+  }
+
   .community-mode--left .community-mode__scrim,
   .community-mode--right .community-mode__scrim {
-    background: linear-gradient(180deg, rgb(0 0 0 / 25%) 0%, rgb(0 0 0 / 85%) 65%);
+    background: linear-gradient(180deg, rgb(0 0 0 / 25%) 0%, rgb(0 0 0 / 88%) 65%);
   }
+
   .community-section__nav {
     top: auto;
     right: auto;
-    bottom: 1rem;
+    bottom: 0.5rem;
     left: 50%;
     flex-direction: row;
     transform: translateX(-50%);

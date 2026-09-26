@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import './adventureSection.css'
 
 import snowBattleIMG from '../assets/images/snowBattle.webp'
@@ -63,9 +64,18 @@ const adventures: Adventure[] = [
 
 export default function AdventureSection() {
   const [activeAdventure, setActiveAdventure] = useState(1)
+  const navigate = useNavigate()
 
   const moveAdventure = (direction: -1 | 1) => {
     setActiveAdventure((current) => (current + direction + adventures.length) % adventures.length)
+  }
+
+  const handleCardClick = (index: number) => {
+    if (index === activeAdventure) {
+      navigate('/community')
+    } else {
+      setActiveAdventure(index)
+    }
   }
 
   const getPositionClass = (index: number) => {
@@ -104,11 +114,14 @@ export default function AdventureSection() {
                   className="adventure-card__button"
                   type="button"
                   aria-label={`Select ${adventure.title}`}
-                  onClick={() => setActiveAdventure(index)}
+                  onClick={() => handleCardClick(index)}
                   tabIndex={positionClass === 'adventure-card--hidden' ? -1 : 0}
                 >
-                  <span className={`adventure-card__artwork adventure-card__artwork--${adventure.artwork}`} aria-hidden="true" 
-                  style={{ backgroundImage: `url(${adventure.artwork})` }}/>
+                  <span
+                    className="adventure-card__artwork"
+                    aria-hidden="true" 
+                    style={{ backgroundImage: `url(${adventure.artwork})` }}
+                  />
                   <span className="adventure-card__content">
                     <span className="adventure-card__eyebrow">{adventure.eyebrow}</span>
                     <span className="adventure-card__title">{adventure.title}</span>
@@ -118,7 +131,9 @@ export default function AdventureSection() {
                       ))}
                     </span>
                     <span className="adventure-card__description">{adventure.description}</span>
-                    <a className="adventure-card__link" href='/community'>Learn more <span aria-hidden="true">↗</span></a>
+                    <span className="adventure-card__link">
+                      Learn more <span aria-hidden="true">↗</span>
+                    </span>
                   </span>
                 </button>
               </article>
