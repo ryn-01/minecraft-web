@@ -32,6 +32,13 @@ const galleryItems: GalleryItem[] = [
     path: '/gallery/mods',
     imageUrl: modsIMG
   },
+    { 
+    title: 'Addon', 
+    category: 'Player showcase', 
+    artwork: 'addon', 
+    path: '/gallery/addon',
+    imageUrl: addonIMG  
+  },
   { 
     title: 'Texture Pack', 
     category: 'Player showcase', 
@@ -39,13 +46,7 @@ const galleryItems: GalleryItem[] = [
     path: '/gallery/texture-pack',
     imageUrl: texture_packIMG
   },
-  { 
-    title: 'Addon', 
-    category: 'Player showcase', 
-    artwork: 'addon', 
-    path: '/gallery/addon',
-    imageUrl: addonIMG  
-  },
+
   { 
     title: 'Redstone Build', 
     category: 'Community build', 
