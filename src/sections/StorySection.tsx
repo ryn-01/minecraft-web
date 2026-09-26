@@ -45,7 +45,7 @@ export default function StorySection({
   title = 'Begin your story',
   intro = 'Every Minecraft adventure follows a rhythm: gather what you need, craft what you cannot find, and build a world worth defending.',
   featureTitle = 'Gather resources',
-  featureDescription = 'Punch your first tree, collect stone, and turn the world around you into everything you need to begin. Every great build starts with a handful of resources.',
+  featureDescription = 'Punch your first tree, collect stone, and turn the world around you into everything you need to begin.',
   mediaSrc = '/videos/about/chopping.webm',
   mediaAlt = 'Story section media',
   mediaType,

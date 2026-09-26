@@ -10,6 +10,8 @@ import coopImg from '../assets/images/coop.webp'
 
 gsap.registerPlugin(ScrollTrigger)
 
+const MOBILE_QUERY = '(max-width: 767px)'
+
 type CommunityMode = {
   eyebrow: string
   title: string
@@ -59,6 +61,7 @@ const modes: CommunityMode[] = [
 
 export default function CommunitySection() {
   const sectionRef = useRef<HTMLElement>(null)
+  const modesRef = useRef<HTMLDivElement>(null)
   const progressFillRef = useRef<HTMLSpanElement>(null)
   const scrollTriggerRef = useRef<ScrollTrigger | null>(null)
   const activeIndexRef = useRef(0)
@@ -78,7 +81,7 @@ export default function CommunitySection() {
 
       const mm = gsap.matchMedia()
 
-      // Desktop: Pinned ScrollTrigger scrubbing & rotation animation
+      // Desktop: Pinned ScrollTrigger scrubbing & rotation animation (unchanged)
       mm.add('(min-width: 768px)', () => {
         gsap.set(cards.slice(1), {
           autoAlpha: 0,
@@ -156,10 +159,29 @@ export default function CommunitySection() {
         })
       })
 
-      // Mobile: Normal vertical flow (no pinning or horizontal scrubbing)
-      mm.add('(max-width: 767px)', () => {
+      // Mobile: native swipeable tab strip — no pinning, no GSAP-driven horizontal
+      // scrub. The track scrolls itself (CSS scroll-snap); we just listen so the
+      // tab bar stays in sync with whichever card the user swiped to.
+      mm.add(MOBILE_QUERY, () => {
         gsap.set(cards, { autoAlpha: 1, xPercent: 0, rotation: 0 })
         scrollTriggerRef.current = null
+
+        const track = modesRef.current
+        if (!track) {
+          return
+        }
+
+        const handleScroll = () => {
+          if (!track.clientWidth) return
+          const nearest = Math.round(track.scrollLeft / track.clientWidth)
+          if (nearest !== activeIndexRef.current) {
+            activeIndexRef.current = nearest
+            setActiveMode(nearest)
+          }
+        }
+
+        track.addEventListener('scroll', handleScroll, { passive: true })
+        return () => track.removeEventListener('scroll', handleScroll)
       })
 
       return () => {
@@ -208,11 +230,22 @@ export default function CommunitySection() {
 
   const goToMode = useCallback(
     (index: number) => {
+      const clamped = Math.max(0, Math.min(modeCount - 1, index))
+      const isMobile = typeof window !== 'undefined' && window.matchMedia(MOBILE_QUERY).matches
+
+      if (isMobile) {
+        const track = modesRef.current
+        if (!track) return
+        track.scrollTo({ left: clamped * track.clientWidth, behavior: 'smooth' })
+        activeIndexRef.current = clamped
+        setActiveMode(clamped)
+        return
+      }
+
       const st = scrollTriggerRef.current
       if (!st) {
         return
       }
-      const clamped = Math.max(0, Math.min(modeCount - 1, index))
       const progress = modeCount > 1 ? clamped / (modeCount - 1) : 0
       const target = st.start + (st.end - st.start) * progress
       window.scrollTo({ top: target, behavior: 'smooth' })
@@ -249,7 +282,23 @@ export default function CommunitySection() {
         </div>
       </header>
 
-      <div className="community-section__modes" role="tablist" aria-label="Community play modes">
+      {/* Mobile-only tab strip; hidden on desktop via CSS, mirrors the dot nav below */}
+      <div className="community-section__tabs" role="tablist" aria-label="Community play modes">
+        {modes.map((mode, index) => (
+          <button
+            key={mode.title}
+            type="button"
+            role="tab"
+            aria-selected={index === activeMode}
+            className={`community-section__tab-btn${index === activeMode ? ' is-active' : ''}`}
+            onClick={() => goToMode(index)}
+          >
+            {mode.title}
+          </button>
+        ))}
+      </div>
+
+      <div className="community-section__modes" ref={modesRef} role="tablist" aria-label="Community play modes">
         {modes.map((mode, index) => {
           const isActive = index === activeMode
 

@@ -65,6 +65,11 @@
   will-change: transform;
 }
 
+/* --- Mobile Tab Bar (hidden on desktop) --- */
+.feature-section__tabs {
+  display: none;
+}
+
 /* --- Slide Track (Fills Remaining Space) --- */
 .feature-section__track {
   position: relative;
@@ -260,42 +265,90 @@
     padding:
       calc(4rem + env(safe-area-inset-top, 0px))
       max(1rem, env(safe-area-inset-left, 0px))
-      1.25rem
+      1rem
       max(1rem, env(safe-area-inset-right, 0px));
   }
 
-  .feature-section__track {
-    height: auto;
-    overflow: visible;
+  /* Tab strip: same pill language as .feature-tag, seamless with the rest of the section */
+  .feature-section__tabs {
+    position: sticky;
+    top: 0;
+    z-index: 15;
     display: flex;
-    flex-direction: column;
-    gap: 3rem;
-    padding-bottom: 3rem;
+    gap: 0.5rem;
+    width: 100%;
+    padding:
+      0.75rem
+      max(1rem, env(safe-area-inset-left, 0px))
+      0.75rem
+      max(1rem, env(safe-area-inset-right, 0px));
+    background: var(--color-surface-dark);
+    border-bottom: 1px solid rgb(255 255 255 / 10%);
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .feature-section__tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .feature-section__tab-btn {
+    flex: 0 0 auto;
+    padding: 0.5rem 0.9rem;
+    border: 1px solid rgb(255 255 255 / 20%);
+    border-radius: var(--radius-sm);
+    background: rgb(255 255 255 / 4%);
+    color: rgb(255 255 255 / 70%);
+    font-family: var(--font-display, "Minecrafter", monospace);
+    font-size: 0.68rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease;
+  }
+
+  .feature-section__tab-btn.is-active {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: #fff;
   }
 
   .feature-section__track {
     height: auto;
-    overflow: visible;
     display: flex;
-    flex-direction: column;
-    gap: 3rem;
-    padding-bottom: 3rem;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .feature-section__track::-webkit-scrollbar {
+    display: none;
   }
 
   .feature-section__panel {
     position: relative !important;
     inset: auto !important;
+    flex: 0 0 100% !important;
+    width: 100%;
     height: auto !important;
     flex-direction: column !important; /* Force stack */
     justify-content: center;
     gap: 1.25rem;
     padding:
-      0.5rem
+      1rem
       max(1.25rem, env(safe-area-inset-left, 0px))
-      calc(3.5rem + env(safe-area-inset-bottom, 0px))
+      calc(3rem + env(safe-area-inset-bottom, 0px))
       max(1.25rem, env(safe-area-inset-right, 0px));
     transform: none !important;
     opacity: 1 !important;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
   }
 
   .feature-section__copy {
@@ -342,18 +395,8 @@
     height: clamp(8rem, 28svh, 16rem);
   }
 
-  .feature-section__nav {
+  .feature-section__nav, .feature-section__progress-bar {
     display: none;
-  }
-
-  /* Moves Navigation & Hint to bottom on mobile */
-  .feature-section__nav {
-    top: auto;
-    right: auto;
-    bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
-    left: 50%;
-    flex-direction: row;
-    transform: translateX(-50%);
   }
 
   .feature-section__scroll-hint {
@@ -364,7 +407,17 @@
 @media (max-height: 600px) and (max-width: 900px) {
   .feature-section__header {
     padding-top: calc(3.25rem + env(safe-area-inset-top, 0px));
-    padding-bottom: 0.65rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .feature-section__tabs {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .feature-section__tab-btn {
+    padding: 0.4rem 0.7rem;
+    font-size: 0.6rem;
   }
 
   .feature-section__panel {
@@ -405,13 +458,5 @@
 
   .feature-section__artwork {
     height: clamp(4.5rem, 17svh, 6.5rem);
-  }
-
-  .feature-section__nav {
-    bottom: calc(0.5rem + env(safe-area-inset-bottom, 0px));
-  }
-
-  .feature-section__scroll-hint {
-    bottom: calc(0.45rem + env(safe-area-inset-bottom, 0px));
   }
 }

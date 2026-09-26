@@ -34,7 +34,7 @@
 .community-section__header p {
   margin: 0.5rem auto 0;
   color: var(--color-muted);
-  font-size: clamp(0.95rem, 2.5vw, 1.05rem);
+  font-size: clamp(0.85rem, 2.5vw, 1.05rem);
   line-height: 1.5;
   max-width: 36rem;
 }
@@ -56,6 +56,11 @@
   transform-origin: left;
   background: var(--color-primary);
   will-change: transform;
+}
+
+/* --- Mobile Tab Bar (hidden on desktop) --- */
+.community-section__tabs {
+  display: none;
 }
 
 /* Flexes to expand and fill the vertical gap completely */
@@ -300,19 +305,23 @@
   .community-section {
     height: auto;
     min-height: 100svh;
-    padding: 4rem 1rem 2rem;
+    padding: 4rem 0 2rem;
     justify-content: flex-start;
   }
 
+  .community-section__header {
+    padding: 0 1rem;
+  }
+
   .community-section__header h2 {
-    font-size: clamp(1.3rem, 5vw, 1.8rem);
+    font-size: clamp(1.6rem, 6vw, 2.4rem);
     line-height: 1.1;
   }
 
   .community-section__header p {
     margin-top: 0.2rem;
-    font-size: 0.78rem;
-    line-height: 1.4;
+    font-size: clamp(0.85rem, 2.5vw, 0.95rem);
+    line-height: 1.5;
   }
 
   /* Hide desktop-only scroll elements and nav dots on mobile */
@@ -322,22 +331,85 @@
     display: none;
   }
 
+  /* Tab strip: same pill language as the Feature section, adapted for this
+     section's light surface / dark ink palette so it reads as one system. */
+  .community-section__tabs {
+    position: sticky;
+    top: 0;
+    z-index: 15;
+    display: flex;
+    gap: 0.5rem;
+    width: 100%;
+    margin-top: 1.25rem;
+    padding:
+      0.75rem
+      max(1rem, env(safe-area-inset-left, 0px))
+      0.75rem
+      max(1rem, env(safe-area-inset-right, 0px));
+    background: var(--color-surface);
+    border-bottom: 1px solid rgb(0 0 0 / 10%);
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .community-section__tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .community-section__tab-btn {
+    flex: 0 0 auto;
+    padding: 0.5rem 0.9rem;
+    border: 1px solid rgb(0 0 0 / 15%);
+    border-radius: var(--radius-sm);
+    background: rgb(0 0 0 / 4%);
+    color: var(--color-muted);
+    font-family: var(--font-display, "Minecrafter", monospace);
+    font-size: 0.68rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease;
+  }
+
+  .community-section__tab-btn.is-active {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: #fff;
+  }
+
   .community-section__modes {
     flex: none;
     min-height: auto;
     display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    margin: 1.5rem auto 0;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 0;
+    margin: 0 auto;
     width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .community-section__modes::-webkit-scrollbar {
+    display: none;
   }
 
   .community-mode {
     position: relative !important;
     inset: auto !important;
-    height: 20rem; /* Gives each stacked card a solid height on mobile */
+    flex: 0 0 100%;
+    width: 100%;
+    height: 20rem; /* Gives each swiped card a solid height on mobile */
+    margin: 0;
     transform: none !important;
     opacity: 1 !important;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
   }
 
   .community-mode__button {
@@ -353,37 +425,37 @@
   }
 
   .community-mode__eyebrow {
-    margin-bottom: 0.15rem;
-    font-size: 0.62rem;
+    margin-bottom: 0.2rem;
+    font-size: 0.72rem;
   }
 
   .community-mode__title {
-    font-size: clamp(1.3rem, 5vw, 1.7rem);
+    font-size: clamp(1.6rem, 6vw, 2.4rem);
   }
 
   .community-mode--right .community-mode__tags,
   .community-mode__tags {
     justify-content: flex-start;
-    margin-top: 0.3rem;
-    gap: 0.25rem;
+    margin-top: 0.6rem;
+    gap: 0.4rem;
   }
 
   .community-tag {
-    padding: 0.18rem 0.4rem;
-    font-size: 0.55rem;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.6rem;
   }
 
   .community-mode__description {
-    margin-top: 0.3rem;
-    font-size: 0.78rem;
-    line-height: 1.35;
+    margin-top: 0.75rem;
+    font-size: clamp(0.85rem, 2.5vw, 0.95rem);
+    line-height: 1.5;
     width: 100%;
   }
 
   .community-mode__action {
-    margin-top: 0.4rem;
-    padding: 0.35rem 0.75rem;
-    font-size: 0.65rem;
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.75rem;
   }
 
   .community-mode--left .community-mode__scrim,

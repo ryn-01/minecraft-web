@@ -11,6 +11,8 @@ import adventureImg from '../assets/images/adventure.webp'
 
 gsap.registerPlugin(ScrollTrigger)
 
+const MOBILE_QUERY = '(max-width: 900px)'
+
 export type Feature = {
   eyebrow: string
   title: string
@@ -71,6 +73,7 @@ type FeatureSectionProps = {
 
 export default function FeatureSection({ items = features }: FeatureSectionProps) {
   const sectionRef = useRef<HTMLElement>(null)
+  const trackRef = useRef<HTMLDivElement>(null)
   const progressFillRef = useRef<HTMLSpanElement>(null)
   const scrollTriggerRef = useRef<ScrollTrigger | null>(null)
   const activeIndexRef = useRef(0)
@@ -90,7 +93,7 @@ export default function FeatureSection({ items = features }: FeatureSectionProps
 
       const mm = gsap.matchMedia()
 
-      // Desktop: Pinned ScrollTrigger animation
+      // Desktop: Pinned ScrollTrigger animation (unchanged)
       mm.add('(min-width: 901px)', () => {
         gsap.set(panels.slice(1), { autoAlpha: 0 })
 
@@ -149,10 +152,29 @@ export default function FeatureSection({ items = features }: FeatureSectionProps
         })
       })
 
-      // Mobile: Normal vertical scroll flow (no pinning or horizontal scrubbing)
-      mm.add('(max-width: 900px)', () => {
+      // Mobile: native swipeable tab strip — no pinning, no GSAP-driven horizontal scrub.
+      // The track scrolls itself (CSS scroll-snap); we just listen so the tab bar
+      // and dots stay in sync with whichever panel the user swiped to.
+      mm.add(MOBILE_QUERY, () => {
         gsap.set(panels, { autoAlpha: 1, xPercent: 0, scale: 1 })
         scrollTriggerRef.current = null
+
+        const track = trackRef.current
+        if (!track) {
+          return
+        }
+
+        const handleScroll = () => {
+          if (!track.clientWidth) return
+          const nearest = Math.round(track.scrollLeft / track.clientWidth)
+          if (nearest !== activeIndexRef.current) {
+            activeIndexRef.current = nearest
+            setActiveIndex(nearest)
+          }
+        }
+
+        track.addEventListener('scroll', handleScroll, { passive: true })
+        return () => track.removeEventListener('scroll', handleScroll)
       })
 
       return () => {
@@ -208,11 +230,22 @@ export default function FeatureSection({ items = features }: FeatureSectionProps
   }, [items])
 
   const goToPanel = useCallback((index: number) => {
+    const clamped = Math.max(0, Math.min(panelCount - 1, index))
+    const isMobile = typeof window !== 'undefined' && window.matchMedia(MOBILE_QUERY).matches
+
+    if (isMobile) {
+      const track = trackRef.current
+      if (!track) return
+      track.scrollTo({ left: clamped * track.clientWidth, behavior: 'smooth' })
+      activeIndexRef.current = clamped
+      setActiveIndex(clamped)
+      return
+    }
+
     const st = scrollTriggerRef.current
     if (!st) {
       return
     }
-    const clamped = Math.max(0, Math.min(panelCount - 1, index))
     const progress = panelCount > 1 ? clamped / (panelCount - 1) : 0
     const target = st.start + (st.end - st.start) * progress
     window.scrollTo({ top: target, behavior: 'smooth' })
@@ -246,8 +279,24 @@ export default function FeatureSection({ items = features }: FeatureSectionProps
           <span ref={progressFillRef} />
         </div>
       </div>
-      
-      <div className="feature-section__track">
+
+      {/* Mobile-only tab strip; hidden on desktop via CSS, mirrors the dot nav below */}
+      <div className="feature-section__tabs" role="tablist" aria-label="Game modes">
+        {items.map((feature, index) => (
+          <button
+            key={feature.title}
+            type="button"
+            role="tab"
+            aria-selected={index === activeIndex}
+            className={`feature-section__tab-btn${index === activeIndex ? ' is-active' : ''}`}
+            onClick={() => goToPanel(index)}
+          >
+            {feature.title}
+          </button>
+        ))}
+      </div>
+
+      <div className="feature-section__track" ref={trackRef}>
         {items.map((feature, index) => (
           <article
             className={`feature-section__panel feature-section__panel--${feature.artworkPosition}`}
