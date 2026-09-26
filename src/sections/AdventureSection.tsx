@@ -1,12 +1,19 @@
 import { useState } from 'react'
 import './adventureSection.css'
 
+import snowBattleIMG from '../assets/images/snowBattle.webp'
+import deathRunIMG from '../assets/images/deathRun.webp'
+import redstoneBattleIMG from '../assets/images/redstoneBattle.webp'
+import caveRushIMG from '../assets/images/caveRush.webp'
+import skyIslandIMG from '../assets/images/skyIslandArea.webp'
+import oceanQuestIMG from '../assets/images/oceanQuest.webp'
+
 type Adventure = {
   eyebrow: string
   title: string
   tags: string[]
   description: string
-  artwork: 'snow' | 'jungle' | 'redstone' | 'caves' | 'sky' | 'ocean'
+  artwork: string
 }
 
 const adventures: Adventure[] = [
@@ -15,42 +22,42 @@ const adventures: Adventure[] = [
     title: 'Snow Battle',
     tags: ['PVP', 'Minigame', 'Fast-Paced'],
     description: 'Team up in a frozen arena, dodge incoming snowballs, and claim victory before the ice melts.',
-    artwork: 'snow',
+    artwork: snowBattleIMG,
   },
   {
     eyebrow: 'Jungle Ruins',
     title: 'Death Run',
     tags: ['Parkour', 'Traps', 'Race'],
     description: 'Race through ancient ruins, trigger traps, and reach the finish before the course catches you.',
-    artwork: 'jungle',
+    artwork: deathRunIMG,
   },
   {
     eyebrow: 'Logic Circuits',
     title: 'Redstone Battle',
     tags: ['Puzzle', 'Mechanics', 'Strategy'],
     description: 'Use clever machines, pressure plates, and automated switches to outsmart your opponents.',
-    artwork: 'redstone',
+    artwork: redstoneBattleIMG,
   },
   {
     eyebrow: 'Deep Darkness',
     title: 'Cave Rush',
     tags: ['Survival', 'Loot', 'PvE'],
     description: 'Descend into the deep dark, find hidden treasure, and escape before the caves collapse.',
-    artwork: 'caves',
+    artwork: caveRushIMG,
   },
   {
     eyebrow: 'High Altitude',
     title: 'Sky Islands',
     tags: ['Exploration', 'Void', 'Creative'],
     description: 'Build above the clouds, connect floating islands, and discover a new view of the world.',
-    artwork: 'sky',
+    artwork: skyIslandIMG,
   },
   {
     eyebrow: 'Sunken Ruins',
     title: 'Ocean Quest',
     tags: ['Adventure', 'Aquatic', 'Mystery'],
     description: 'Dive beneath the waves, explore coral reefs, and uncover ruins lost below the sea.',
-    artwork: 'ocean',
+    artwork: oceanQuestIMG,
   },
 ]
 
@@ -100,7 +107,8 @@ export default function AdventureSection() {
                   onClick={() => setActiveAdventure(index)}
                   tabIndex={positionClass === 'adventure-card--hidden' ? -1 : 0}
                 >
-                  <span className={`adventure-card__artwork adventure-card__artwork--${adventure.artwork}`} aria-hidden="true" />
+                  <span className={`adventure-card__artwork adventure-card__artwork--${adventure.artwork}`} aria-hidden="true" 
+                  style={{ backgroundImage: `url(${adventure.artwork})` }}/>
                   <span className="adventure-card__content">
                     <span className="adventure-card__eyebrow">{adventure.eyebrow}</span>
                     <span className="adventure-card__title">{adventure.title}</span>
