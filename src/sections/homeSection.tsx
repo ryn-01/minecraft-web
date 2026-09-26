@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import './homeSection.css'
@@ -35,22 +35,6 @@ export default function HomeSection({
     },
     { scope: sectionRef },
   )
-
-  useEffect(() => {
-    const handlePageExit = () => {
-      if (sectionRef.current) {
-        gsap.to(sectionRef.current.querySelector('.home-section__content'), {
-          autoAlpha: 0,
-          y: -16,
-          duration: 0.25,
-          ease: 'power2.in',
-        })
-      }
-    }
-
-    window.addEventListener('pagehide', handlePageExit)
-    return () => window.removeEventListener('pagehide', handlePageExit)
-  }, [])
 
   return (
     <main

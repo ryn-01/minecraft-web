@@ -99,58 +99,51 @@ export default function DimensionSection() {
                 aria-controls={`dimension-panel-${index}`}
                 onClick={() => selectDimension(isActive ? null : index)}
               >
-                {isActive ? (
-                  <span className="dimension-card__expanded">
+                <span className="dimension-card__collapsed" aria-hidden="true">
+                  <span className="dimension-card__collapsed-label">{dimension.name}</span>
+                </span>
+
+                {/* Unified single media/video container */}
+                <span className="dimension-card__media" aria-hidden="true">
+                  {isVideoSource(dimension.imageSrc) ? (
                     <video
                       className="dimension-card__video"
                       autoPlay
                       muted
                       loop
                       playsInline
-                      aria-label={`${dimension.name} environment loop`}
+                      aria-label={dimension.imageAlt}
                     >
                       <source src={dimension.imageSrc} type="video/webm" />
                     </video>
-                    <span className="dimension-card__scrim" aria-hidden="true" />
-                    <span className="dimension-card__expanded-content">
-                      <span className="dimension-card__name">{dimension.name}</span>
-                      <span className="dimension-card__description dimension-card__description--detailed">
-                        {dimension.detailedDescription}
-                      </span>
-                      <span className="dimension-card__link">
-                        Close <span aria-hidden="true">×</span>
-                      </span>
-                    </span>
+                  ) : (
+                    <img className="dimension-card__image" src={dimension.imageSrc} alt={dimension.imageAlt} />
+                  )}
+                  <span className="dimension-card__scrim" />
+                </span>
+
+                {/* Unified content container with smooth background & description transitions */}
+                <span className="dimension-card__content">
+                  <span className="dimension-card__name">{dimension.name}</span>
+                  <span
+                    className={`dimension-card__description${
+                      isActive ? ' dimension-card__description--detailed' : ''
+                    }`}
+                  >
+                    {isActive ? dimension.detailedDescription : dimension.description}
                   </span>
-                ) : (
-                  <>
-                    <span className="dimension-card__collapsed" aria-hidden="true">
-                      <span className="dimension-card__collapsed-label">{dimension.name}</span>
-                    </span>
-                    <span className="dimension-card__artwork">
-                      {isVideoSource(dimension.imageSrc) ? (
-                        <video
-                          autoPlay
-                          muted
-                          loop
-                          playsInline
-                          aria-label={dimension.imageAlt}
-                        >
-                          <source src={dimension.imageSrc} type="video/webm" />
-                        </video>
-                      ) : (
-                        <img src={dimension.imageSrc} alt={dimension.imageAlt} />
-                      )}
-                    </span>
-                    <span className="dimension-card__content">
-                      <span className="dimension-card__name">{dimension.name}</span>
-                      <span className="dimension-card__description">{dimension.description}</span>
-                      <span className="dimension-card__link">
+                  <span className="dimension-card__link">
+                    {isActive ? (
+                      <>
+                        Close <span aria-hidden="true">×</span>
+                      </>
+                    ) : (
+                      <>
                         Expand <span aria-hidden="true">↗</span>
-                      </span>
-                    </span>
-                  </>
-                )}
+                      </>
+                    )}
+                  </span>
+                </span>
               </button>
               <div className="sr-only" id={`dimension-panel-${index}`} role="tabpanel">
                 {dimension.detailedDescription}

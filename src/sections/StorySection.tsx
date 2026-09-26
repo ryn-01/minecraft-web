@@ -54,10 +54,12 @@ export default function StorySection({
 }: StorySectionProps) {
   const sectionRef = useRef<HTMLElement>(null)
   const inViewRef = useRef(false)
+  const mediaVideoRef = useRef<HTMLVideoElement>(null)
   const pausedRef = useRef(false)
   const timerRef = useRef<number | null>(null)
   const touchStartXRef = useRef<number | null>(null)
   const [isInView, setIsInView] = useState(false)
+  const [hasEnteredView, setHasEnteredView] = useState(false)
 
   const defaultSteps: StoryStep[] = [
     { title: featureTitle, description: featureDescription },
@@ -91,6 +93,21 @@ export default function StorySection({
   const [activeStep, setActiveStep] = useState(0)
   const activeStory = storySteps[activeStep] ?? storySteps[0]
   const activeMedia = resolvedSteps[activeStep] ?? resolvedSteps[0]
+
+  useEffect(() => {
+    const video = mediaVideoRef.current
+    if (!video) {
+      return
+    }
+
+    if (isInView) {
+      void video.play().catch((error: unknown) => {
+        console.error('Could not resume story video playback.', error)
+      })
+    } else {
+      video.pause()
+    }
+  }, [activeMedia.src, isInView])
 
   const clearTimer = useCallback(() => {
     if (timerRef.current !== null) {
@@ -141,12 +158,17 @@ export default function StorySection({
         return
       }
 
+      let hasAnimated = false
       gsap.set(elements, { autoAlpha: 0 })
       const observer = new IntersectionObserver(
         ([entry]) => {
           inViewRef.current = entry.isIntersecting
           setIsInView(entry.isIntersecting)
           if (entry.isIntersecting) {
+            setHasEnteredView(true)
+          }
+          if (entry.isIntersecting && !hasAnimated) {
+            hasAnimated = true
             gsap
               .timeline({ defaults: { ease: 'power3.out' } })
               .to('.story-section__heading', { y: 0, autoAlpha: 1, duration: 0.55 })
@@ -154,8 +176,7 @@ export default function StorySection({
               .to('.story-section__feature', { x: 0, autoAlpha: 1, duration: 0.65 }, '-=0.15')
               .to('.story-section__media', { x: 0, autoAlpha: 1, duration: 0.7 }, '-=0.55')
             startTimer()
-          } else {
-            gsap.set(elements, { autoAlpha: 0 })
+          } else if (!entry.isIntersecting) {
             clearTimer()
           }
         },
@@ -176,10 +197,11 @@ export default function StorySection({
       return
     }
 
+    // Removed the vertical bottom-to-up translation (y: 10 -> y: 0), keeping a smooth fade transition
     gsap.fromTo(
       ['.story-section__feature', '.story-section__media'],
-      { autoAlpha: 0, y: 10 },
-      { autoAlpha: 1, y: 0, duration: 0.35, stagger: 0.05, ease: 'power2.out' },
+      { autoAlpha: 1 },
+      { autoAlpha: 1, duration: 0.35, stagger: 0.05, ease: 'power2.out' },
     )
   }, [activeStep])
 
@@ -286,11 +308,18 @@ export default function StorySection({
             </div>
           </article>
           <div className="story-section__media">
-            {isInView && activeMedia.src && activeMedia.type === 'video' ? (
-              <video key={`feature-${activeMedia.src}`} autoPlay muted loop playsInline preload="metadata" aria-label={activeMedia.alt}>
-                <source src={activeMedia.src} type="video/webm" />
-              </video>
-            ) : activeMedia.src ? (
+            {hasEnteredView && activeMedia.src && activeMedia.type === 'video' ? (
+              <video
+                ref={mediaVideoRef}
+                src={activeMedia.src}
+                autoPlay={isInView}
+                muted
+                loop
+                playsInline
+                preload="auto"
+                aria-label={activeMedia.alt}
+              />
+            ) : activeMedia.src && activeMedia.type !== 'video' ? (
               <img key={activeMedia.src} src={activeMedia.src} alt={activeMedia.alt} />
             ) : (
               <div className="story-section__placeholder" aria-label="Media placeholder" />

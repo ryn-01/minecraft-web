@@ -41,18 +41,18 @@ export default function AboutSection({
         return
       }
 
+      let hasAnimated = false
       gsap.set(animatedElements, { autoAlpha: 0 })
 
       const observer = new IntersectionObserver(
         ([entry]) => {
-          if (entry.isIntersecting) {
+          if (entry.isIntersecting && !hasAnimated) {
+            hasAnimated = true
             gsap
               .timeline({ defaults: { ease: 'power3.out' } })
               .to('.about-section__content', { x: 0, autoAlpha: 1, duration: 0.7 })
               .to('.about-section__media', { x: 0, autoAlpha: 1, duration: 0.8 }, '-=0.55')
               .to('.about-section__button', { y: 0, autoAlpha: 1, duration: 0.4 }, '-=0.35')
-          } else {
-            gsap.set(animatedElements, { autoAlpha: 0 })
           }
         },
         { threshold: 0.2 },

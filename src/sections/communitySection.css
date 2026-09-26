@@ -1,8 +1,11 @@
 .community-section {
   position: relative;
+  width: 100%;
   min-height: 100svh;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
-  padding: 6rem 1.25rem;
+  padding: 5.5rem 1.25rem 2rem;
   background: var(--color-surface);
   color: var(--color-ink);
   box-sizing: border-box;
@@ -10,7 +13,8 @@
 
 .community-section__header {
   position: relative;
-  z-index: 2;
+  z-index: 10;
+  flex: 0 0 auto;
   width: min(100%, var(--container));
   margin: 0 auto;
   text-align: center;
@@ -28,7 +32,7 @@
 }
 
 .community-section__header p {
-  margin: 0.75rem auto 0;
+  margin: 0.5rem auto 0;
   color: var(--color-muted);
   font-size: clamp(0.95rem, 2.5vw, 1.05rem);
   line-height: 1.5;
@@ -38,7 +42,7 @@
 .community-section__progress-bar {
   width: min(100%, 20rem);
   height: 3px;
-  margin: 1.25rem auto 0;
+  margin: 1rem auto 0;
   background: rgb(0 0 0 / 12%);
   overflow: hidden;
   border-radius: 999px;
@@ -54,12 +58,13 @@
   will-change: transform;
 }
 
+/* Flexes to expand and fill the vertical gap completely */
 .community-section__modes {
   position: relative;
+  flex: 1 1 auto;
   width: min(100%, var(--container));
-  height: calc(100svh - 13rem);
   min-height: 22rem;
-  margin: 2rem auto 0;
+  margin: 1.25rem auto;
 }
 
 .community-mode {
@@ -143,7 +148,7 @@
 }
 
 .community-mode__eyebrow {
-  margin: 0 0 0.85rem;
+  margin: 0 0 0.5rem;
   color: var(--color-primary);
   font-family: var(--font-display);
   font-size: 0.78rem;
@@ -153,17 +158,17 @@
 
 .community-mode__title {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 4vw, 3rem);
+  font-size: clamp(1.8rem, 4vw, 3rem);
   text-transform: uppercase;
   color: #fff;
-  line-height: 1;
+  line-height: 1.1;
 }
 
 .community-mode__tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.65rem;
-  margin-top: 1rem;
+  gap: 0.6rem;
+  margin-top: 0.75rem;
 }
 
 .community-mode--right .community-mode__tags {
@@ -185,9 +190,9 @@
 
 .community-mode__description {
   width: min(100%, 28rem);
-  margin-top: 1.25rem;
+  margin-top: 0.85rem;
   font-size: 1.05rem;
-  line-height: 1.6;
+  line-height: 1.55;
   color: rgb(255 255 255 / 90%);
 }
 
@@ -195,7 +200,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  margin-top: 1.5rem;
+  margin-top: 1.1rem;
   border-radius: var(--radius-sm);
   background: var(--color-primary);
   box-shadow: var(--shadow-pixel);
@@ -216,9 +221,39 @@
   }
 }
 
+/* --- Scroll Indicator & Navigation --- */
+.community-section__scroll-hint {
+  position: absolute;
+  z-index: 20;
+  bottom: 1.5rem;
+  left: 2rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.25rem;
+  color: rgb(0 0 0 / 60%);
+  font-family: var(--font-display, "Minecrafter", monospace);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  pointer-events: none;
+  will-change: opacity;
+}
+
+.community-section__scroll-arrow {
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  animation: community-bounce 2s infinite ease-in-out;
+}
+
+@keyframes community-bounce {
+  0%, 100% { transform: translateY(-3px); }
+  50% { transform: translateY(3px); }
+}
+
 .community-section__nav {
   position: absolute;
-  z-index: 2;
+  z-index: 20;
   top: 50%;
   right: 1.5rem;
   display: flex;
@@ -263,28 +298,30 @@
 /* --- Mobile Responsive Rules --- */
 @media (max-width: 767px) {
   .community-section {
-    padding: 4.5rem 1rem 2.5rem;
+    padding: 4rem 1rem 1rem;
+    justify-content: flex-start;
   }
 
   .community-section__header h2 {
-    font-size: clamp(1.35rem, 5.5vw, 2rem);
+    font-size: clamp(1.3rem, 5vw, 1.8rem);
     line-height: 1.1;
   }
 
   .community-section__header p {
-    margin-top: 0.35rem;
-    font-size: 0.85rem;
+    margin-top: 0.2rem;
+    font-size: 0.78rem;
+    line-height: 1.4;
   }
 
   .community-section__progress-bar {
-    margin-top: 0.75rem;
+    margin-top: 0.35rem;
     height: 2px;
   }
 
   .community-section__modes {
-    height: calc(100svh - 9.5rem);
-    min-height: 20rem;
-    margin-top: 1rem;
+    flex: 1 1 auto;
+    min-height: 16rem;
+    margin: 0.5rem auto;
   }
 
   .community-mode__button {
@@ -295,61 +332,75 @@
   .community-mode__content {
     align-items: flex-start;
     text-align: left;
-    padding: 1.25rem 1rem 2.5rem;
-    justify-content: flex-end;
+    padding: 1rem 1.15rem;
+    justify-content: center;
   }
 
   .community-mode__eyebrow {
-    margin-bottom: 0.25rem;
-    font-size: 0.7rem;
+    margin-bottom: 0.15rem;
+    font-size: 0.62rem;
   }
 
   .community-mode__title {
-    font-size: clamp(1.5rem, 5.5vw, 2.2rem);
+    font-size: clamp(1.3rem, 5vw, 1.7rem);
   }
 
   .community-mode--right .community-mode__tags,
   .community-mode__tags {
     justify-content: flex-start;
-    margin-top: 0.5rem;
-    gap: 0.35rem;
+    margin-top: 0.3rem;
+    gap: 0.25rem;
   }
 
   .community-tag {
-    padding: 0.25rem 0.5rem;
-    font-size: 0.6rem;
+    padding: 0.18rem 0.4rem;
+    font-size: 0.55rem;
   }
 
   .community-mode__description {
-    margin-top: 0.6rem;
-    font-size: 0.88rem;
-    line-height: 1.45;
+    margin-top: 0.3rem;
+    font-size: 0.78rem;
+    line-height: 1.35;
     width: 100%;
   }
 
   .community-mode__action {
-    margin-top: 0.75rem;
-    padding: 0.55rem 1rem;
-    font-size: 0.75rem;
+    margin-top: 0.4rem;
+    padding: 0.35rem 0.75rem;
+    font-size: 0.65rem;
   }
 
   .community-mode--left .community-mode__scrim,
   .community-mode--right .community-mode__scrim {
-    background: linear-gradient(180deg, rgb(0 0 0 / 25%) 0%, rgb(0 0 0 / 88%) 65%);
+    background: linear-gradient(180deg, rgb(0 0 0 / 30%) 0%, rgb(0 0 0 / 85%) 75%);
   }
 
   .community-section__nav {
+    position: relative;
     top: auto;
     right: auto;
-    bottom: 0.5rem;
-    left: 50%;
+    bottom: auto;
+    left: auto;
+    display: flex;
     flex-direction: row;
-    transform: translateX(-50%);
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: auto;
+    transform: none;
+  }
+
+  .community-section__scroll-hint {
+    bottom: 0.5rem;
+    left: 1.25rem;
+    font-size: 0.58rem;
+    color: var(--color-primary);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .community-mode__artwork {
+  .community-mode__artwork,
+  .community-section__scroll-arrow {
     transition: none !important;
+    animation: none !important;
   }
 }

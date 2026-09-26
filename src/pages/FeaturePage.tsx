@@ -472,6 +472,7 @@ export default function FeaturePage() {
           scrollTrigger: {
             trigger: selector,
             start: 'top 85%',
+            once: true,
           },
           y: 24,
           autoAlpha: 0,

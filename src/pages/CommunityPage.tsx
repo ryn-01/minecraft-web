@@ -84,6 +84,7 @@ export default function CommunityPage() {
         scrollTrigger: {
           trigger: ".community-events",
           start: "top 80%",
+          once: true,
         },
         y: 30,
         autoAlpha: 0,

@@ -66,7 +66,7 @@
   display: flex;
 }
 
-.dimension-card.is-collapsed .dimension-card__artwork,
+.dimension-card.is-collapsed .dimension-card__media,
 .dimension-card.is-collapsed .dimension-card__content {
   display: none;
 }
@@ -103,6 +103,7 @@
   color: inherit;
   cursor: pointer;
   text-align: left;
+  position: relative;
 }
 
 .dimension-card__button:focus-visible {
@@ -110,16 +111,27 @@
   outline-offset: 5px;
 }
 
-/* Default card layout */
-.dimension-card__artwork {
+/* Unified Media Container (handles both default artwork and expanded background states) */
+.dimension-card__media {
+  position: relative;
   display: block;
-  overflow: hidden;
+  width: 100%;
   aspect-ratio: 1.45;
+  overflow: hidden;
   background: #59625b;
+  z-index: 0;
+  transition: aspect-ratio 600ms ease, height 600ms ease, inset 600ms ease;
 }
 
-.dimension-card__artwork img,
-.dimension-card__artwork video {
+.dimension-card.is-active .dimension-card__media {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  aspect-ratio: unset;
+}
+
+.dimension-card__media img,
+.dimension-card__media video {
   display: block;
   width: 100%;
   height: 100%;
@@ -127,7 +139,25 @@
   object-position: center;
 }
 
+/* Gradient Scrim (fades in smoothly upon activation) */
+.dimension-card__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(180deg, rgb(0 0 0 / 8%) 0%, rgb(0 0 0 / 82%) 100%);
+  opacity: 0;
+  transition: opacity 420ms ease;
+  pointer-events: none;
+}
+
+.dimension-card.is-active .dimension-card__scrim {
+  opacity: 1;
+}
+
+/* Unified Content Container (smooth background color transition from solid to transparent) */
 .dimension-card__content {
+  position: relative;
+  z-index: 2;
   display: flex;
   min-height: 13rem;
   flex: 1;
@@ -135,6 +165,7 @@
   align-items: flex-start;
   padding: 1.5rem;
   color: #fff;
+  transition: background-color 600ms ease, padding 420ms ease;
 }
 
 .dimension-card--green .dimension-card__content,
@@ -152,67 +183,13 @@
   background: #777b2d;
 }
 
-.dimension-card__name {
-  font-family: var(--font-display, "Minecrafter", monospace);
-  font-size: 1.5rem;
-  text-transform: uppercase;
-}
-
-.dimension-card__description {
-  margin-top: 0.75rem;
-  color: rgb(255 255 255 / 82%);
-  font-size: 0.98rem;
-  line-height: 1.55;
-}
-
-.dimension-card__link {
-  margin-top: auto;
-  padding-top: 1.5rem;
-  font-family: var(--font-display, "Minecrafter", monospace);
-  font-size: 0.78rem;
-  letter-spacing: 0.02em;
-}
-
-/* Expanded View */
-.dimension-card__expanded {
-  position: relative;
-  display: flex;
-  width: 100%;
-  height: 100%;
+/* Active card content adjustments */
+.dimension-card.is-active .dimension-card__content {
+  background-color: transparent;
+  justify-content: flex-end;
   min-height: 0;
   flex: 1 1 auto;
-  align-items: flex-end;
-  overflow: hidden;
-}
-
-.dimension-card__video {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.dimension-card__scrim {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background: linear-gradient(180deg, rgb(0 0 0 / 8%) 0%, rgb(0 0 0 / 82%) 100%);
-}
-
-.dimension-card__expanded-content {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-  align-items: flex-start;
   padding: 1.75rem;
-  color: #fff;
-}
-
-.dimension-card.is-active .dimension-card__expanded-content {
   animation: dimension-content-enter 420ms ease both;
 }
 
@@ -227,17 +204,39 @@
   }
 }
 
-.dimension-card__expanded-content .dimension-card__name {
+.dimension-card__name {
+  font-family: var(--font-display, "Minecrafter", monospace);
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  transition: font-size 420ms ease;
+}
+
+.dimension-card.is-active .dimension-card__name {
   font-size: clamp(1.5rem, 3vw, 2.2rem);
 }
 
-.dimension-card__expanded-content .dimension-card__description--detailed {
+.dimension-card__description {
+  margin-top: 0.75rem;
+  color: rgb(255 255 255 / 82%);
+  font-size: 0.98rem;
+  line-height: 1.55;
+}
+
+.dimension-card__description--detailed {
   max-width: 38rem;
   font-size: 1.02rem;
   line-height: 1.65;
 }
 
-.dimension-card__expanded-content .dimension-card__link {
+.dimension-card__link {
+  margin-top: auto;
+  padding-top: 1.5rem;
+  font-family: var(--font-display, "Minecrafter", monospace);
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+}
+
+.dimension-card.is-active .dimension-card__link {
   margin-top: 1.25rem;
   padding-top: 0;
   opacity: 0.85;
@@ -264,19 +263,16 @@
     gap: 1.5rem;
   }
 
-  /* Default card height on mobile */
   .dimension-card {
     flex: 0 0 26rem;
     height: 26rem;
   }
 
-  /* Active expanded card height on mobile (smooth 26rem -> 34rem transition) */
   .dimension-card.is-active {
     flex: 0 0 34rem;
     height: 34rem;
   }
 
-  /* Keep non-selected siblings at normal size on mobile instead of slim bars */
   .dimension-card.is-collapsed {
     flex: 0 0 26rem;
     height: 26rem;
@@ -286,7 +282,7 @@
     display: none !important;
   }
 
-  .dimension-card.is-collapsed .dimension-card__artwork {
+  .dimension-card.is-collapsed .dimension-card__media {
     display: block !important;
   }
 
@@ -294,7 +290,7 @@
     display: flex !important;
   }
 
-  .dimension-card__artwork {
+  .dimension-card__media {
     aspect-ratio: 1.8;
   }
 
@@ -314,7 +310,7 @@
     transition: none !important;
   }
 
-  .dimension-card__expanded-content {
+  .dimension-card__content {
     animation: none !important;
   }
 }

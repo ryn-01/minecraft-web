@@ -82,25 +82,50 @@ export default function FeatureSection({ items = features }: FeatureSectionProps
     () => {
       const section = sectionRef.current
       const panels = gsap.utils.toArray<HTMLElement>('.feature-section__panel', section)
+      const scrollHint = section?.querySelector('.feature-section__scroll-hint')
 
       if (!section || panels.length < 2) {
         return
       }
 
+      // Hide all panels initially except the first one
       gsap.set(panels.slice(1), { autoAlpha: 0 })
 
       const timeline = gsap.timeline({
         ease: 'none',
         scrollTrigger: {
           trigger: section,
+          start: 'top top', 
           pin: true,
-          scrub: 1,
+          scrub: 1.2, // Smooth lerp delay
+          snap: {
+            snapTo: 1 / (panels.length - 1),
+            duration: { min: 0.3, max: 0.8 },
+            delay: 0.1, // Waits 100ms after scrolling stops to magnetically snap
+            ease: 'power2.inOut',
+          },
           invalidateOnRefresh: true,
-          end: () => `+=${(panels.length - 1) * window.innerHeight}`,
+          end: () => {
+            const isMobile = window.matchMedia('(max-width: 767px)').matches
+            const distancePerPanel = isMobile
+              ? Math.min(window.innerHeight * 0.65, 460)
+              : window.innerHeight
+            return `+=${(panels.length - 1) * distancePerPanel}`
+          },
           onUpdate: (self) => {
             if (progressFillRef.current) {
               progressFillRef.current.style.transform = `scaleX(${self.progress})`
             }
+            
+            // Fade out the scroll hint when the user starts scrolling
+            if (scrollHint) {
+              if (self.progress > 0.05) {
+                gsap.to(scrollHint, { autoAlpha: 0, duration: 0.3, overwrite: true })
+              } else {
+                gsap.to(scrollHint, { autoAlpha: 1, duration: 0.3, overwrite: true })
+              }
+            }
+
             const nearest = Math.round(self.progress * (panels.length - 1))
             if (nearest !== activeIndexRef.current) {
               activeIndexRef.current = nearest
@@ -112,12 +137,20 @@ export default function FeatureSection({ items = features }: FeatureSectionProps
 
       scrollTriggerRef.current = timeline.scrollTrigger ?? null
 
+      // Smooth overlapping crossfade animation for each slide
       panels.slice(1).forEach((panel, index) => {
-        const direction = index % 2 === 0 ? -100 : 100
+        const outgoing = panels[index]
+        const incoming = panel
+        const direction = index % 2 === 0 ? 50 : -50
+
         timeline
-          .set(panel, { xPercent: direction, autoAlpha: 1 }, index)
-          .to(panels[index], { autoAlpha: 0, duration: 0.35 }, index)
-          .to(panel, { xPercent: 0, duration: 0.65 }, index)
+          .to(outgoing, { autoAlpha: 0, scale: 0.96, duration: 1, ease: 'power2.inOut' }, index)
+          .fromTo(
+            incoming,
+            { xPercent: direction, autoAlpha: 0, scale: 1.04 },
+            { xPercent: 0, autoAlpha: 1, scale: 1, duration: 1, ease: 'power2.inOut' },
+            index 
+          )
       })
 
       return () => {
@@ -211,6 +244,7 @@ export default function FeatureSection({ items = features }: FeatureSectionProps
           <span ref={progressFillRef} />
         </div>
       </div>
+      
       <div className="feature-section__track">
         {items.map((feature, index) => (
           <article
@@ -243,6 +277,13 @@ export default function FeatureSection({ items = features }: FeatureSectionProps
           </article>
         ))}
       </div>
+
+      {/* Scroll Indicator Hint */}
+      <div className="feature-section__scroll-hint" aria-hidden="true">
+        <span>Scroll</span>
+        <span className="feature-section__scroll-arrow">↓</span>
+      </div>
+
       <div className="feature-section__nav" role="tablist" aria-label="Feature slides">
         {items.map((feature, index) => (
           <button

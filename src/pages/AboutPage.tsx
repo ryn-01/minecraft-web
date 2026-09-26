@@ -74,6 +74,7 @@ export default function AboutPage() {
           scrollTrigger: {
             trigger: selector,
             start: 'top 85%',
+            once: true,
           },
           y: 20,
           autoAlpha: 0,
@@ -85,12 +86,12 @@ export default function AboutPage() {
 
       // Staggered grid animations
       gsap.from('.history-card', {
-        scrollTrigger: { trigger: '.history-grid', start: 'top 80%' },
+        scrollTrigger: { trigger: '.history-grid', start: 'top 80%', once: true },
         y: 30, autoAlpha: 0, duration: 0.6, stagger: 0.15, ease: 'power3.out',
       })
 
       gsap.from('.about-card', {
-        scrollTrigger: { trigger: '.about-philosophy__grid', start: 'top 80%' },
+        scrollTrigger: { trigger: '.about-philosophy__grid', start: 'top 80%', once: true },
         y: 30, autoAlpha: 0, duration: 0.6, stagger: 0.15, ease: 'power3.out',
       })
     },

@@ -70,11 +70,13 @@ export default function CommunitySection() {
     () => {
       const section = sectionRef.current
       const cards = gsap.utils.toArray<HTMLElement>('.community-mode', section)
+      const scrollHint = section?.querySelector('.community-section__scroll-hint')
 
       if (!section || cards.length < 2) {
         return
       }
 
+      // Initial card position for slide & rotate effect
       gsap.set(cards.slice(1), {
         autoAlpha: 0,
         xPercent: 110,
@@ -83,22 +85,33 @@ export default function CommunitySection() {
       })
 
       const timeline = gsap.timeline({
+        ease: 'none',
         scrollTrigger: {
           trigger: section,
+          start: 'top top',
           pin: true,
-          scrub: 0.7,
+          scrub: 1.2,
           snap: {
             snapTo: 1 / (cards.length - 1),
-            duration: { min: 0.2, max: 0.5 },
-            delay: 0.05,
-            ease: 'power1.inOut',
+            duration: { min: 0.3, max: 0.8 },
+            delay: 0.1,
+            ease: 'power2.inOut',
           },
           invalidateOnRefresh: true,
-          end: () => `+=${(cards.length - 1) * window.innerHeight}`,
+          end: () => `+=${cards.length * 100}%`,
           onUpdate: (self) => {
             if (progressFillRef.current) {
               progressFillRef.current.style.transform = `scaleX(${self.progress})`
             }
+
+            if (scrollHint) {
+              if (self.progress > 0.35) {
+                gsap.to(scrollHint, { autoAlpha: 0, duration: 0.3, overwrite: true })
+              } else {
+                gsap.to(scrollHint, { autoAlpha: 1, duration: 0.3, overwrite: true })
+              }
+            }
+
             const nearest = Math.round(self.progress * (cards.length - 1))
             if (nearest !== activeIndexRef.current) {
               activeIndexRef.current = nearest
@@ -110,6 +123,7 @@ export default function CommunitySection() {
 
       scrollTriggerRef.current = timeline.scrollTrigger ?? null
 
+      // Restored slide & rotate animation logic
       cards.slice(1).forEach((card, index) => {
         const outgoingCard = cards[index]
         const incomingDirection = index % 2 === 0 ? 1 : -1
@@ -225,6 +239,7 @@ export default function CommunitySection() {
           <span ref={progressFillRef} />
         </div>
       </header>
+
       <div className="community-section__modes" role="tablist" aria-label="Community play modes">
         {modes.map((mode, index) => {
           const isActive = index === activeMode
@@ -269,6 +284,13 @@ export default function CommunitySection() {
           )
         })}
       </div>
+
+      {/* Scroll Indicator Hint */}
+      <div className="community-section__scroll-hint" aria-hidden="true">
+        <span>Scroll</span>
+        <span className="community-section__scroll-arrow">↓</span>
+      </div>
+
       <div className="community-section__nav" aria-label="Community mode navigation">
         {modes.map((mode, index) => (
           <button

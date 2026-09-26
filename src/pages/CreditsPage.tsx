@@ -130,6 +130,7 @@ export default function CreditsPage() {
           scrollTrigger: {
             trigger: section,
             start: 'top 85%',
+            once: true,
           },
           autoAlpha: 0,
           duration: 0.6,

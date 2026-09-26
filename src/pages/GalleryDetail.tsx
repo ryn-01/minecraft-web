@@ -129,7 +129,7 @@ export default function GalleryDetail() {
           <button 
             className="gallery-detail__back-btn" 
             type="button" 
-            onClick={() => navigate('/community#gallery')}
+            onClick={(e) => {e.preventDefault();navigate(-1)}}
           >
             <span aria-hidden="true">&larr;</span> Back to Gallery
           </button>
