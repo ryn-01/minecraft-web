@@ -77,6 +77,7 @@ export default function DownloadPage() {
         </video>
         <div className="download-page__overlay" aria-hidden="true" />
         <div className="download-page__content">
+          {/* hero */}
           <section className="download-hero" aria-labelledby="download-title">
             <p className="download-page__eyebrow">Choose your way to play</p>
             <h1 id="download-title">Start your next adventure</h1>
@@ -89,6 +90,7 @@ export default function DownloadPage() {
             </a>
           </section>
 
+          {/* platform section */}
           <section
             className="download-page__section"
             id="platforms"
@@ -148,6 +150,7 @@ export default function DownloadPage() {
             </div>
           </section>
 
+          {/* compatibility */}
           <section
             className="download-page__section compatibility"
             aria-labelledby="compatibility-title"

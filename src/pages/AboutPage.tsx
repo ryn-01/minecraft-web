@@ -54,7 +54,7 @@ export default function AboutPage() {
 
   useGSAP(
     () => {
-      // 1. Hero Entrance Animation
+      // Hero Entrance Animation
       const heroTimeline = gsap.timeline({ defaults: { ease: 'power3.out' } })
       gsap.set('.about-hero__eyebrow, .about-hero__title, .about-hero__description', { autoAlpha: 0, y: 30 })
 
@@ -63,7 +63,7 @@ export default function AboutPage() {
         .to('.about-hero__title', { y: 0, autoAlpha: 1, duration: 0.7 }, '-=0.4')
         .to('.about-hero__description', { y: 0, autoAlpha: 1, duration: 0.7 }, '-=0.5')
 
-      // 2. Scroll Animations for subsequent sections
+      // Scroll Animations for subsequent sections
       const sections = ['.about-intro__content', '.about-history__header', '.about-philosophy__header']
       
       sections.forEach((selector) => {
@@ -101,7 +101,7 @@ export default function AboutPage() {
       </div>
       
       <main className="about-page" id="about-page">
-        {/* --- Hero Section with Video Background --- */}
+        {/*  Hero */}
         <section className="about-hero" aria-labelledby="about-title">
           <video className="about-hero__bg" autoPlay muted loop playsInline aria-hidden="true">
             <source src="/videos/about/hero_bg.webm" type="video/webm" />
@@ -117,7 +117,7 @@ export default function AboutPage() {
           </p>
         </section>
 
-        {/* --- About Details --- */}
+        {/*  About Details  */}
         <section className="about-intro">
           <div className="about-intro__content">
             <h2>Infinite Worlds to Find</h2>
@@ -133,7 +133,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* --- History Timeline --- */}
+        {/*  History Timeline  */}
         <section className="about-history">
           <div className="about-history__header">
             <h2>Our History</h2>
@@ -149,7 +149,7 @@ export default function AboutPage() {
           </div>
         </section>
         
-        {/* --- Philosophy Grid --- */}
+        {/*  Philosophy  */}
         <section className="about-philosophy" id="philosophy">
           <div className="about-philosophy__header">
             <h2>Core Pillars</h2>

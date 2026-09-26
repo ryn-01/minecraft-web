@@ -33,7 +33,6 @@
 
 .about-hero__overlay {
   z-index: -1;
-  /* Blends the video into the background color of the next section */
   background: linear-gradient(180deg, rgb(0 0 0 / 60%) 0%, rgb(0 0 0 / 40%) 70%, var(--color-surface) 100%);
 }
 

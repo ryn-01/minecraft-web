@@ -3,7 +3,7 @@ import DownloadPage from './pages/DownloadPage'
 import HomePage from './pages/HomePage'
 import AboutPage from './pages/AboutPage'
 import FeaturePage from './pages/FeaturePage'
-
+import CommunityPage from './pages/CommunityPage'
 export default function App() {
   return (
     <BrowserRouter>
@@ -11,6 +11,7 @@ export default function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/feature" element={<FeaturePage />} />
+        <Route path="/community" element={<CommunityPage/>}/>
         <Route path="/download" element={<DownloadPage />} />
       </Routes>
     </BrowserRouter>
