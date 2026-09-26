@@ -439,16 +439,15 @@
   margin-bottom: 1.5rem;
 }
 
-.redstone-lamp__icon {
-  font-size: 3.5rem;
-  line-height: 1;
-  color: rgb(255 255 255 / 20%);
-  transition: color 200ms ease, text-shadow 200ms ease;
+.redstone-lamp__image {
+  width: 5rem;
+  height: 5rem;
+  object-fit: contain;
+  transition: filter 200ms ease;
 }
 
-.redstone-lamp.is-lit .redstone-lamp__icon {
-  color: #ffca3a;
-  text-shadow: 0 0 25px #ffca3a, 0 0 50px #ffca3a;
+.redstone-lamp.is-lit .redstone-lamp__image {
+  filter: drop-shadow(0 0 12px #ffca3a);
 }
 
 .redstone-lamp__status {

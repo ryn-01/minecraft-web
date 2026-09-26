@@ -110,7 +110,7 @@ export default function AdventureSection() {
                       ))}
                     </span>
                     <span className="adventure-card__description">{adventure.description}</span>
-                    <span className="adventure-card__link">Learn more <span aria-hidden="true">↗</span></span>
+                    <a className="adventure-card__link" href='/community'>Learn more <span aria-hidden="true">↗</span></a>
                   </span>
                 </button>
               </article>

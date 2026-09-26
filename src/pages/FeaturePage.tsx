@@ -2,6 +2,8 @@ import { useRef, useState } from 'react'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import redstoneLampImage from '../assets/images/redstone_lamp.webp'
+import redstoneLampLitImage from '../assets/images/redstone_lamp_lit.webp'
 import Navbar from '../components/navbar'
 import FooterSection from '../components/FooterSection'
 import './featurePage.css'
@@ -629,7 +631,11 @@ export default function FeaturePage() {
               <div className="redstone-widget__output-panel">
                 <div className="redstone-widget__gate-badge">Active Gate: {selectedGate}</div>
                 <div className={`redstone-lamp${logicOutput ? ' is-lit' : ''}`}>
-                  <span className="redstone-lamp__icon">{logicOutput ? '⚡' : '◯'}</span>
+                  <img
+                    className="redstone-lamp__image"
+                    src={logicOutput ? redstoneLampLitImage : redstoneLampImage}
+                    alt={logicOutput ? 'Lit redstone lamp' : 'Unlit redstone lamp'}
+                  />
                   <span className="redstone-lamp__status">
                     {logicOutput ? 'REDSTONE LAMP LIT' : 'NO SIGNAL OUTPUT'}
                   </span>

@@ -227,7 +227,7 @@ export default function FeatureSection({ items = features }: FeatureSectionProps
                 ))}
               </div>
               <p>{feature.description}</p>
-              <a className="feature-section__link" href={`#${feature.title.toLowerCase()}`}>
+              <a className="feature-section__link" href={`/feature`}>
                 Explore mode <span aria-hidden="true">↗</span>
               </a>
             </div>

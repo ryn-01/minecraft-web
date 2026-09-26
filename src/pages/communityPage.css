@@ -40,19 +40,16 @@
   );
 }
 
-.community-hero__badge {
-  display: inline-block;
-  padding: 0.35rem 0.85rem;
-  border: 1px solid var(--color-primary);
-  border-radius: var(--radius-sm);
-  background: rgb(61 143 53 / 20%);
-  color: #9bd48e;
+.community-hero__eyebrow {
+  margin: 0 0 1rem;
+  color: var(--color-surface);
   font-family: var(--font-display);
-  font-size: 0.78rem;
-  letter-spacing: 0.08em;
+  font-size: 1rem;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  margin-bottom: 1rem;
+  text-shadow: 0 2px 4px rgb(0 0 0 / 50%);
 }
+
 
 .community-hero__title {
   max-width: 52rem;

@@ -2,6 +2,9 @@ import { useRef } from 'react'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import pickaxeIcon from '../assets/images/icons/picaxe.webp'
+import swordIcon from '../assets/images/icons/sword.webp'
+import villagerIcon from '../assets/images/icons/villager.webp'
 import Navbar from '../components/navbar' 
 import FooterSection from '../components/FooterSection' 
 import './aboutPage.css'
@@ -33,17 +36,17 @@ const historyMilestones = [
 
 const philosophyCards = [
   {
-    icon: '⚒',
+    iconSrc: pickaxeIcon,
     title: 'Infinite Creativity',
     description: 'With an endless supply of resources and limitless space, your imagination is the only boundary. If you can dream it, you can build it.',
   },
   {
-    icon: '⚔',
+    iconSrc: swordIcon,
     title: 'Boundless Adventure',
     description: 'Every world is uniquely generated. From the deepest caves to the highest mountains, danger and discovery await in every direction.',
   },
   {
-    icon: '♥',
+    iconSrc: villagerIcon,
     title: 'Community First',
     description: 'Minecraft is better together. Millions of players worldwide share creations, build sprawling servers, and write new stories every day.',
   },
@@ -158,7 +161,7 @@ export default function AboutPage() {
           <div className="about-philosophy__grid">
             {philosophyCards.map((card) => (
               <article className="about-card" key={card.title}>
-                <span className="about-card__icon" aria-hidden="true">{card.icon}</span>
+                <img className="about-card__icon" src={card.iconSrc} alt="" aria-hidden="true" />
                 <h3>{card.title}</h3>
                 <p>{card.description}</p>
               </article>

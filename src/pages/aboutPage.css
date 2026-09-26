@@ -207,14 +207,12 @@
 }
 
 .about-card__icon {
-  display: grid;
   width: 3.5rem;
   height: 3.5rem;
-  place-items: center;
+  object-fit: contain;
+  padding: 0.5rem;
   border-radius: var(--radius-sm);
   background: var(--color-surface-muted);
-  color: var(--color-primary);
-  font-size: 1.8rem;
   margin-bottom: 1.5rem;
 }
 

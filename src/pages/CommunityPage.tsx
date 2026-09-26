@@ -119,7 +119,7 @@ export default function CommunityPage() {
           </video>
           <div className="community-hero__overlay" aria-hidden="true" />
 
-          <span className="community-hero__badge">Global Player Hub</span>
+          <span className="community-hero__eyebrow">Global Player Hub</span>
           <h1 className="community-hero__title" id="community-hero-title">
             Built by Millions, Shared Together
           </h1>
