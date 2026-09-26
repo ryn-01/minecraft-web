@@ -10,6 +10,8 @@ An immersive Minecraft promotional website created as a **competition submission
 - Responsive layouts for desktop, tablet, and mobile screens
 - Dedicated pages for the Minecraft story, features, dimensions, community, and downloads
 - Interactive gallery pages with category-based routes
+- Community gallery filters for browsing different types of player work
+- Artwork preview modal with click-outside and Escape-to-close controls
 - Scroll-triggered entrance animations and transitions
 - Custom Minecraft-inspired typography and visual styling
 - Credits page with links to external asset and media sources

@@ -2,6 +2,7 @@
   padding: 6rem 1.25rem;
   background: var(--color-surface-muted);
   color: var(--color-ink);
+  width: 100%;
 }
 
 .community-gallery__header {
@@ -19,30 +20,76 @@
 }
 
 .community-gallery__header p {
-  margin: 1.5rem 0 0;
+  margin: 1.25rem 0 0;
   color: var(--color-muted);
   font-size: 1.05rem;
+  line-height: 1.6;
 }
 
+/* --- Filter Bar --- */
+.community-gallery__filters {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 2rem;
+}
+
+.community-gallery__filter {
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  padding: 0.6rem 1.25rem;
+  background: var(--color-surface);
+  color: var(--color-ink);
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  transition: background 180ms ease, border-color 180ms ease, color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+}
+
+.community-gallery__filter:hover {
+  border-color: var(--color-primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.community-gallery__filter.is-active {
+  border-color: var(--color-primary-dark);
+  background: var(--color-primary-dark);
+  color: #fff;
+  box-shadow: var(--shadow-pixel);
+}
+
+/* --- Gallery Grid --- */
 .community-gallery__grid {
   display: grid;
   width: min(100%, var(--container));
-  margin: 2.5rem auto 0;
+  margin: 3rem auto 0;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1.25rem;
+  gap: 1.5rem;
 }
 
 .community-gallery__item {
   position: relative;
-  min-height: 14rem;
-  overflow: hidden; /* Kunci agar gambar yang zoom tidak keluar dari batas card */
-  border: 0;
+  min-height: 15rem;
+  aspect-ratio: 16 / 10;
+  overflow: hidden; /* Mencegah gambar zoom meluap keluar dari sudut border-radius */
+  border: 1px solid var(--color-border);
   padding: 0;
   background: var(--color-surface-dark);
   border-radius: var(--radius-md);
   color: #fff;
   cursor: pointer;
   text-align: left;
+  box-shadow: var(--shadow-sm);
+  transition: border-color 250ms ease, box-shadow 250ms ease, transform 250ms ease;
+}
+
+.community-gallery__item:hover {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-pixel);
+  transform: translateY(-4px);
 }
 
 .community-gallery__item:focus-visible {
@@ -50,6 +97,7 @@
   outline-offset: 4px;
 }
 
+/* --- Artwork Background Image --- */
 .community-gallery__artwork {
   display: block;
   width: 100%;
@@ -58,17 +106,16 @@
   inset: 0;
   background-position: center;
   background-size: cover;
-  /* Efek transisi halus saat zoom dan filter */
-  transition: transform 400ms ease, filter 400ms ease;
+  transition: transform 450ms ease, filter 450ms ease;
 }
 
-/* Efek Zoom-in pada background image saat card di-hover */
 .community-gallery__item:hover .community-gallery__artwork,
 .community-gallery__item:focus-visible .community-gallery__artwork {
-  filter: brightness(1.15);
-  transform: scale(1.1); /* Zoom in sebesar 10% tanpa mengubah ukuran card */
+  filter: brightness(1.1);
+  transform: scale(1.08); /* Scale 8% secara halus tanpa mengubah dimensi kartu */
 }
 
+/* --- Caption & Text Scrim Overlay --- */
 .community-gallery__caption {
   position: absolute;
   right: 0;
@@ -76,33 +123,84 @@
   left: 0;
   z-index: 2;
   display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 1.25rem;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgb(0 0 0 / 40%) 35%,
+    rgb(0 0 0 / 88%) 100%
+  );
+}
+
+.community-gallery__caption-text {
+  display: flex;
   flex-direction: column;
-  padding: 1rem;
-  background: linear-gradient(transparent, rgb(0 0 0 / 80%));
 }
 
 .community-gallery__caption strong {
   font-family: var(--font-display);
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: 400;
   text-transform: uppercase;
+  color: #fff;
+  line-height: 1.2;
 }
 
 .community-gallery__caption small {
   margin-top: 0.35rem;
+  font-size: 0.8rem;
+  color: rgb(255 255 255 / 75%);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
 }
 
-@media (max-width: 767px) {
-  .community-gallery {
-    padding: 4rem 1rem;
-  }
+.community-gallery__arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 15%);
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  backdrop-filter: blur(4px);
+  transition: transform 200ms ease, background 200ms ease;
+}
+
+.community-gallery__item:hover .community-gallery__arrow {
+  background: var(--color-primary);
+  transform: translate(2px, -2px);
+}
+
+/* --- Responsif Layout --- */
+@media (max-width: 900px) {
   .community-gallery__grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 600px) {
+  .community-gallery {
+    padding: 4rem 1rem;
+  }
   .community-gallery__grid {
     grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  .community-gallery__item {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .community-gallery__artwork,
+  .community-gallery__filter,
+  .community-gallery__item,
+  .community-gallery__arrow {
+    transition: none !important;
   }
 }

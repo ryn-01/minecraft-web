@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom' // Sesuaikan dengan router Anda jika pakai Next.js/lainnya
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import './communityGallery.css'
 
 import mapsIMG from '../assets/images/maps.webp'
@@ -13,8 +13,8 @@ type GalleryItem = {
   title: string
   category: string
   artwork: 'maps' | 'mods' | 'texture_pack' | 'addon' | 'redstone' | 'arts'
-  path: string // URL tujuan halaman selanjutnya
-  imageUrl: string // URL background image untuk masing-masing card
+  path: string
+  imageUrl: string
 }
 
 const galleryItems: GalleryItem[] = [
@@ -23,7 +23,7 @@ const galleryItems: GalleryItem[] = [
     category: 'Community build', 
     artwork: 'maps', 
     path: '/gallery/maps',
-    imageUrl: mapsIMG // Contoh gambar Minecraft/Game style
+    imageUrl: mapsIMG
   },
   { 
     title: 'Mods', 
@@ -63,51 +63,58 @@ const galleryItems: GalleryItem[] = [
 ]
 
 export default function CommunityGallery() {
-  const [selectedItem] = useState<GalleryItem | null>(null)
-  const navigate = useNavigate() // Hook navigasi
-
-  // Mencegah background scroll saat modal preview terbuka (opsional jika masih ingin dipakai)
-  useEffect(() => {
-    if (selectedItem) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = 'unset'
-    }
-    return () => {
-      document.body.style.overflow = 'unset'
-    }
-  }, [selectedItem])
+  const [activeFilter, setActiveFilter] = useState<'all' | GalleryItem['category']>('all')
+  const navigate = useNavigate()
 
   const handleCardClick = (item: GalleryItem) => {
-    // Navigasi ke halaman selanjutnya sesuai judul/path
     navigate(item.path)
   }
+
+  const visibleItems = activeFilter === 'all'
+    ? galleryItems
+    : galleryItems.filter((item) => item.category === activeFilter)
 
   return (
     <section className="community-gallery" id="gallery" aria-labelledby="gallery-title">
       <header className="community-gallery__header">
-        <h2 id="gallery-title">Community gallery</h2>
+        <h2 id="gallery-title">Community Gallery</h2>
         <p>See what players are creating together across every world.</p>
+        
+        <div className="community-gallery__filters" role="group" aria-label="Filter community gallery">
+          {(['all', 'Community build', 'Player showcase'] as const).map((filter) => (
+            <button
+              className={`community-gallery__filter${activeFilter === filter ? ' is-active' : ''}`}
+              type="button"
+              key={filter}
+              aria-pressed={activeFilter === filter}
+              onClick={() => setActiveFilter(filter)}
+            >
+              {filter === 'all' ? 'All Works' : filter}
+            </button>
+          ))}
+        </div>
       </header>
       
       <div className="community-gallery__grid">
-        {galleryItems.map((item) => (
+        {visibleItems.map((item) => (
           <button
             className="community-gallery__item"
             type="button"
             key={item.title}
             onClick={() => handleCardClick(item)}
-            aria-label={`Buka halaman ${item.title}`}
+            aria-label={`Open ${item.title} page`}
           >
-            {/* Bagian Background Image dengan Inline Style untuk URL gambar */}
             <span 
               className="community-gallery__artwork" 
               style={{ backgroundImage: `url(${item.imageUrl})` }}
               aria-hidden="true" 
             />
             <span className="community-gallery__caption">
-              <strong>{item.title}</strong>
-              <small>{item.category}</small>
+              <span className="community-gallery__caption-text">
+                <strong>{item.title}</strong>
+                <small>{item.category}</small>
+              </span>
+              <span className="community-gallery__arrow" aria-hidden="true">↗</span>
             </span>
           </button>
         ))}
