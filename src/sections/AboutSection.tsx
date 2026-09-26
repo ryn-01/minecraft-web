@@ -78,8 +78,8 @@ export default function AboutSection({
         </div>
         <div className="about-section__media" aria-label={resolvedMediaType === 'image' ? mediaAlt : undefined}>
           {resolvedMediaType === 'video' ? (
-            <video autoPlay muted loop playsInline aria-label={mediaAlt}>
-              <source src={mediaSrc} />
+            <video autoPlay muted loop playsInline preload="metadata" aria-label={mediaAlt}>
+              <source src={mediaSrc} type="video/webm" />
             </video>
           ) : (
             <img src={mediaSrc} alt={mediaAlt} />

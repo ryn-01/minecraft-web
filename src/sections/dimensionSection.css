@@ -204,6 +204,22 @@
   color: #fff;
 }
 
+.dimension-card.is-active .dimension-card__expanded-content {
+  animation: dimension-content-enter 420ms ease both;
+}
+
+@keyframes dimension-content-enter {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .dimension-card__expanded-content .dimension-card__name {
   font-size: clamp(1.5rem, 3vw, 2.2rem);
 }
@@ -243,7 +259,7 @@
   .dimension-card {
     flex: 0 0 26rem;
     height: 26rem;
-    transition: height 420ms ease, translate 220ms ease;
+    transition: flex-basis 420ms ease, height 420ms ease, translate 220ms ease;
   }
 
   .dimension-card__artwork {
@@ -281,4 +297,7 @@
     transition: none !important;
   }
 
+  .dimension-card__expanded-content {
+    animation: none !important;
+  }
 }

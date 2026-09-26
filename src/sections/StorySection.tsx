@@ -50,7 +50,7 @@ export default function StorySection({
   mediaAlt = 'Story section media',
   mediaType,
   steps,
-  autoplayMs = 6000,
+  autoplayMs = 0,
 }: StorySectionProps) {
   const sectionRef = useRef<HTMLElement>(null)
   const inViewRef = useRef(false)
@@ -100,9 +100,8 @@ export default function StorySection({
   }, [])
 
   const startTimer = useCallback(() => {
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     clearTimer()
-    if (reduceMotion || storySteps.length < 2) {
+    if (autoplayMs <= 0 || storySteps.length < 2) {
       return
     }
     timerRef.current = window.setInterval(() => {
@@ -240,29 +239,6 @@ export default function StorySection({
       onFocus={handlePointerEnter}
       onBlur={handlePointerLeave}
     >
-      <div className="story-section__ambient" aria-hidden="true">
-        {isInView && activeMedia.src && activeMedia.type === 'video' ? (
-          <video
-            key={`ambient-${activeMedia.src}`}
-            className="story-section__ambient-layer is-active"
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-          >
-            <source src={activeMedia.src} type="video/webm" />
-          </video>
-        ) : isInView && activeMedia.src ? (
-          <img
-            key={`ambient-${activeMedia.src}`}
-            className="story-section__ambient-layer is-active"
-            src={activeMedia.src}
-            alt=""
-            loading="lazy"
-          />
-        ) : null}
-      </div>
       <div className="story-section__scrim" aria-hidden="true" />
       <div className="story-section__pixel-corner" aria-hidden="true">
         {Array.from({ length: 10 }, (_, index) => (
