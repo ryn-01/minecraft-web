@@ -8,6 +8,7 @@ import survivalImg from '../assets/images/survival.webp'
 import creativeImg from '../assets/images/creative.webp'
 import hardcoreImg from '../assets/images/hardcore.webp'
 import adventureImg from '../assets/images/adventure.webp'
+import {useNavigate } from 'react-router-dom'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -78,6 +79,7 @@ export default function FeatureSection({ items = features }: FeatureSectionProps
   const scrollTriggerRef = useRef<ScrollTrigger | null>(null)
   const activeIndexRef = useRef(0)
   const [activeIndex, setActiveIndex] = useState(0)
+  const navigate = useNavigate()
 
   const panelCount = items.length
 
@@ -86,6 +88,7 @@ export default function FeatureSection({ items = features }: FeatureSectionProps
       const section = sectionRef.current
       const panels = gsap.utils.toArray<HTMLElement>('.feature-section__panel', section)
       const scrollHint = section?.querySelector('.feature-section__scroll-hint')
+      
 
       if (!section || panels.length < 2) {
         return
@@ -312,9 +315,9 @@ export default function FeatureSection({ items = features }: FeatureSectionProps
                 ))}
               </div>
               <p>{feature.description}</p>
-              <a className="feature-section__link" href={`/feature`}>
+              <button onClick={() => navigate('/feature')} className="feature-section__link" >
                 Explore mode <span aria-hidden="true">↗</span>
-              </a>
+              </button>
             </div>
             <div className="feature-section__artwork" aria-label={`${feature.title} feature artwork`}>
               {feature.artworkSrc && (feature.artworkType === 'video' || isVideoSource(feature.artworkSrc)) ? (

@@ -3,6 +3,7 @@ import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import StorySection from './StorySection'
 import './aboutSection.css'
+import { useNavigate } from 'react-router-dom'
 
 type AboutSectionProps = {
   title?: string
@@ -27,6 +28,7 @@ export default function AboutSection({
 }: AboutSectionProps) {
   const sectionRef = useRef<HTMLElement>(null)
   const resolvedMediaType = mediaType ?? (isVideoSource(mediaSrc) ? 'video' : 'image')
+  const navigate = useNavigate()
 
   useGSAP(
     () => {
@@ -72,9 +74,9 @@ export default function AboutSection({
             {title}
           </h1>
           <p className="about-section__description">{description}</p>
-          <a className="about-section__button" href={learnMoreHref}>
+          <button onClick={() => navigate(learnMoreHref)} className="about-section__button">
             Learn more <span aria-hidden="true">↗</span>
-          </a>
+          </button>
         </div>
         <div className="about-section__media" aria-label={resolvedMediaType === 'image' ? mediaAlt : undefined}>
           {resolvedMediaType === 'video' ? (
