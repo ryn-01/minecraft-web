@@ -94,7 +94,7 @@ const featureCategories: FeatureCategory[] = [
         badge: 'The Classic Experience',
         description:
           'Start with empty hands. Punch trees, mine ores, manage hunger meters, and build shelters before dusk. Battle nocturnal monsters and progress through material tiers from wood to netherite.',
-        mediaSrc: '/videos/about/chopping.webm',
+        mediaSrc: '/videos/feature/survival.webm',
         highlights: [
           'Health, Hunger, and Oxygen Management',
           'Full Crafting & Enchanting Progression Trees',
@@ -107,7 +107,7 @@ const featureCategories: FeatureCategory[] = [
         badge: 'God-Mode Unlocked',
         description:
           'Unleash infinite architectural freedom. Access every block in the game instantly, fly seamlessly across the map, break blocks in a single click, and build megastructures without health or inventory limits.',
-        mediaSrc: '/videos/about/building.webm',
+        mediaSrc: '/videos/feature/building.webm',
         highlights: [
           'Infinite Resource Palette & Search Catalog',
           'Unrestricted Multi-Directional Flight',
@@ -120,7 +120,7 @@ const featureCategories: FeatureCategory[] = [
         badge: 'One Life Only',
         description:
           'The ultimate survival test. Difficulty is permanently locked to Hard, health regen is strict, and a single fatal mistake permanently deletes your world. Make every single decision count.',
-        mediaSrc: '/videos/about/warden.webm',
+        mediaSrc: '/videos/feature/hardcore.webm',
         highlights: [
           'Permadeath Engine (World Lock / Deletion on Death)',
           'Locked Hard Difficulty AI & Damage Scaling',
@@ -339,7 +339,7 @@ const featureCategories: FeatureCategory[] = [
         badge: '3D Noise Samplers',
         description:
           'The engine samples temperature, humidity, erosion, continentalness, and depth parameters simultaneously to construct natural mountain ranges, valleys, and jagged cliffside overhangs.',
-        mediaSrc: '/videos/about/chopping.webm',
+        mediaSrc: '/videos/feature/multiplebiom.webm',
         highlights: [
           'Continuous 3D Perlin & Simplex Noise Function Sampling',
           'Smooth Biome Border Transitions',
@@ -352,7 +352,7 @@ const featureCategories: FeatureCategory[] = [
         badge: 'Subterranean Aquifers',
         description:
           'Explore massive open cave systems. Mine through glowing Mossy Lush Caves, navigate jagged Dripstone Caverns, or descend into Sculk-infested Ancient Cities in the Deep Dark.',
-        mediaSrc: '/videos/about/warden.webm',
+        mediaSrc: '/videos/feature/junglecave.webm',
         highlights: [
           'Volumetric Aquifers (Subterranean Water & Lava Lakes)',
           'Sculk Sensor Noise Detection Blocks',
@@ -365,7 +365,7 @@ const featureCategories: FeatureCategory[] = [
         badge: 'Exploration Loot',
         description:
           'Follow Eyes of Ender to locate subterranean Strongholds, raid guarded Ocean Monuments with conduit power, loot Woodland Mansions, and explore sunken Shipwrecks for treasure maps.',
-        mediaSrc: '/videos/about/building.webm',
+        mediaSrc: '/videos/feature/stronghold.webm',
         highlights: [
           'Eye of Ender Stronghold Trajectory Tracking',
           'Ocean Monument Elder Guardian Bosses & Sponge Loot',

@@ -46,7 +46,7 @@ export default function StorySection({
   intro = 'Every Minecraft adventure follows a rhythm: gather what you need, craft what you cannot find, and build a world worth defending.',
   featureTitle = 'Gather resources',
   featureDescription = 'Punch your first tree, collect stone, and turn the world around you into everything you need to begin.',
-  mediaSrc = '/videos/about/chopping.webm',
+  mediaSrc = '/videos/feature/survival.webm',
   mediaAlt = 'Story section media',
   mediaType,
   steps,
@@ -73,14 +73,14 @@ export default function StorySection({
       title: 'Build a shelter',
       description:
         'Before night falls, place a bed, light your surroundings, and build a safe home to protect your progress.',
-      mediaSrc: '/videos/about/building.webm',
+      mediaSrc: '/videos/feature/building.webm',
       mediaType: 'video',
     },
     {
       title: 'Face the unknown',
       description:
         'Prepare your best gear, enter the Nether, and keep pushing forward until you are ready for the End.',
-      mediaSrc: '/videos/about/warden.webm',
+      mediaSrc: '/videos/feature/end.webm',
       mediaType: 'video',
     },
   ]
