@@ -16,7 +16,7 @@ type HomeSectionProps = {
 export default function HomeSection({
   eyebrow = 'Welcome to',
   title = 'Minecraft',
-  description = 'Build, explore, and create your own adventure.',
+  description = '.',
   videoSource = '/videos/home/hero_bg_video.webm',
   downloadHref = '/download',
 }: HomeSectionProps) {
