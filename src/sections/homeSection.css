@@ -23,16 +23,24 @@
 
 .home-section__overlay {
   z-index: -1;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, var(--color-surface) 100%);
+  background:    linear-gradient(
+      180deg,
+      rgb(0 0 0 / 62%) 0%,
+      rgb(0 0 0 / 35%) 48%,
+      rgba(117, 117, 117, 0.42) 76%,
+      var(--color-surface) 100%
+    );;
 }
 
 .home-section__eyebrow {
   margin: 0 0 0.7rem;
-  color: var(--color-ink);
+  color: var(--color-surface);
   font-family: var(--font-display);
   font-size: clamp(0.85rem, 2.5vw, 1rem);
   letter-spacing: 0.08em;
   text-transform: uppercase;
+    text-shadow:
+    0 2px 4px rgb(0 0 0 / 60%);
 }
 
 .home-section__content {
@@ -63,10 +71,12 @@
 .home-section__description {
   max-width: 35rem;
   margin: 1.2rem auto 0;
-  color: var(--color-ink); 
+  color: var(--color-surface); 
   font-weight: 600;
   font-size: clamp(0.95rem, 2.8vw, 1.1rem);
   line-height: 1.6;
+    text-shadow:
+    0 2px 4px rgb(0 0 0 / 60%);
 }
 
 .home-section__actions {
