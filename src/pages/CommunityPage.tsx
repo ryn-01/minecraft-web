@@ -49,7 +49,7 @@ export default function CommunityPage() {
       // Hero Entrance
       const heroTl = gsap.timeline({ defaults: { ease: "power3.out" } });
       gsap.set(
-        ".community-hero__badge, .community-hero__title, .community-hero__description, .community-stats__card",
+        ".community-hero__eyebrow, .community-hero__title, .community-hero__description, .community-stats__card",
         {
           autoAlpha: 0,
           y: 24,
@@ -57,7 +57,7 @@ export default function CommunityPage() {
       );
 
       heroTl
-        .to(".community-hero__badge", {
+        .to(".community-hero__eyebrow", {
           y: 0,
           autoAlpha: 1,
           duration: 0.5,

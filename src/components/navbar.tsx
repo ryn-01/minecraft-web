@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import './navbar.css'
 
 export type NavItem = {
@@ -59,14 +60,14 @@ export default function Navbar({
       <ul className="site-navbar__list" id="primary-navigation">
         {items.map((item) => (
           <li key={item.label}>
-            <a
+            <Link
               className={`site-navbar__link${item.label === activeLabel ? ' is-active' : ''}`}
-              href={item.href}
+              to={item.href}
               aria-current={item.label === activeLabel ? 'page' : undefined}
               onClick={() => setIsOpen(false)}
             >
               {item.label}
-            </a>
+            </Link>
           </li>
         ))}
       </ul>

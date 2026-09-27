@@ -116,3 +116,39 @@ h4 {
     justify-content: flex-end;
   }
 }
+
+.page-transition-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.transition-fade {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: var(--color-surface);
+  opacity: 0;
+  will-change: opacity;
+}
+
+.transition-fade img {
+  width: min(10vw, 120px);
+  height: auto;
+  opacity: 0.4;
+  user-select: none;
+  pointer-events: none;
+}
+
+@media (max-width: 480px) {
+  .transition-fade img {
+    width: min(45vw, 160px);
+  }
+}
+
+.page-container {
+  width: 100%;
+  min-height: 100vh;
+}

@@ -1,66 +1,24 @@
-import { useLayoutEffect, useRef } from 'react'
-import { BrowserRouter, Routes, Route, useLocation, useNavigationType } from 'react-router-dom'
+import { useEffect } from 'react'
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
+import PageTransition from './components/PageTransition'
+import { saveScrollPosition } from './lib/scrollMemory'
+
 import DownloadPage from './pages/DownloadPage'
 import HomePage from './pages/HomePage'
 import AboutPage from './pages/AboutPage'
 import FeaturePage from './pages/FeaturePage'
 import CommunityPage from './pages/CommunityPage'
 import CreditsPage from './pages/CreditsPage'
+import GalleryDetail from './pages/GalleryDetail'
 
-import GalleryDetail from './pages/GalleryDetail';
-
-type ScrollLocationState = {
-  restoreScrollY?: number
-}
-
-function RouteScrollManager() {
+function RouteScrollRecorder() {
   const location = useLocation()
-  const navigationType = useNavigationType()
-  const scrollPositions = useRef(new Map<string, number>())
 
-  useLayoutEffect(() => {
-    let firstFrame = 0
-    let secondFrame = 0
-    const savedPositions = scrollPositions.current
-
-    const scrollToPosition = (top: number) => {
-      const root = document.documentElement
-      const previousScrollBehavior = root.style.scrollBehavior
-      root.style.scrollBehavior = 'auto'
-      window.scrollTo(0, top)
-      root.style.scrollBehavior = previousScrollBehavior
-    }
-
-    firstFrame = window.requestAnimationFrame(() => {
-      secondFrame = window.requestAnimationFrame(() => {
-        const state = location.state as ScrollLocationState | null
-        if (typeof state?.restoreScrollY === 'number') {
-          scrollToPosition(state.restoreScrollY)
-          return
-        }
-
-        const savedScrollY = savedPositions.get(location.key)
-        if (navigationType === 'POP' && savedScrollY !== undefined) {
-          scrollToPosition(savedScrollY)
-          return
-        }
-
-        if (location.hash) {
-          const targetId = decodeURIComponent(location.hash.slice(1))
-          document.getElementById(targetId)?.scrollIntoView()
-          return
-        }
-
-        scrollToPosition(0)
-      })
-    })
-
+  useEffect(() => {
     return () => {
-      savedPositions.set(location.key, window.scrollY)
-      window.cancelAnimationFrame(firstFrame)
-      window.cancelAnimationFrame(secondFrame)
+      saveScrollPosition(location.key, window.scrollY)
     }
-  }, [location.hash, location.key, location.pathname, location.search, location.state, navigationType])
+  }, [location.key])
 
   return null
 }
@@ -68,17 +26,19 @@ function RouteScrollManager() {
 export default function App() {
   return (
     <BrowserRouter>
-      <RouteScrollManager />
+      <RouteScrollRecorder />
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/feature" element={<FeaturePage />} />
-        <Route path="/community" element={<CommunityPage/>}/>
-        <Route path="/download" element={<DownloadPage />} />
-        <Route path='/credit' element={<CreditsPage/>}/> 
-        <Route path="/gallery/:categorySlug" element={<GalleryDetail />} />
+        {/* Parent Route menggunakan PageTransition sebagai wrapper */}
+        <Route element={<PageTransition />}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/feature" element={<FeaturePage />} />
+          <Route path="/community" element={<CommunityPage />} />
+          <Route path="/download" element={<DownloadPage />} />
+          <Route path="/credit" element={<CreditsPage />} />
+          <Route path="/gallery/:categorySlug" element={<GalleryDetail />} />
+        </Route>
       </Routes>
     </BrowserRouter>
-
   )
 }

@@ -459,13 +459,13 @@ export default function FeaturePage() {
     () => {
       // Hero Entrance
       const heroTl = gsap.timeline({ defaults: { ease: 'power3.out' } })
-      gsap.set('.feature-hero__badge, .feature-hero__title, .feature-hero__description', {
+      gsap.set('.feature-hero__eyebrow, .feature-hero__title, .feature-hero__description', {
         autoAlpha: 0,
         y: 28,
       })
 
       heroTl
-        .to('.feature-hero__badge', { y: 0, autoAlpha: 1, duration: 0.5, delay: 0.1 })
+        .to('.feature-hero__eyebrow', { y: 0, autoAlpha: 1, duration: 0.5, delay: 0.1 })
         .to('.feature-hero__title', { y: 0, autoAlpha: 1, duration: 0.7 }, '-=0.3')
         .to('.feature-hero__description', { y: 0, autoAlpha: 1, duration: 0.6 }, '-=0.4')
 
