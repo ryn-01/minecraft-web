@@ -12,3 +12,7 @@ export function saveScrollPosition(key: string, y: number) {
 export function getScrollPosition(key: string): number | undefined {
   return scrollPositions.get(key)
 }
+
+export function clearScrollPosition(key: string) {
+  scrollPositions.delete(key)
+}

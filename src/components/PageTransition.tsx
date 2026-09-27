@@ -3,7 +3,7 @@ import { useLocation, useOutlet, useNavigationType } from 'react-router-dom'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { getScrollPosition } from '../lib/scrollMemory'
+import { getScrollPosition, clearScrollPosition } from '../lib/scrollMemory'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -19,8 +19,10 @@ export default function PageTransition() {
   const [displayedOutlet, setDisplayedOutlet] = useState(outlet)
   const latestOutletRef = useRef(outlet)
 
-  const pendingPathname = useRef(location.pathname)
-  const committedPathname = useRef(location.pathname)
+  // Track the history KEY instead of just the pathname to correctly 
+  // detect back/forward updates on similar routes or query changes.
+  const pendingKey = useRef(location.key)
+  const committedKey = useRef(location.key)
 
   useLayoutEffect(() => {
     latestOutletRef.current = outlet
@@ -31,23 +33,20 @@ export default function PageTransition() {
       const fade = fadeRef.current
       if (!fade) return
 
-      if (pendingPathname.current === location.pathname) return
-      pendingPathname.current = location.pathname
+      // Stop if the key hasn't changed
+      if (pendingKey.current === location.key) return
+      pendingKey.current = location.key
 
       ScrollTrigger.getAll().forEach((st) => st.kill())
 
       const tl = gsap.timeline({ onComplete: () => ScrollTrigger.refresh() })
 
-      // 1. Fade in to a solid white cover. The creeper mark is already at
-      //    its resting 40% opacity, so it just appears along with the fade.
-      tl.to(fade, { opacity: 1, duration: 0.26, ease: 'sine.inOut' })
+      // 1. Fade in to a solid white cover.
+      tl.to(fade, { opacity: 1, duration: 0.2, ease: 'sine.inOut' })
 
-      // 2. Fully covered: swap to the new page AND resolve scroll position,
-      //    all while hidden. Doing both here — instead of in a separate
-      //    App-level effect — is what stops the old page from visibly
-      //    jumping to the top before the cover finishes.
+      // 2. Fully covered: swap to the new page AND resolve scroll position
       tl.call(() => {
-        committedPathname.current = location.pathname
+        committedKey.current = location.key
         setDisplayedOutlet(latestOutletRef.current)
 
         const scrollToPosition = (top: number) => {
@@ -64,23 +63,30 @@ export default function PageTransition() {
           return
         }
 
-        const savedY = getScrollPosition(location.key)
-        if (navigationType === 'POP' && savedY !== undefined) {
-          scrollToPosition(savedY)
-          return
+        // BACK/FORWARD NAVIGATION: Restore previous coordinates safely under the cover
+        if (navigationType === 'POP') {
+          const savedY = getScrollPosition(location.key)
+          if (savedY !== undefined) {
+            scrollToPosition(savedY)
+            clearScrollPosition(location.key) // Free up map memory after use
+            return
+          }
         }
 
+        // HASH NAVIGATION: Give React a frame to commit elements
         if (location.hash) {
           const targetId = decodeURIComponent(location.hash.slice(1))
-          // Give React a frame to commit the new page before we look
-          // for the target element.
           requestAnimationFrame(() => {
             document.getElementById(targetId)?.scrollIntoView()
           })
           return
         }
 
-        scrollToPosition(0)
+        // NEW PAGES: RouteScrollManager has already handled resetting to top (0),
+        // but if it didn't snap correctly, we reinforce it here while hidden.
+        if (navigationType !== 'POP') {
+          scrollToPosition(0)
+        }
       })
 
       // 3. A short, calm hold.
@@ -89,14 +95,15 @@ export default function PageTransition() {
       // 4. Fade back out to reveal the new page.
       tl.to(fade, { opacity: 0, duration: 0.26, ease: 'sine.inOut' })
     },
-    { dependencies: [location.pathname], scope: overlayRef }
+    // Crucial change: Listen to location.key so that history POP tracking functions correctly
+    { dependencies: [location.key], scope: overlayRef }
   )
 
   useEffect(() => {
-    if (location.pathname === committedPathname.current) {
+    if (location.key === committedKey.current) {
       setDisplayedOutlet(outlet)
     }
-  }, [outlet, location.pathname])
+  }, [outlet, location.key])
 
   return (
     <>
