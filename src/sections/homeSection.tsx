@@ -3,6 +3,7 @@ import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import MinecraftLogo from '../assets/Minecraft.svg'
 import './homeSection.css'
+import { useNavigate } from 'react-router-dom'
 
 type HomeSectionProps = {
   eyebrow?: string
@@ -60,6 +61,7 @@ export default function HomeSection({
   const closeModal = () => {
     setIsModalOpen(false)
   }
+  const navigate = useNavigate()
 
   return (
     <main
@@ -115,12 +117,12 @@ export default function HomeSection({
 
         <div className="home-section__actions">
           {/* Download */}
-          <a
+          <button
             className="button button--primary"
-            href={downloadHref}
+            onClick={() => navigate(downloadHref) }
           >
             Download
-          </a>
+          </button>
 
           {/* Trailer */}
           <button
