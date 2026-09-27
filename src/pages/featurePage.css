@@ -14,7 +14,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 75svh;
+  min-height: 85svh;
   padding: 8rem 1.25rem 4rem;
   text-align: center;
   color: #fff;
@@ -33,12 +33,13 @@
 
 .feature-hero__overlay {
   z-index: -1;
-  background: linear-gradient(
-    180deg,
-    rgb(0 0 0 / 70%) 0%,
-    rgb(0 0 0 / 50%) 70%,
-    var(--color-surface) 100%
-  );
+  background:     linear-gradient(
+      180deg,
+      rgb(0 0 0 / 62%) 0%,
+      rgb(0 0 0 / 35%) 48%,
+      rgb(0 0 0 / 42%) 76%,
+      var(--color-surface) 100%
+    );
 }
 
 .feature-hero__eyebrow {

@@ -116,7 +116,7 @@ export default function CommunityPage() {
             playsInline
             aria-hidden="true"
           >
-            <source src="/videos/about/hero_bg.webm" type="video/webm" />
+            <source src="/videos/community/Background_01.webm" type="video/webm" />
           </video>
           <div className="community-hero__overlay" aria-hidden="true" />
 

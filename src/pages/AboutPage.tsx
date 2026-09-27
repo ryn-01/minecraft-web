@@ -177,7 +177,7 @@ export default function AboutPage() {
             playsInline
             aria-hidden="true"
           >
-            <source src="/videos/about/hero_bg.webm" type="video/webm" />
+            <source src="/videos/about/Background_03.webm" type="video/webm" />
           </video>
           <div className="about-hero__overlay" aria-hidden="true" />
 

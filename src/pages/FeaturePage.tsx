@@ -504,7 +504,7 @@ export default function FeaturePage() {
         {/* Hero */}
         <section className="feature-hero" aria-labelledby="feature-hero-title">
           <video className="feature-hero__bg" autoPlay muted loop playsInline aria-hidden="true">
-            <source src="/videos/about/hero_bg.webm" type="video/webm" />
+            <source src="/videos/feature/Background_04.mp4" type="video/mp4" />
           </video>
           <div className="feature-hero__overlay" aria-hidden="true" />
 
