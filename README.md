@@ -21,8 +21,8 @@ An immersive Minecraft promotional website created as a **competition submission
 | Route | Description |
 | --- | --- |
 | `/` | Landing page with the main hero and promotional sections |
-| `/about` | Minecraft story, gameplay activities, and world overview |
-| `/feature` | Feature showcase with gameplay demonstrations |
+| `/about` | Aboute Minecraft, History, and Core Pillars |
+| `/feature` | Feature game mechanic & showcase with gameplay demonstrations |
 | `/community` | Community-focused content and gallery |
 | `/download` | Download/platform information page |
 | `/credit` | External assets, media, libraries, and legal attribution |
@@ -117,14 +117,14 @@ npm run build
 
 This project includes original layout, code, interactions, and screen recordings created for the competition submission. It also uses or references the following external resources:
 
-- **Icons8** - Windows, macOS, and Linux platform icons: [icons8.com](https://icons8.com)
+- **Icons8** - Checkmark, Windows, macOS, and Linux platform icons: [icons8.com](https://icons8.com)
 - **Minecraft Faces** - Villager and Creeper character face graphics: [minecraftfaces.com](https://minecraftfaces.com)
 - **Minecraft Wiki** - Community-sourced item, ore, and block sprites: [minecraft.fandom.com](https://minecraft.fandom.com)
 - **DaFont** - Minecrafter display font: [Minecrafter on DaFont](https://www.dafont.com/minecrafter.font)
-- **Minecraft YouTube channel** - Ambient glowing caves video reference: [Soothing Minecraft – Glowing Caves](https://youtu.be/hJLgLTpI9U8)
+- **Minecraft YouTube channel** - Ambient glowing caves video reference: [Soothing Minecraft – Glowing Caves](https://youtu.be/hJLgLTpI9U8) and embedded game trailer ([Minecraft Official Trailer](https://www.youtube.com/watch?v=MmB9b5njVbA))
 - **GSAP** - Animation engine and ScrollTrigger: [gsap.com](https://gsap.com)
 - **React, Vite, Tailwind CSS, and React Router** - Application framework and tooling
-- **Vercel** - Hosting and deployment platform
+- **Vercel** - Hosting and deployment platform: [vercel.com](https://vercel.com)
 
 Please review the original licenses and usage terms for each external resource before redistributing or publishing this project outside the competition.
 
