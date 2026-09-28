@@ -21,7 +21,7 @@ An immersive Minecraft promotional website created as a **competition submission
 | Route | Description |
 | --- | --- |
 | `/` | Landing page with the main hero and promotional sections |
-| `/about` | Aboute Minecraft, History, and Core Pillars |
+| `/about` | About Minecraft, History, and Core Pillars |
 | `/feature` | Feature game mechanic & showcase with gameplay demonstrations |
 | `/community` | Community-focused content and gallery |
 | `/download` | Download/platform information page |
@@ -86,13 +86,6 @@ Open the local URL shown in the terminal, usually `http://localhost:5173`.
 | `npm run build` | Type-check the project and create a production build |
 | `npm run lint` | Run ESLint across the project |
 | `npm run preview` | Preview the production build locally |
-
-Before submitting a competition build, run:
-
-```bash
-npm run lint
-npm run build
-```
 
 ## Project structure
 
